@@ -2,24 +2,92 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
+  <title>NetfullSV | Fibra óptica en El Salvador</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NetfullSV — Conectividad estable</title>
-  <meta name="description" content="Internet de fibra óptica con soporte local. Planes claros y atención rápida.">
-  <style>
-    body {margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;}
-    .hero {min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:32px; background:#f6fbff;}
-    h1 {font-size:clamp(28px,5vw,42px); color:#043f6d; margin:0 0 8px}
-    p  {font-size:clamp(16px,2.6vw,18px); color:#244; margin:0 0 20px}
-    a.btn {display:inline-block; padding:12px 18px; border:1px solid #043f6d; border-radius:10px; text-decoration:none}
-  </style>
+  <meta name="description" content="Planes de fibra óptica sin contrato, soporte local y TV incluida desde $28.">
+  <link rel="icon" href="https://fav.farm/🌐">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <main class="hero">
-    <div>
-      <h1>NetfullSV</h1>
-      <p>Conectividad estable y soporte local en El Salvador.</p>
-      <p><a class="btn" href="mailto:info@netfullsv.com">Contáctanos</a></p>
+<body class="font-sans text-slate-700">
+  <!-- Header -->
+  <header class="bg-white/80 backdrop-blur fixed inset-x-0 top-0 z-50 shadow">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <h1 class="text-xl font-bold text-sky-700">NetfullSV</h1>
+      <ul class="hidden sm:flex gap-6 text-sm">
+        <li><a href="#planes" class="hover:text-sky-600">Planes</a></li>
+        <li><a href="#contacto" class="hover:text-sky-600">Contacto</a></li>
+      </ul>
+      <a href="https://wa.me/50379031293" target="_blank" class="inline-block bg-sky-600 text-white px-4 py-2 rounded-md text-sm hover:bg-sky-700">
+        WhatsApp
+      </a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="h-screen flex items-center justify-center bg-sky-50 pt-20">
+    <div class="text-center max-w-xl px-6">
+      <h2 class="text-4xl sm:text-5xl font-extrabold text-sky-700 mb-4">Conectividad estable, sin contratos ni sorpresas</h2>
+      <p class="mb-6">Internet de fibra óptica y TV streaming con soporte local 24/7.</p>
+      <a href="#planes" class="bg-white border border-sky-600 text-sky-700 px-6 py-3 rounded-md font-medium hover:bg-sky-600 hover:text-white transition">Ver planes</a>
     </div>
-  </main>
+  </section>
+
+  <!-- Planes -->
+  <section id="planes" class="py-16 bg-white">
+    <h3 class="text-3xl font-bold text-center text-sky-700 mb-10">Nuestros planes estrella</h3>
+    <div class="max-w-6xl mx-auto grid gap-8 px-6 sm:grid-cols-3">
+      <!-- Plan card -->
+      <div class="border rounded-xl p-6 shadow-sm hover:shadow-md">
+        <h4 class="text-xl font-semibold text-sky-700 mb-2">Plan Básico</h4>
+        <p class="text-4xl font-bold mb-4">$28 <span class="text-base font-medium text-slate-500">/mes</span></p>
+        <ul class="space-y-1 text-sm mb-6">
+          <li>30 Mbps → 3 dispositivos</li>
+          <li>TV streaming incluida</li>
+          <li>Sin contrato</li>
+        </ul>
+        <a href="https://wa.me/50379031293?text=Cotizar%20Plan%20Básico" class="block text-center bg-sky-600 text-white py-2 rounded-md hover:bg-sky-700">Cotizar</a>
+      </div>
+
+      <div class="border rounded-xl p-6 shadow-sm hover:shadow-md">
+        <h4 class="text-xl font-semibold text-sky-700 mb-2">Plan Avanzado</h4>
+        <p class="text-4xl font-bold mb-4">$33 <span class="text-base font-medium text-slate-500">/mes</span></p>
+        <ul class="space-y-1 text-sm mb-6">
+          <li>100 Mbps → 10 dispositivos</li>
+          <li>TV streaming incluida</li>
+          <li>Sin contrato</li>
+        </ul>
+        <a href="https://wa.me/50379031293?text=Cotizar%20Plan%20Avanzado" class="block text-center bg-sky-600 text-white py-2 rounded-md hover:bg-sky-700">Cotizar</a>
+      </div>
+
+      <div class="border rounded-xl p-6 shadow-sm hover:shadow-md">
+        <h4 class="text-xl font-semibold text-sky-700 mb-2">Plan Premium</h4>
+        <p class="text-4xl font-bold mb-4">$53 <span class="text-base font-medium text-slate-500">/mes</span></p>
+        <ul class="space-y-1 text-sm mb-6">
+          <li>200 Mbps → 25 dispositivos</li>
+          <li>TV streaming incluida</li>
+          <li>Sin contrato</li>
+        </ul>
+        <a href="https://wa.me/50379031293?text=Cotizar%20Plan%20Premium" class="block text-center bg-sky-600 text-white py-2 rounded-md hover:bg-sky-700">Cotizar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="py-16 bg-sky-50">
+    <h3 class="text-3xl font-bold text-center text-sky-700 mb-6">¿Hablamos?</h3>
+    <p class="text-center mb-8">Déjanos tus datos y te llamamos en menos de 15 min.</p>
+    <div class="max-w-md mx-auto">
+      <!-- Formulario Zoho Forms -->
+      <iframe src="https://forms.zohopublic.com/.../form" frameborder="0" class="w-full h-96 rounded-md"></iframe>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-sky-700 text-sky-100 text-sm py-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between px-6 gap-4">
+      <p>&copy; 2025 NetfullSV. Todos los derechos reservados.</p>
+      <p>Lourdes Colón · Tel. +503 7903-1293 · <a href="mailto:info@netfullsv.com" class="underline">info@netfullsv.com</a></p>
+    </div>
+  </footer>
 </body>
 </html>
