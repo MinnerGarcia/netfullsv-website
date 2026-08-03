@@ -1,593 +1,911 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es-SV">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Netfull | Internet de fibra óptica en Nuevo Lourdes</title>
+  <meta name="description" content="Planes de internet residencial de 30, 100 y 200 Mbps en Nuevo Lourdes. Verifica cobertura y recibe atención local por WhatsApp.">
+  <meta name="author" content="Netfull">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#03111f">
+  <link rel="canonical" href="https://netfullsv.com/">
 
-  <title>Internet fibra óptica en Nuevo Lourdes | NetfullSV</title>
-  <meta
-    name="description"
-    content="Internet residencial y empresarial en Nuevo Lourdes. Planes de fibra óptica, instalación rápida, baja latencia y soporte local por WhatsApp."
-  />
-  <meta
-    name="keywords"
-    content="internet Nuevo Lourdes, fibra óptica Nuevo Lourdes, internet residencial Nuevo Lourdes, internet empresarial Nuevo Lourdes, NetfullSV, internet Lourdes Colón"
-  />
-  <meta name="author" content="NetfullSV" />
-  <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0f172a" />
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_SV">
+  <meta property="og:site_name" content="Netfull">
+  <meta property="og:title" content="Netfull | Conectando lo que importa">
+  <meta property="og:description" content="Internet de fibra óptica en Nuevo Lourdes con soporte local y atención directa por WhatsApp.">
+  <meta property="og:url" content="https://netfullsv.com/">
+  <meta property="og:image" content="https://netfullsv.com/assets/netfull-share.jpg">
+  <meta property="og:image:alt" content="Logo de Netfull y valores de conectividad, confianza, rendimiento y compromiso">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Netfull | Conectando lo que importa">
+  <meta name="twitter:description" content="Planes de internet en Nuevo Lourdes con atención local por WhatsApp.">
+  <meta name="twitter:image" content="https://netfullsv.com/assets/netfull-share.jpg">
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Internet fibra óptica en Nuevo Lourdes | NetfullSV" />
-  <meta
-    property="og:description"
-    content="Planes residenciales y empresariales con instalación rápida, baja latencia y soporte local en Nuevo Lourdes."
-  />
-  <meta property="og:url" content="https://netfullsv.com/" />
-  <meta property="og:site_name" content="NetfullSV" />
-  <meta property="og:locale" content="es_SV" />
-  <!-- Reemplaza esta imagen por tu banner real -->
-  <meta property="og:image" content="https://netfullsv.com/assets/og-cover.jpg" />
+  <link rel="icon" type="image/png" href="assets/favicon.png">
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Internet fibra óptica en Nuevo Lourdes | NetfullSV" />
-  <meta
-    name="twitter:description"
-    content="Planes residenciales y empresariales con soporte local e instalación rápida."
-  />
-  <meta name="twitter:image" content="https://netfullsv.com/assets/og-cover.jpg" />
-
-  <link rel="canonical" href="https://netfullsv.com/" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="assets/favicon.png" />
-
-  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: "#eef7ff",
-              100: "#d9ecff",
-              200: "#baddff",
-              300: "#8fc9ff",
-              400: "#5aaeff",
-              500: "#2d8cff",
-              600: "#156df5",
-              700: "#1057e0",
-              800: "#1448b5",
-              900: "#163f8e"
-            }
-          },
-          boxShadow: {
-            soft: "0 10px 30px rgba(2, 6, 23, 0.10)"
-          }
-        }
-      }
-    }
+    document.documentElement.classList.add("js");
   </script>
 
   <style>
-    html {
-      scroll-behavior: smooth;
+    :root {
+      --ink: #03111f;
+      --ink-soft: #0a2036;
+      --blue: #087cff;
+      --blue-deep: #0756d7;
+      --cyan: #20d9ff;
+      --sky: #eaf7ff;
+      --paper: #f6fbff;
+      --white: #ffffff;
+      --text: #10243a;
+      --muted: #607388;
+      --line: rgba(9, 70, 128, 0.13);
+      --success: #13b96b;
+      --shadow: 0 24px 70px rgba(2, 28, 57, 0.12);
+      --radius: 26px;
+      --container: 1180px;
     }
-    .bg-grid {
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--paper);
+      font-family: "Segoe UI Variable", "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.menu-open { overflow: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 999;
+      transform: translateY(-150%);
+      border-radius: 10px;
+      background: var(--white);
+      padding: 10px 14px;
+      color: var(--ink);
+      font-weight: 800;
+      transition: transform .2s ease;
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .container { width: min(calc(100% - 40px), var(--container)); margin-inline: auto; }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, .09);
+      background: rgba(3, 17, 31, .82);
+      backdrop-filter: blur(18px);
+    }
+    .header-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--white); text-decoration: none; }
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      flex: 0 0 46px;
+      overflow: hidden;
+      border: 1px solid rgba(32, 217, 255, .4);
+      border-radius: 15px;
+      background: #03172c url("assets/netfull-brand.webp") center 18% / 165% auto no-repeat;
+      box-shadow: 0 0 24px rgba(8, 124, 255, .26);
+    }
+    .brand-name { display: block; font-size: 1.22rem; font-weight: 900; letter-spacing: .04em; line-height: 1; }
+    .brand-name span { color: var(--cyan); }
+    .brand-tagline { display: block; margin-top: 5px; color: #9eb6cc; font-size: .66rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: #c5d5e4; font-size: .92rem; font-weight: 700; text-decoration: none; transition: color .2s ease; }
+    .nav-links a:hover, .nav-links a[aria-current="true"] { color: var(--cyan); }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .menu-button {
+      display: none;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 14px;
+      color: var(--white);
+      background: rgba(255, 255, 255, .06);
+      cursor: pointer;
+    }
+    .menu-button span, .menu-button::before, .menu-button::after {
+      display: block;
+      width: 20px;
+      height: 2px;
+      margin: 4px auto;
+      border-radius: 4px;
+      background: currentColor;
+      content: "";
+      transition: transform .2s ease, opacity .2s ease;
+    }
+    .menu-button[aria-expanded="true"] span { opacity: 0; }
+    .menu-button[aria-expanded="true"]::before { transform: translateY(6px) rotate(45deg); }
+    .menu-button[aria-expanded="true"]::after { transform: translateY(-6px) rotate(-45deg); }
+
+    .button {
+      display: inline-flex;
+      min-height: 50px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 15px;
+      padding: 13px 20px;
+      font-weight: 850;
+      line-height: 1.1;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary {
+      color: var(--white);
+      background: linear-gradient(135deg, #1699ff, #0756d7);
+      box-shadow: 0 14px 30px rgba(8, 124, 255, .26);
+    }
+    .button-primary:hover { box-shadow: 0 18px 36px rgba(8, 124, 255, .35); }
+    .button-ghost { border: 1px solid rgba(255, 255, 255, .2); color: var(--white); background: rgba(255, 255, 255, .07); }
+    .button-dark { color: var(--white); background: var(--ink); }
+    .button-whatsapp { color: var(--white); background: #0eaa63; box-shadow: 0 13px 30px rgba(14, 170, 99, .2); }
+    .button-small { min-height: 44px; border-radius: 13px; padding: 11px 16px; font-size: .9rem; }
+    .arrow { font-size: 1.2em; line-height: 1; }
+
+    .hero {
+      position: relative;
+      min-height: 800px;
+      overflow: hidden;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 80% 24%, rgba(8, 124, 255, .32), transparent 28%),
+        radial-gradient(circle at 15% 90%, rgba(32, 217, 255, .11), transparent 25%),
+        linear-gradient(135deg, #020b15 0%, #061d35 55%, #03111f 100%);
+    }
+    .hero::before {
+      position: absolute;
+      inset: 0;
       background-image:
-        linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
-      background-size: 32px 32px;
+        linear-gradient(rgba(76, 164, 255, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(76, 164, 255, .06) 1px, transparent 1px);
+      background-size: 54px 54px;
+      content: "";
+      mask-image: linear-gradient(to bottom, transparent, black 22%, black 70%, transparent);
+    }
+    .hero::after {
+      position: absolute;
+      inset: auto 0 0;
+      height: 150px;
+      background: linear-gradient(to bottom, transparent, rgba(246, 251, 255, .06));
+      content: "";
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(420px, .96fr);
+      gap: 72px;
+      align-items: center;
+      padding: 148px 0 92px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      margin: 0 0 22px;
+      border: 1px solid rgba(32, 217, 255, .24);
+      border-radius: 999px;
+      padding: 8px 13px;
+      color: #bfeeff;
+      background: rgba(8, 124, 255, .1);
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 16px var(--cyan); content: ""; }
+    .hero h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(3.3rem, 6.5vw, 6.3rem);
+      font-weight: 950;
+      letter-spacing: -.065em;
+      line-height: .91;
+    }
+    .hero h1 span {
+      display: block;
+      padding-bottom: .08em;
+      color: transparent;
+      background: linear-gradient(100deg, #20d9ff, #178fff 45%, #89e9ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    .hero-lead { max-width: 630px; margin: 26px 0 0; color: #b8cadb; font-size: clamp(1.05rem, 1.7vw, 1.25rem); line-height: 1.75; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 34px; }
+    .hero-proof { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+    .proof-item { display: inline-flex; align-items: center; gap: 8px; color: #c4d7e7; font-size: .86rem; font-weight: 700; }
+    .proof-item:not(:last-child)::after { width: 1px; height: 17px; margin-inline: 9px; background: rgba(255, 255, 255, .18); content: ""; }
+    .proof-check { display: grid; width: 19px; height: 19px; place-items: center; border-radius: 50%; color: var(--ink); background: var(--cyan); font-size: .72rem; font-weight: 950; }
+
+    .hero-visual { position: relative; }
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(93, 197, 255, .23);
+      border-radius: 38px;
+      background: #02152b;
+      box-shadow: 0 34px 100px rgba(0, 0, 0, .42), 0 0 70px rgba(8, 124, 255, .12);
+      transform: rotate(1.5deg);
+    }
+    .hero-card::after {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+      pointer-events: none;
+      content: "";
+    }
+    .hero-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+    .signal-pill {
+      position: absolute;
+      right: -18px;
+      bottom: 34px;
+      display: flex;
+      max-width: 230px;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 18px;
+      padding: 14px 17px;
+      color: var(--white);
+      background: rgba(4, 22, 39, .9);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      transform: rotate(-1.5deg);
+    }
+    .signal-icon { position: relative; width: 34px; height: 34px; flex: 0 0 34px; border-radius: 12px; background: rgba(19, 185, 107, .14); }
+    .signal-icon::before { position: absolute; inset: 11px; border-radius: 50%; background: #28df88; box-shadow: 0 0 15px #28df88; content: ""; }
+    .signal-pill strong, .signal-pill span { display: block; }
+    .signal-pill strong { font-size: .88rem; }
+    .signal-pill span { margin-top: 2px; color: #9fb5c8; font-size: .73rem; }
+
+    .quick-facts { position: relative; z-index: 2; margin-top: -1px; color: var(--white); background: var(--ink); }
+    .facts-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .fact { position: relative; padding: 29px 30px; }
+    .fact:not(:last-child)::after { position: absolute; top: 25%; right: 0; width: 1px; height: 50%; background: rgba(255, 255, 255, .12); content: ""; }
+    .fact strong { display: block; color: var(--cyan); font-size: 1.22rem; font-weight: 900; }
+    .fact span { display: block; margin-top: 2px; color: #9fb5c8; font-size: .82rem; }
+
+    .section { padding: 104px 0; }
+    .section-white { background: var(--white); }
+    .section-dark { color: var(--white); background: var(--ink); }
+    .section-header { max-width: 700px; margin-bottom: 48px; }
+    .section-header.center { margin-inline: auto; text-align: center; }
+    .kicker { margin: 0 0 12px; color: var(--blue-deep); font-size: .78rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+    .section-dark .kicker { color: var(--cyan); }
+    .section-title { margin: 0; color: var(--ink); font-size: clamp(2.2rem, 4.5vw, 4rem); font-weight: 950; letter-spacing: -.045em; line-height: 1.05; }
+    .section-dark .section-title { color: var(--white); }
+    .section-copy { margin: 18px 0 0; color: var(--muted); font-size: 1.08rem; }
+    .section-dark .section-copy { color: #a9bfd2; }
+
+    .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+    .plan-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 32px;
+      background: var(--white);
+      box-shadow: 0 18px 60px rgba(3, 32, 63, .08);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .plan-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .plan-card.featured { color: var(--white); border-color: rgba(32, 217, 255, .38); background: linear-gradient(155deg, #062340 0%, #03111f 76%); box-shadow: 0 26px 70px rgba(3, 37, 73, .25); }
+    .popular { position: absolute; top: 18px; right: 18px; border-radius: 999px; padding: 7px 10px; color: #022140; background: var(--cyan); font-size: .68rem; font-weight: 950; letter-spacing: .08em; text-transform: uppercase; }
+    .plan-name { margin: 0; color: var(--blue-deep); font-size: .76rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+    .featured .plan-name { color: #7ee8ff; }
+    .speed { display: flex; align-items: baseline; gap: 8px; margin-top: 16px; }
+    .speed strong { color: var(--ink); font-size: 3.5rem; font-weight: 950; letter-spacing: -.06em; line-height: 1; }
+    .featured .speed strong { color: var(--white); }
+    .speed span { color: var(--muted); font-weight: 800; }
+    .featured .speed span { color: #9fb5c8; }
+    .plan-use { min-height: 52px; margin: 18px 0 0; color: var(--muted); font-size: .94rem; }
+    .featured .plan-use { color: #b6c9d9; }
+    .price { display: flex; align-items: flex-start; gap: 3px; margin-top: 28px; color: var(--ink); }
+    .featured .price { color: var(--white); }
+    .price .currency { margin-top: 7px; font-size: 1.15rem; font-weight: 900; }
+    .price .amount { font-size: 3.25rem; font-weight: 950; letter-spacing: -.06em; line-height: 1; }
+    .price .period { align-self: flex-end; margin: 0 0 6px 4px; color: var(--muted); font-size: .82rem; }
+    .featured .price .period { color: #9fb5c8; }
+    .plan-list { display: grid; gap: 12px; margin: 28px 0 32px; padding: 24px 0 0; border-top: 1px solid var(--line); list-style: none; }
+    .featured .plan-list { border-color: rgba(255, 255, 255, .12); }
+    .plan-list li { position: relative; padding-left: 28px; color: #40566b; font-size: .9rem; }
+    .featured .plan-list li { color: #c5d6e4; }
+    .plan-list li::before { position: absolute; top: .08em; left: 0; display: grid; width: 19px; height: 19px; place-items: center; border-radius: 50%; color: var(--blue-deep); background: #e5f4ff; font-size: .72rem; font-weight: 950; content: "✓"; }
+    .featured .plan-list li::before { color: var(--ink); background: var(--cyan); }
+    .plan-card .button { width: 100%; margin-top: auto; }
+    .plan-note { margin: 26px auto 0; color: var(--muted); font-size: .82rem; text-align: center; }
+
+    .experience-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 78px; align-items: start; }
+    .steps { display: grid; gap: 18px; margin-top: 36px; }
+    .step { display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start; }
+    .step-number { display: grid; width: 48px; height: 48px; place-items: center; border: 1px solid rgba(32, 217, 255, .25); border-radius: 16px; color: var(--cyan); background: rgba(8, 124, 255, .1); font-size: .8rem; font-weight: 950; }
+    .step h3 { margin: 2px 0 4px; font-size: 1.02rem; }
+    .step p { margin: 0; color: #9eb4c7; font-size: .9rem; }
+    .benefits-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .benefit {
+      min-height: 220px;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 24px;
+      padding: 27px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .025));
+    }
+    .benefit:nth-child(2), .benefit:nth-child(3) { transform: translateY(18px); }
+    .benefit-symbol { display: grid; width: 44px; height: 44px; place-items: center; border-radius: 14px; color: var(--cyan); background: rgba(8, 124, 255, .14); font-weight: 950; }
+    .benefit h3 { margin: 24px 0 8px; font-size: 1.08rem; }
+    .benefit p { margin: 0; color: #9eb4c7; font-size: .88rem; }
+
+    .coverage-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 48px;
+      overflow: hidden;
+      border-radius: 36px;
+      padding: 58px;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 90% 0%, rgba(32, 217, 255, .35), transparent 34%),
+        linear-gradient(135deg, #097ff6, #064fb8);
+      box-shadow: 0 30px 80px rgba(8, 96, 211, .24);
+    }
+    .coverage-card::after { position: absolute; right: -90px; bottom: -160px; width: 390px; height: 390px; border: 1px solid rgba(255, 255, 255, .18); border-radius: 50%; content: ""; box-shadow: 0 0 0 46px rgba(255, 255, 255, .04), 0 0 0 92px rgba(255, 255, 255, .025); }
+    .coverage-content, .coverage-list { position: relative; z-index: 1; }
+    .coverage-card .kicker { color: #c8f5ff; }
+    .coverage-card h2 { margin: 0; font-size: clamp(2.1rem, 4vw, 3.6rem); line-height: 1; letter-spacing: -.045em; }
+    .coverage-card p { max-width: 610px; margin: 18px 0 0; color: #d8ebff; }
+    .coverage-list { display: grid; align-content: center; gap: 12px; }
+    .coverage-list div { display: flex; align-items: center; gap: 12px; border: 1px solid rgba(255, 255, 255, .17); border-radius: 16px; padding: 15px 17px; background: rgba(0, 24, 74, .18); backdrop-filter: blur(10px); }
+    .coverage-list span { display: grid; width: 28px; height: 28px; flex: 0 0 28px; place-items: center; border-radius: 9px; color: #064fb8; background: var(--white); font-weight: 950; }
+
+    .faq-layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: 76px; align-items: start; }
+    .faq-sticky { position: sticky; top: 120px; }
+    .faq-list { display: grid; gap: 13px; }
+    details { border: 1px solid var(--line); border-radius: 19px; background: var(--white); box-shadow: 0 10px 35px rgba(6, 46, 87, .05); }
+    summary { position: relative; padding: 23px 58px 23px 23px; color: var(--ink); font-weight: 850; cursor: pointer; list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { position: absolute; top: 50%; right: 23px; display: grid; width: 28px; height: 28px; place-items: center; border-radius: 9px; color: var(--blue-deep); background: var(--sky); font-size: 1.15rem; content: "+"; transform: translateY(-50%); }
+    details[open] summary::after { content: "−"; }
+    details p { margin: 0; padding: 0 23px 23px; color: var(--muted); font-size: .94rem; }
+
+    .contact-section { padding-top: 30px; }
+    .contact-card { display: grid; grid-template-columns: .86fr 1.14fr; overflow: hidden; border: 1px solid var(--line); border-radius: 34px; background: var(--white); box-shadow: var(--shadow); }
+    .contact-info { padding: 50px; color: var(--white); background: var(--ink); }
+    .contact-info h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.4rem); letter-spacing: -.045em; line-height: 1.03; }
+    .contact-info > p { margin: 18px 0 0; color: #aabfd1; }
+    .contact-links { display: grid; gap: 13px; margin-top: 30px; }
+    .contact-link { display: flex; align-items: center; gap: 13px; border: 1px solid rgba(255, 255, 255, .11); border-radius: 15px; padding: 14px 16px; color: var(--white); background: rgba(255, 255, 255, .05); text-decoration: none; }
+    .contact-link span:first-child { display: grid; width: 30px; height: 30px; flex: 0 0 30px; place-items: center; border-radius: 9px; color: var(--cyan); background: rgba(8, 124, 255, .14); font-size: .72rem; font-weight: 950; }
+    .contact-link small { display: block; color: #8ea8bd; }
+    .coverage-form { padding: 50px; }
+    .coverage-form h3 { margin: 0; color: var(--ink); font-size: 1.7rem; letter-spacing: -.025em; }
+    .coverage-form > p { margin: 8px 0 27px; color: var(--muted); }
+    .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .field { display: grid; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: #314a62; font-size: .82rem; font-weight: 850; }
+    .field input, .field select {
+      width: 100%;
+      min-height: 52px;
+      border: 1px solid #d7e3ed;
+      border-radius: 13px;
+      padding: 12px 14px;
+      color: var(--ink);
+      background: #fbfdff;
+    }
+    .field input:focus, .field select:focus { border-color: var(--blue); outline: 3px solid rgba(8, 124, 255, .12); }
+    .form-submit { width: 100%; margin-top: 20px; }
+    .privacy-note { margin: 13px 0 0; color: var(--muted); font-size: .74rem; text-align: center; }
+
+    footer { padding: 38px 0 108px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding-top: 30px; border-top: 1px solid var(--line); }
+    .footer-copy { color: var(--muted); font-size: .82rem; text-align: right; }
+    .footer-copy a { color: var(--blue-deep); }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 90;
+      display: flex;
+      min-height: 56px;
+      align-items: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 12px 19px 12px 13px;
+      color: var(--white);
+      background: #0eaa63;
+      box-shadow: 0 18px 45px rgba(4, 100, 57, .28);
+      font-size: .88rem;
+      font-weight: 900;
+      text-decoration: none;
+    }
+    .whatsapp-float span { display: grid; width: 32px; height: 32px; place-items: center; border-radius: 50%; color: #0eaa63; background: var(--white); font-size: .72rem; font-weight: 950; }
+
+    .js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .js .reveal.is-visible { opacity: 1; transform: none; }
+
+    @media (max-width: 1000px) {
+      .header-cta { display: none; }
+      .nav-links { gap: 20px; }
+      .hero-inner { grid-template-columns: 1fr 420px; gap: 38px; }
+      .plans-grid { grid-template-columns: 1fr; max-width: 650px; margin-inline: auto; }
+      .plan-use { min-height: auto; }
+      .experience-grid { grid-template-columns: 1fr; gap: 58px; }
+      .coverage-card { grid-template-columns: 1fr; }
+      .coverage-list { grid-template-columns: repeat(3, 1fr); }
+      .coverage-list div { align-items: flex-start; }
+      .faq-layout { gap: 40px; }
+      .contact-card { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 780px) {
+      .container { width: min(calc(100% - 30px), var(--container)); }
+      .site-header { background: rgba(3, 17, 31, .95); }
+      .header-inner { min-height: 70px; }
+      .brand-tagline { display: none; }
+      .menu-button { display: block; }
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        right: 0;
+        left: 0;
+        display: grid;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 20px;
+        background: rgba(3, 17, 31, .98);
+        transition: max-height .25s ease, padding .25s ease;
+      }
+      .nav-links.open { max-height: 420px; padding-block: 14px 22px; border-bottom: 1px solid rgba(255, 255, 255, .1); }
+      .nav-links a { padding: 13px 6px; border-bottom: 1px solid rgba(255, 255, 255, .07); }
+      .hero { min-height: auto; }
+      .hero-inner { grid-template-columns: 1fr; padding: 120px 0 70px; }
+      .hero h1 { font-size: clamp(3.15rem, 15vw, 5rem); }
+      .hero-visual { max-width: 540px; margin-inline: auto; }
+      .signal-pill { right: 12px; bottom: 16px; }
+      .facts-grid { grid-template-columns: 1fr; padding-block: 8px; }
+      .fact { padding: 18px 20px; }
+      .fact:not(:last-child)::after { top: auto; right: 20px; bottom: 0; left: 20px; width: auto; height: 1px; }
+      .section { padding: 78px 0; }
+      .benefits-panel { grid-template-columns: 1fr; }
+      .benefit { min-height: auto; }
+      .benefit:nth-child(2), .benefit:nth-child(3) { transform: none; }
+      .coverage-card { gap: 30px; padding: 35px 25px; border-radius: 28px; }
+      .coverage-list { grid-template-columns: 1fr; }
+      .faq-layout { grid-template-columns: 1fr; }
+      .faq-sticky { position: static; }
+      .contact-info, .coverage-form { padding: 35px 25px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .footer-copy { text-align: left; }
+      .whatsapp-float { right: 15px; bottom: 15px; width: 56px; padding: 12px; overflow: hidden; }
+      .whatsapp-float span { flex: 0 0 32px; }
+      .whatsapp-float strong { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions { display: grid; }
+      .hero-actions .button { width: 100%; }
+      .hero-proof { display: grid; }
+      .proof-item:not(:last-child)::after { display: none; }
+      .hero-card { border-radius: 26px; transform: none; }
+      .signal-pill { position: relative; right: auto; bottom: auto; max-width: none; margin: -6px 10px 0; transform: none; }
+      .plan-card { padding: 27px 23px; }
+      .speed strong { font-size: 3rem; }
+      .coverage-card h2 { font-size: 2.25rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+      .js .reveal { opacity: 1; transform: none; }
     }
   </style>
 
-  <!-- Datos estructurados -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "NetfullSV",
-    "url": "https://netfullsv.com/",
-    "logo": "https://netfullsv.com/assets/logo-netfull.png",
-    "email": "corporativo@netfullsv.com",
-    "telephone": "+50379031293",
-    "sameAs": [],
-    "areaServed": {
-      "@type": "Place",
-      "name": "Nuevo Lourdes, El Salvador"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+50379031293",
-      "contactType": "customer support",
-      "areaServed": "SV",
-      "availableLanguage": ["Spanish"]
-    }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://netfullsv.com/#organization",
+        "name": "Netfull",
+        "alternateName": "NetfullSV",
+        "url": "https://netfullsv.com/",
+        "logo": "https://netfullsv.com/assets/netfull-brand.png",
+        "email": "corporativo@netfullsv.com",
+        "telephone": "+50379031293",
+        "areaServed": "Nuevo Lourdes, El Salvador",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+50379031293",
+          "contactType": "customer support",
+          "availableLanguage": "Spanish",
+          "areaServed": "SV"
+        }
+      },
+      {
+        "@type": "Service",
+        "name": "Internet de fibra óptica en Nuevo Lourdes",
+        "provider": { "@id": "https://netfullsv.com/#organization" },
+        "areaServed": { "@type": "Place", "name": "Nuevo Lourdes, El Salvador" },
+        "serviceType": "Servicio de internet residencial y empresarial"
+      }
+    ]
   }
   </script>
 </head>
 
-<body class="bg-slate-50 text-slate-900">
-  <!-- Header -->
-  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur shadow-sm">
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-    
-    <a href="#inicio" class="flex items-center gap-4">
-      <img src="assets/logo-netfull.png" alt="Logo de NetfullSV" class="h-16 w-auto object-contain" />
-      <div class="leading-tight">
-        <p class="text-2xl font-extrabold tracking-tight text-slate-900">NetfullSV</p>
-        <p class="mt-1 text-sm font-medium text-slate-500">Fibra óptica en Nuevo Lourdes</p>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header" aria-label="Navegación principal">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="Netfull, ir al inicio">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>
+          <span class="brand-name"><span>NET</span>FULL</span>
+          <span class="brand-tagline">Conectando lo que importa</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" id="main-nav" aria-label="Secciones de la página">
+        <a href="#planes">Planes</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#cobertura">Cobertura</a>
+        <a href="#preguntas">Preguntas</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="button button-primary button-small header-cta" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20verificar%20cobertura%20de%20Netfull%20en%20Nuevo%20Lourdes." target="_blank" rel="noopener noreferrer">
+          Verificar cobertura <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+          <span></span>
+        </button>
       </div>
-    </a>
+    </div>
+  </header>
 
-    <nav class="hidden items-center gap-6 md:flex">
-      <a href="#beneficios" class="text-sm font-medium text-slate-700 transition hover:text-brand-700">Beneficios</a>
-      <a href="#planes" class="text-sm font-medium text-slate-700 transition hover:text-brand-700">Planes</a>
-      <a href="#cobertura" class="text-sm font-medium text-slate-700 transition hover:text-brand-700">Cobertura</a>
-      <a href="#faq" class="text-sm font-medium text-slate-700 transition hover:text-brand-700">Preguntas</a>
-      <a href="#contacto" class="text-sm font-medium text-slate-700 transition hover:text-brand-700">Contacto</a>
-    </nav>
+  <main id="contenido">
+    <section class="hero" id="inicio">
+      <div class="container hero-inner">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Internet local en Nuevo Lourdes</p>
+          <h1>Tu conexión no debería <span>frenarte.</span></h1>
+          <p class="hero-lead">Internet de fibra óptica para trabajar, estudiar, jugar y disfrutar en casa. Elige tu velocidad y recibe atención directa de un equipo cercano.</p>
 
-    <a
-      href="https://wa.me/50379031293?text=Hola,%20quiero%20verificar%20cobertura%20en%20Nuevo%20Lourdes."
-      target="_blank"
-      rel="noopener noreferrer"
-      class="inline-flex items-center rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-brand-700"
-    >
-      Verificar cobertura
-    </a>
-
-  </div>
-</header>
-
-  <main>
-    <!-- Hero -->
-    <section id="inicio" class="relative overflow-hidden bg-slate-950 text-white">
-      <div class="absolute inset-0 bg-grid opacity-30"></div>
-      <div class="absolute -top-20 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-500/20 blur-3xl"></div>
-
-      <div class="relative mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-28">
-        <div class="flex flex-col justify-center">
-          <span class="mb-4 inline-flex w-fit rounded-full border border-brand-400/30 bg-brand-500/10 px-3 py-1 text-sm font-semibold text-brand-200">
-            Cobertura local en Nuevo Lourdes
-          </span>
-
-          <h1 class="max-w-3xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-            Internet de fibra óptica en Nuevo Lourdes
-          </h1>
-
-          <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-            Planes residenciales y empresariales con instalación rápida, baja latencia y atención local por WhatsApp.
-            Conéctate con un proveedor cercano que sí responde.
-          </p>
-
-          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
-            <a
-              href="https://wa.me/50379031293?text=Hola,%20quiero%20cotizar%20internet%20en%20Nuevo%20Lourdes."
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center justify-center rounded-xl bg-brand-600 px-6 py-3.5 text-base font-bold text-white transition hover:bg-brand-700"
-            >
-              Cotizar por WhatsApp
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20cotizar%20un%20plan%20de%20internet%20Netfull%20en%20Nuevo%20Lourdes." target="_blank" rel="noopener noreferrer">
+              Cotizar por WhatsApp <span class="arrow" aria-hidden="true">↗</span>
             </a>
-
-            <a
-              href="#planes"
-              class="inline-flex items-center justify-center rounded-xl border border-slate-700 bg-slate-900/40 px-6 py-3.5 text-base font-semibold text-white transition hover:border-slate-500 hover:bg-slate-900/70"
-            >
-              Ver planes
-            </a>
+            <a class="button button-ghost" href="#planes">Ver planes <span class="arrow" aria-hidden="true">↓</span></a>
           </div>
 
-          <div class="mt-8 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3">
-            <div class="rounded-2xl border border-slate-800 bg-white/5 p-4">
-              <p class="text-sm font-semibold text-white">Soporte local</p>
-              <p class="mt-1 text-sm text-slate-400">Atención directa y cercana</p>
+          <div class="hero-proof" aria-label="Ventajas principales">
+            <span class="proof-item"><span class="proof-check" aria-hidden="true">✓</span> Soporte local</span>
+            <span class="proof-item"><span class="proof-check" aria-hidden="true">✓</span> Baja latencia</span>
+            <span class="proof-item"><span class="proof-check" aria-hidden="true">✓</span> Proceso sencillo</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <figure class="hero-card">
+            <img src="assets/netfull-hero.webp" alt="Identidad de Netfull: conectando lo que importa" width="1050" height="1050" fetchpriority="high">
+          </figure>
+          <div class="signal-pill" aria-label="Cobertura sujeta a confirmación">
+            <span class="signal-icon" aria-hidden="true"></span>
+            <span><strong>Confirmación rápida</strong><span>Validamos cobertura por zona</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="quick-facts" aria-label="Información rápida del servicio">
+      <div class="container facts-grid">
+        <div class="fact"><strong>30–200 Mbps</strong><span>Opciones para distintos niveles de uso</span></div>
+        <div class="fact"><strong>Atención local</strong><span>Sin vueltas ni respuestas genéricas</span></div>
+        <div class="fact"><strong>WhatsApp directo</strong><span>Cotiza y confirma tu cobertura</span></div>
+      </div>
+    </aside>
+
+    <section class="section section-white" id="planes">
+      <div class="container">
+        <header class="section-header center reveal">
+          <p class="kicker">Planes residenciales</p>
+          <h2 class="section-title">La velocidad justa para cada hogar.</h2>
+          <p class="section-copy">Desde navegación diaria hasta múltiples dispositivos conectados al mismo tiempo.</p>
+        </header>
+
+        <div class="plans-grid">
+          <article class="plan-card reveal">
+            <p class="plan-name">Plan Básico</p>
+            <div class="speed"><strong>30</strong><span>Mbps</span></div>
+            <p class="plan-use">Para navegar, redes sociales y streaming ligero.</p>
+            <div class="price"><span class="currency">$</span><span class="amount">28</span><span class="period">/ mes</span></div>
+            <ul class="plan-list">
+              <li>Ideal para uso esencial en el hogar</li>
+              <li>Atención directa por WhatsApp</li>
+              <li>Confirmación previa de cobertura</li>
+            </ul>
+            <a class="button button-dark" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20cotizar%20el%20Plan%20B%C3%A1sico%20de%2030%20Mbps%20por%20%2428." target="_blank" rel="noopener noreferrer">Elegir 30 Mbps <span class="arrow" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="plan-card featured reveal">
+            <span class="popular">Más elegido</span>
+            <p class="plan-name">Plan Avanzado</p>
+            <div class="speed"><strong>100</strong><span>Mbps</span></div>
+            <p class="plan-use">Para familias, clases, teletrabajo y streaming.</p>
+            <div class="price"><span class="currency">$</span><span class="amount">33</span><span class="period">/ mes</span></div>
+            <ul class="plan-list">
+              <li>Excelente balance entre precio y velocidad</li>
+              <li>Más capacidad para varios dispositivos</li>
+              <li>Atención local por WhatsApp</li>
+            </ul>
+            <a class="button button-primary" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20cotizar%20el%20Plan%20Avanzado%20de%20100%20Mbps%20por%20%2433." target="_blank" rel="noopener noreferrer">Elegir 100 Mbps <span class="arrow" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="plan-card reveal">
+            <p class="plan-name">Plan Premium</p>
+            <div class="speed"><strong>200</strong><span>Mbps</span></div>
+            <p class="plan-use">Para alto consumo y muchos equipos conectados.</p>
+            <div class="price"><span class="currency">$</span><span class="amount">53</span><span class="period">/ mes</span></div>
+            <ul class="plan-list">
+              <li>Mayor capacidad para hogares exigentes</li>
+              <li>Trabajo y entretenimiento simultáneos</li>
+              <li>Coordinación directa de instalación</li>
+            </ul>
+            <a class="button button-dark" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20cotizar%20el%20Plan%20Premium%20de%20200%20Mbps%20por%20%2453." target="_blank" rel="noopener noreferrer">Elegir 200 Mbps <span class="arrow" aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+        <p class="plan-note">Precios mensuales. Cobertura e instalación sujetas a evaluación técnica. Consulta términos vigentes antes de contratar.</p>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="beneficios">
+      <div class="container experience-grid">
+        <div class="reveal">
+          <p class="kicker">Una experiencia más cercana</p>
+          <h2 class="section-title">Contratar internet puede ser simple.</h2>
+          <p class="section-copy">Te acompañamos desde la consulta inicial hasta la coordinación de tu instalación.</p>
+
+          <div class="steps" aria-label="Proceso para contratar">
+            <div class="step">
+              <span class="step-number">01</span>
+              <div><h3>Escríbenos</h3><p>Comparte tu nombre y una referencia de tu ubicación.</p></div>
             </div>
-            <div class="rounded-2xl border border-slate-800 bg-white/5 p-4">
-              <p class="text-sm font-semibold text-white">Baja latencia</p>
-              <p class="mt-1 text-sm text-slate-400">Ideal para trabajo, clases y streaming</p>
+            <div class="step">
+              <span class="step-number">02</span>
+              <div><h3>Confirmamos cobertura</h3><p>Revisamos disponibilidad técnica en tu sector.</p></div>
             </div>
-            <div class="rounded-2xl border border-slate-800 bg-white/5 p-4">
-              <p class="text-sm font-semibold text-white">Instalación rápida</p>
-              <p class="mt-1 text-sm text-slate-400">Sujeta a validación de cobertura</p>
+            <div class="step">
+              <span class="step-number">03</span>
+              <div><h3>Coordinamos la instalación</h3><p>Definimos contigo los siguientes pasos y disponibilidad.</p></div>
             </div>
           </div>
         </div>
 
-        <div class="flex items-center justify-center">
-          <div class="w-full max-w-xl rounded-3xl border border-slate-800 bg-white/5 p-6 shadow-soft backdrop-blur">
-            <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-              <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-300">Proveedor local</p>
-              <h2 class="mt-3 text-2xl font-black">Conectividad pensada para tu zona</h2>
-              <p class="mt-3 text-slate-300">
-                Nuestro enfoque es claro: ofrecer internet estable en Nuevo Lourdes con atención directa,
-                procesos simples y respuesta local.
-              </p>
+        <div class="benefits-panel">
+          <article class="benefit reveal">
+            <span class="benefit-symbol" aria-hidden="true">01</span>
+            <h3>Atención local</h3>
+            <p>Un equipo cercano que conoce la zona y da seguimiento directo.</p>
+          </article>
+          <article class="benefit reveal">
+            <span class="benefit-symbol" aria-hidden="true">02</span>
+            <h3>Baja latencia</h3>
+            <p>Una mejor experiencia para videollamadas, clases y entretenimiento.</p>
+          </article>
+          <article class="benefit reveal">
+            <span class="benefit-symbol" aria-hidden="true">03</span>
+            <h3>Opciones claras</h3>
+            <p>Tres velocidades sencillas de comparar según tu nivel de uso.</p>
+          </article>
+          <article class="benefit reveal">
+            <span class="benefit-symbol" aria-hidden="true">04</span>
+            <h3>Contacto directo</h3>
+            <p>Cotiza, pregunta y coordina desde el mismo canal de WhatsApp.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-              <ul class="mt-6 space-y-3 text-sm text-slate-300">
-                <li class="flex gap-3">
-                  <span class="mt-1 h-2.5 w-2.5 rounded-full bg-brand-400"></span>
-                  Verificación de cobertura por WhatsApp
-                </li>
-                <li class="flex gap-3">
-                  <span class="mt-1 h-2.5 w-2.5 rounded-full bg-brand-400"></span>
-                  Planes residenciales y empresariales
-                </li>
-                <li class="flex gap-3">
-                  <span class="mt-1 h-2.5 w-2.5 rounded-full bg-brand-400"></span>
-                  Atención por un equipo local, no por call center
-                </li>
-                <li class="flex gap-3">
-                  <span class="mt-1 h-2.5 w-2.5 rounded-full bg-brand-400"></span>
-                  Cobertura sujeta a disponibilidad técnica en zona
-                </li>
-              </ul>
+    <section class="section" id="cobertura">
+      <div class="container">
+        <div class="coverage-card reveal">
+          <div class="coverage-content">
+            <p class="kicker">Cobertura en Nuevo Lourdes</p>
+            <h2>Primero confirmamos. Luego coordinamos.</h2>
+            <p>La disponibilidad puede variar por sector. Envíanos tu ubicación y te daremos una respuesta clara antes de programar una instalación.</p>
+            <a class="button button-ghost" style="margin-top: 28px" href="#contacto">Revisar mi ubicación <span class="arrow" aria-hidden="true">↓</span></a>
+          </div>
+          <div class="coverage-list" aria-label="Datos necesarios para verificar cobertura">
+            <div><span>1</span><strong>Tu nombre</strong></div>
+            <div><span>2</span><strong>Colonia o referencia</strong></div>
+            <div><span>3</span><strong>Plan de interés</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-              <a
-                href="#contacto"
-                class="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-200"
-              >
-                Solicitar información
+    <section class="section section-white" id="preguntas">
+      <div class="container faq-layout">
+        <header class="section-header faq-sticky reveal">
+          <p class="kicker">Preguntas frecuentes</p>
+          <h2 class="section-title">Todo claro antes de contratar.</h2>
+          <p class="section-copy">Si tu pregunta no aparece aquí, escríbenos y con gusto te orientamos.</p>
+          <a class="button button-dark" style="margin-top: 24px" href="https://wa.me/50379031293?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20el%20servicio%20de%20Netfull." target="_blank" rel="noopener noreferrer">Hacer una pregunta <span class="arrow" aria-hidden="true">↗</span></a>
+        </header>
+
+        <div class="faq-list reveal">
+          <details>
+            <summary>¿Cómo sé si hay cobertura en mi casa?</summary>
+            <p>Envíanos por WhatsApp tu colonia, pasaje o un punto de referencia en Nuevo Lourdes. Revisaremos disponibilidad técnica antes de coordinar la instalación.</p>
+          </details>
+          <details>
+            <summary>¿Qué plan me conviene?</summary>
+            <p>El plan de 30 Mbps cubre un uso esencial; el de 100 Mbps es una opción equilibrada para familias; y el de 200 Mbps ofrece mayor capacidad para varios usuarios y consumo simultáneo.</p>
+          </details>
+          <details>
+            <summary>¿Cómo solicito la instalación?</summary>
+            <p>Escríbenos por WhatsApp, comparte tu ubicación y el plan que te interesa. Después de confirmar cobertura, te indicaremos disponibilidad y los siguientes pasos.</p>
+          </details>
+          <details>
+            <summary>¿Qué equipo o condiciones incluye cada plan?</summary>
+            <p>Nuestro asesor te confirmará los equipos incluidos, condiciones de instalación y términos vigentes antes de que contrates.</p>
+          </details>
+          <details>
+            <summary>¿Atienden fuera de Nuevo Lourdes?</summary>
+            <p>Nuestra cobertura principal está enfocada en Nuevo Lourdes. Puedes enviarnos tu ubicación exacta para consultar si existe disponibilidad en tu sector.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact-section" id="contacto">
+      <div class="container">
+        <div class="contact-card reveal">
+          <div class="contact-info">
+            <p class="kicker">Hablemos</p>
+            <h2>Tu nueva conexión empieza aquí.</h2>
+            <p>Completa los datos básicos y abriremos WhatsApp con tu solicitud lista para enviar.</p>
+
+            <div class="contact-links">
+              <a class="contact-link" href="https://wa.me/50379031293" target="_blank" rel="noopener noreferrer">
+                <span>WA</span><span><small>WhatsApp</small>+503 7903 1293</span>
               </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Beneficios -->
-    <section id="beneficios" class="py-20">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-3xl text-center">
-          <span class="inline-flex rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-700">
-            ¿Por qué elegir NetfullSV?
-          </span>
-          <h2 class="mt-4 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
-            Un servicio más cercano, claro y enfocado en tu zona
-          </h2>
-          <p class="mt-4 text-lg text-slate-600">
-            No intentamos venderle a todo el país. Nos enfocamos en atender bien a Nuevo Lourdes.
-          </p>
-        </div>
-
-        <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          <article class="rounded-3xl bg-white p-7 shadow-soft ring-1 ring-slate-200">
-            <h3 class="text-lg font-bold text-slate-900">Atención local</h3>
-            <p class="mt-3 text-sm leading-7 text-slate-600">
-              Trato directo y seguimiento más cercano. Menos vueltas, más respuesta.
-            </p>
-          </article>
-
-          <article class="rounded-3xl bg-white p-7 shadow-soft ring-1 ring-slate-200">
-            <h3 class="text-lg font-bold text-slate-900">Baja latencia</h3>
-            <p class="mt-3 text-sm leading-7 text-slate-600">
-              Mejor experiencia para videollamadas, trabajo remoto, clases y entretenimiento.
-            </p>
-          </article>
-
-          <article class="rounded-3xl bg-white p-7 shadow-soft ring-1 ring-slate-200">
-            <h3 class="text-lg font-bold text-slate-900">Proceso simple</h3>
-            <p class="mt-3 text-sm leading-7 text-slate-600">
-              Verificas cobertura, cotizas por WhatsApp y coordinas instalación sin complicarte.
-            </p>
-          </article>
-
-          <article class="rounded-3xl bg-white p-7 shadow-soft ring-1 ring-slate-200">
-            <h3 class="text-lg font-bold text-slate-900">Enfoque en Nuevo Lourdes</h3>
-            <p class="mt-3 text-sm leading-7 text-slate-600">
-              Servicio pensado para las necesidades reales de la zona, no con mensajes genéricos.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Planes -->
-    <section id="planes" class="bg-white py-20">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-3xl text-center">
-          <span class="inline-flex rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-700">
-            Planes disponibles
-          </span>
-          <h2 class="mt-4 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
-            Opciones claras para hogar y negocio
-          </h2>
-          <p class="mt-4 text-lg text-slate-600">
-            Elige el plan que mejor se adapte a tu uso. La disponibilidad está sujeta a validación de cobertura.
-          </p>
-        </div>
-
-        <div class="mt-12 grid gap-8 lg:grid-cols-3">
-          <!-- Básico -->
-          <article class="rounded-3xl border border-slate-200 bg-slate-50 p-8 shadow-soft">
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-slate-500">Plan Básico</p>
-            <h3 class="mt-3 text-2xl font-black text-slate-900">30 Mbps</h3>
-            <p class="mt-2 text-sm text-slate-600">Para navegación, redes sociales y streaming ligero.</p>
-            <p class="mt-6 text-5xl font-black tracking-tight text-slate-900">$28</p>
-            <p class="mt-1 text-sm text-slate-500">mensuales</p>
-
-            <ul class="mt-6 space-y-3 text-sm text-slate-700">
-              <li>✔ Ideal para uso básico en el hogar</li>
-              <li>✔ Atención por WhatsApp</li>
-              <li>✔ Instalación sujeta a evaluación técnica</li>
-              <li>✔ Cobertura local en Nuevo Lourdes</li>
-            </ul>
-
-            <a
-              href="https://wa.me/50379031293?text=Hola,%20quiero%20cotizar%20el%20Plan%20B%C3%A1sico%20de%2030%20Mbps."
-              target="_blank"
-              rel="noopener noreferrer"
-              class="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
-            >
-              Solicitar este plan
-            </a>
-          </article>
-
-          <!-- Avanzado -->
-          <article class="relative rounded-3xl border-2 border-brand-600 bg-slate-950 p-8 text-white shadow-soft">
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-4 py-1 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
-              Más popular
-            </div>
-
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-brand-200">Plan Avanzado</p>
-            <h3 class="mt-3 text-2xl font-black">100 Mbps</h3>
-            <p class="mt-2 text-sm text-slate-300">Para hogares con varios dispositivos, clases, trabajo y streaming.</p>
-            <p class="mt-6 text-5xl font-black tracking-tight">$33</p>
-            <p class="mt-1 text-sm text-slate-400">mensuales</p>
-
-            <ul class="mt-6 space-y-3 text-sm text-slate-200">
-              <li>✔ Mejor balance entre precio y rendimiento</li>
-              <li>✔ Recomendado para familias</li>
-              <li>✔ Atención local por WhatsApp</li>
-              <li>✔ Instalación sujeta a validación de cobertura</li>
-            </ul>
-
-            <a
-              href="https://wa.me/50379031293?text=Hola,%20quiero%20cotizar%20el%20Plan%20Avanzado%20de%20100%20Mbps."
-              target="_blank"
-              rel="noopener noreferrer"
-              class="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-brand-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-700"
-            >
-              Cotizar plan popular
-            </a>
-          </article>
-
-          <!-- Premium -->
-          <article class="rounded-3xl border border-slate-200 bg-slate-50 p-8 shadow-soft">
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-slate-500">Plan Premium</p>
-            <h3 class="mt-3 text-2xl font-black text-slate-900">200 Mbps</h3>
-            <p class="mt-2 text-sm text-slate-600">Para uso intensivo, múltiples usuarios y alto consumo simultáneo.</p>
-            <p class="mt-6 text-5xl font-black tracking-tight text-slate-900">$53</p>
-            <p class="mt-1 text-sm text-slate-500">mensuales</p>
-
-            <ul class="mt-6 space-y-3 text-sm text-slate-700">
-              <li>✔ Mayor capacidad para hogares exigentes</li>
-              <li>✔ Recomendado para trabajo y entretenimiento intenso</li>
-              <li>✔ Atención por WhatsApp</li>
-              <li>✔ Cobertura e instalación sujetas a evaluación técnica</li>
-            </ul>
-
-            <a
-              href="https://wa.me/50379031293?text=Hola,%20quiero%20cotizar%20el%20Plan%20Premium%20de%20200%20Mbps."
-              target="_blank"
-              rel="noopener noreferrer"
-              class="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
-            >
-              Solicitar este plan
-            </a>
-          </article>
-        </div>
-
-        <div class="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900">
-        </div>
-      </div>
-    </section>
-
-    <!-- Cobertura -->
-    <section id="cobertura" class="py-20">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div>
-            <span class="inline-flex rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-700">
-              Cobertura
-            </span>
-            <h2 class="mt-4 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
-              Validamos cobertura en Nuevo Lourdes
-            </h2>
-            <p class="mt-4 text-lg text-slate-600">
-              Antes de instalar, confirmamos disponibilidad técnica en tu sector. Así evitamos promesas vacías y te damos una respuesta clara.
-            </p>
-
-            <ul class="mt-6 space-y-4 text-slate-700">
-              <li>✔ Atención enfocada en Nuevo Lourdes</li>
-              <li>✔ Confirmación de cobertura por WhatsApp</li>
-              <li>✔ Coordinación de instalación según disponibilidad</li>
-              <li>✔ Seguimiento más directo por ser proveedor local</li>
-            </ul>
-
-            <a
-              href="https://wa.me/50379031293?text=Hola,%20quiero%20confirmar%20si%20mi%20casa%20tiene%20cobertura%20en%20Nuevo%20Lourdes."
-              target="_blank"
-              rel="noopener noreferrer"
-              class="mt-8 inline-flex rounded-xl bg-brand-600 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-brand-700"
-            >
-              Confirmar cobertura ahora
-            </a>
-          </div>
-
-          <div class="rounded-3xl bg-white p-8 shadow-soft ring-1 ring-slate-200">
-            <h3 class="text-xl font-black text-slate-900">¿Qué necesitamos para verificar?</h3>
-            <div class="mt-6 grid gap-4 sm:grid-cols-3">
-              <div class="rounded-2xl bg-slate-50 p-5">
-                <p class="text-sm font-bold text-slate-900">1. Nombre</p>
-                <p class="mt-2 text-sm text-slate-600">Para identificar tu solicitud</p>
-              </div>
-              <div class="rounded-2xl bg-slate-50 p-5">
-                <p class="text-sm font-bold text-slate-900">2. Ubicación</p>
-                <p class="mt-2 text-sm text-slate-600">Colonia, pasaje o referencia</p>
-              </div>
-              <div class="rounded-2xl bg-slate-50 p-5">
-                <p class="text-sm font-bold text-slate-900">3. Teléfono</p>
-                <p class="mt-2 text-sm text-slate-600">Para seguimiento rápido</p>
-              </div>
-            </div>
-
-            <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5">
-              <p class="text-sm font-semibold text-slate-900">Mensaje sugerido:</p>
-              <p class="mt-2 text-sm text-slate-700">
-                “Hola, quiero verificar cobertura en Nuevo Lourdes. Mi nombre es ___ y mi ubicación es ___.”
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq" class="bg-white py-20">
-      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-3xl text-center">
-          <span class="inline-flex rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-700">
-            Preguntas frecuentes
-          </span>
-          <h2 class="mt-4 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
-            Respuestas claras antes de contratar
-          </h2>
-        </div>
-
-        <div class="mt-12 space-y-4">
-          <details class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <summary class="cursor-pointer text-lg font-bold text-slate-900">¿Solo trabajan en Nuevo Lourdes?</summary>
-            <p class="mt-3 text-slate-600">
-              Sí. Nuestro enfoque principal es atender Nuevo Lourdes y validar cobertura según disponibilidad técnica en la zona.
-            </p>
-          </details>
-
-          <details class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <summary class="cursor-pointer text-lg font-bold text-slate-900">¿Cómo solicito instalación?</summary>
-            <p class="mt-3 text-slate-600">
-              Escríbenos por WhatsApp, comparte tu ubicación y te confirmamos cobertura antes de coordinar instalación.
-            </p>
-          </details>
-
-          <details class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <summary class="cursor-pointer text-lg font-bold text-slate-900">¿Puedo contratar si tengo varios dispositivos en casa?</summary>
-            <p class="mt-3 text-slate-600">
-              Sí. El Plan Avanzado y el Premium están pensados para hogares con mayor consumo y múltiples equipos conectados.
-            </p>
-          </details>
-
-          <details class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <summary class="cursor-pointer text-lg font-bold text-slate-900">¿Incluyen TV o streaming?</summary>
-            <p class="mt-3 text-slate-600">
-              Solo debes mostrarlo si está claramente definido. Si ofreces un complemento adicional, conviene explicarlo con detalle antes de cerrar la venta.
-            </p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contacto -->
-    <section id="contacto" class="py-20">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-8 lg:grid-cols-2">
-          <div class="rounded-3xl bg-slate-950 p-8 text-white shadow-soft">
-            <span class="inline-flex rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-brand-200">
-              Contacto directo
-            </span>
-            <h2 class="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
-              Escríbenos y revisamos tu cobertura
-            </h2>
-            <p class="mt-4 text-lg text-slate-300">
-              La forma más rápida de atenderte es por WhatsApp. También puedes escribirnos al correo corporativo oficial.
-            </p>
-
-            <div class="mt-8 space-y-4 text-sm sm:text-base">
-              <p>
-                <span class="font-bold text-white">WhatsApp:</span>
-                <a
-                  href="https://wa.me/50379031293?text=Hola,%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20planes%20de%20internet%20en%20Nuevo%20Lourdes."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-brand-300 underline underline-offset-4"
-                >
-                  +503 7903 1293
-                </a>
-              </p>
-
-              <p>
-                <span class="font-bold text-white">Correo:</span>
-                <a
-                  href="mailto:corporativo@netfullsv.com"
-                  class="text-brand-300 underline underline-offset-4"
-                >
-                  corporativo@netfullsv.com
-                </a>
-              </p>
-
-              <p>
-                <span class="font-bold text-white">Zona de atención:</span>
-                Nuevo Lourdes, El Salvador
-              </p>
-            </div>
-
-            <div class="mt-8">
-              <a
-                href="https://wa.me/50379031293?text=Hola,%20quiero%20verificar%20cobertura%20y%20agendar%20instalaci%C3%B3n."
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex rounded-xl bg-brand-600 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-brand-700"
-              >
-                Agendar por WhatsApp
+              <a class="contact-link" href="mailto:corporativo@netfullsv.com">
+                <span>@</span><span><small>Correo</small>corporativo@netfullsv.com</span>
               </a>
+              <div class="contact-link">
+                <span>SV</span><span><small>Zona de atención</small>Nuevo Lourdes, El Salvador</span>
+              </div>
             </div>
           </div>
 
-          <div class="rounded-3xl bg-white p-8 shadow-soft ring-1 ring-slate-200">
-            <h3 class="text-2xl font-black text-slate-900">Antes de escribirnos, ten listo esto:</h3>
-            <ul class="mt-6 space-y-4 text-slate-700">
-              <li>✔ Tu nombre</li>
-              <li>✔ Dirección o referencia en Nuevo Lourdes</li>
-              <li>✔ El plan que te interesa</li>
-              <li>✔ Tu número de contacto</li>
-            </ul>
-
-            <div class="mt-8 rounded-2xl bg-brand-50 p-6">
-              <p class="text-sm font-bold text-brand-800">Consejo:</p>
-              <p class="mt-2 text-sm leading-7 text-brand-900">
-                Mientras más clara sea tu ubicación, más rápido podremos confirmarte si la instalación es viable.
-              </p>
+          <form class="coverage-form" data-coverage-form>
+            <h3>Verifica tu cobertura</h3>
+            <p>No es un registro: solo preparamos tu mensaje para WhatsApp.</p>
+            <div class="form-grid">
+              <div class="field">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" name="nombre" autocomplete="name" placeholder="¿Cómo te llamas?" required>
+              </div>
+              <div class="field">
+                <label for="plan">Plan de interés</label>
+                <select id="plan" name="plan" required>
+                  <option value="" selected disabled>Selecciona una opción</option>
+                  <option>30 Mbps — $28</option>
+                  <option>100 Mbps — $33</option>
+                  <option>200 Mbps — $53</option>
+                  <option>Necesito recomendación</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="ubicacion">Colonia, pasaje o referencia</label>
+                <input id="ubicacion" name="ubicacion" autocomplete="street-address" placeholder="Ej.: colonia, pasaje y punto cercano" required>
+              </div>
             </div>
-          </div>
+            <button class="button button-whatsapp form-submit" type="submit">Continuar en WhatsApp <span class="arrow" aria-hidden="true">↗</span></button>
+            <p class="privacy-note">Tus datos no se guardan en esta página.</p>
+          </form>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-200 bg-white">
-    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 text-sm text-slate-600 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-      <div>
-        <p class="font-semibold text-slate-900">NetfullSV</p>
-        <p>Internet de fibra óptica en Nuevo Lourdes</p>
-      </div>
-
-      <div class="space-y-1 text-left lg:text-right">
-        <p>
-          WhatsApp +503 7903 1293 ·
-          <a href="mailto:corporativo@netfullsv.com" class="underline underline-offset-4">
-            corporativo@netfullsv.com
-          </a>
-        </p>
-        <p>© <span id="year"></span> NetfullSV. Todos los derechos reservados.</p>
+  <footer>
+    <div class="container footer-inner">
+      <a class="brand" href="#inicio" aria-label="Netfull, volver al inicio">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span><span class="brand-name" style="color: var(--ink)"><span>NET</span>FULL</span><span class="brand-tagline" style="color: var(--muted)">Conectando lo que importa</span></span>
+      </a>
+      <div class="footer-copy">
+        <div>Internet de fibra óptica en Nuevo Lourdes</div>
+        <div>© <span id="year"></span> Netfull. Todos los derechos reservados.</div>
+        <a href="mailto:corporativo@netfullsv.com">corporativo@netfullsv.com</a>
       </div>
     </div>
   </footer>
 
+  <a class="whatsapp-float" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Netfull." target="_blank" rel="noopener noreferrer" aria-label="Escribir a Netfull por WhatsApp">
+    <span>WA</span><strong>Escríbenos</strong>
+  </a>
+
   <script>
+    const menuButton = document.querySelector(".menu-button");
+    const navigation = document.querySelector(".nav-links");
+
+    function closeMenu() {
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Abrir menú");
+      navigation.classList.remove("open");
+      document.body.classList.remove("menu-open");
+    }
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Abrir menú" : "Cerrar menú");
+      navigation.classList.toggle("open", !isOpen);
+      document.body.classList.toggle("menu-open", !isOpen);
+    });
+
+    navigation.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+
+    document.querySelector("[data-coverage-form]").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const message = `Hola, soy ${data.get("nombre")}. Quiero verificar cobertura de Netfull en ${data.get("ubicacion")}. Me interesa el plan ${data.get("plan")}.`;
+      window.open(`https://wa.me/50379031293?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+    });
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+          link.setAttribute("aria-current", String(link.getAttribute("href") === `#${entry.target.id}`));
+        });
+      });
+    }, { rootMargin: "-30% 0px -60%", threshold: 0 });
+
+    document.querySelectorAll("main section[id]").forEach((section) => sectionObserver.observe(section));
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
