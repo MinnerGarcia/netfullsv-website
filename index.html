@@ -505,7 +505,7 @@
       box-shadow: 0 24px 58px rgba(0, 0, 0, .28);
     }
     .movie-trailer { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #01070d; }
-    .movie-trailer-link { position: absolute; inset: 0; display: grid; place-items: center; color: var(--white); text-decoration: none; isolation: isolate; }
+    .movie-trailer-link { position: absolute; inset: 0; display: grid; width: 100%; place-items: center; border: 0; padding: 0; color: var(--white); background: transparent; font: inherit; text-decoration: none; cursor: pointer; isolation: isolate; }
     .movie-trailer-link::after { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(1, 7, 13, .74), rgba(1, 7, 13, .04) 65%); content: ""; }
     .movie-trailer-link > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease, filter .45s ease; }
     .movie-trailer-link:hover > img { transform: scale(1.035); filter: brightness(.88); }
@@ -555,6 +555,7 @@
       background: linear-gradient(145deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .025));
       box-shadow: 0 24px 70px rgba(0, 0, 0, .2);
     }
+    .tv-experience > * { min-width: 0; }
     .tv-tabs { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 28px; }
     .tv-tab {
       min-height: 42px;
@@ -578,6 +579,43 @@
     .tv-panel-list li::before { position: absolute; top: .38em; left: 1px; width: 9px; height: 9px; border: 2px solid var(--cyan); border-radius: 50%; content: ""; }
     .tv-device-image { position: relative; overflow: hidden; border: 1px solid rgba(66, 174, 255, .22); border-radius: 24px; background: #020a14; }
     .tv-device-image img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+    .tv-catalog-browser {
+      grid-column: 1 / -1;
+      min-width: 0;
+      margin-top: 4px;
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      padding-top: 30px;
+    }
+    .tv-catalog-browser[hidden] { display: none; }
+    .tv-browser-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 20px; }
+    .tv-browser-head h3 { margin: 0; color: var(--white); font-size: clamp(1.65rem, 3vw, 2.45rem); letter-spacing: -.035em; line-height: 1.04; }
+    .tv-browser-head p { max-width: 720px; margin: 9px 0 0; color: #9fb5c8; font-size: .86rem; }
+    .tv-browser-kicker { margin: 0 0 7px !important; color: var(--cyan) !important; font-size: .68rem !important; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    .tv-browser-controls { display: flex; flex: 0 0 auto; gap: 8px; }
+    .tv-browser-control { display: grid; width: 43px; height: 43px; place-items: center; border: 1px solid rgba(255, 255, 255, .15); border-radius: 50%; color: var(--white); background: rgba(255, 255, 255, .055); font-size: 1.12rem; cursor: pointer; }
+    .tv-browser-control:hover { border-color: rgba(32, 217, 255, .55); background: rgba(32, 217, 255, .12); }
+    .tv-title-rail { display: flex; gap: 14px; overflow-x: auto; padding: 2px 2px 15px; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-color: rgba(32, 217, 255, .55) rgba(255, 255, 255, .07); }
+    .tv-title-card { position: relative; flex: 0 0 clamp(238px, 25vw, 310px); overflow: hidden; border: 1px solid rgba(126, 204, 255, .18); border-radius: 22px; color: var(--white); background: linear-gradient(155deg, rgba(12, 39, 64, .99), rgba(3, 17, 31, .99)); box-shadow: 0 18px 42px rgba(0, 0, 0, .24); scroll-snap-align: start; }
+    .tv-title-preview { position: relative; display: block; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; border: 0; padding: 0; color: var(--white); background: #01070d; cursor: pointer; }
+    .tv-title-preview::after { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(2, 10, 18, .9), rgba(2, 10, 18, .04) 68%); content: ""; }
+    .tv-title-preview img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease, filter .4s ease; }
+    .tv-title-preview:hover img { transform: scale(1.045); filter: brightness(.86); }
+    .tv-title-rank { position: absolute; top: 12px; left: 12px; z-index: 2; display: grid; min-width: 35px; height: 35px; place-items: center; border: 1px solid rgba(255, 255, 255, .28); border-radius: 11px; padding: 0 8px; color: #042518; background: #35e18e; font-size: .7rem; font-weight: 950; box-shadow: 0 8px 22px rgba(0, 0, 0, .28); }
+    .tv-title-play { position: absolute; right: 14px; bottom: 13px; z-index: 2; display: grid; width: 47px; height: 47px; place-items: center; border: 1px solid rgba(255, 255, 255, .65); border-radius: 50%; background: rgba(8, 124, 255, .92); box-shadow: 0 10px 28px rgba(0, 0, 0, .35); }
+    .tv-title-body { display: grid; gap: 8px; padding: 17px; }
+    .tv-title-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tv-title-meta span { border-radius: 999px; padding: 5px 8px; color: #b9d0df; background: rgba(255, 255, 255, .07); font-size: .58rem; font-weight: 850; text-transform: uppercase; }
+    .tv-title-meta .available { color: #dffff0; background: rgba(18, 170, 101, .2); }
+    .tv-title-card h4 { margin: 0; font-size: 1.06rem; line-height: 1.15; }
+    .tv-title-card p { margin: 0; color: #91aabd; font-size: .72rem; line-height: 1.5; }
+    .tv-browser-note { margin: 4px 3px 0; color: #718ba0; font-size: .68rem; }
+    .trailer-dialog { width: min(980px, calc(100% - 30px)); border: 1px solid rgba(126, 204, 255, .28); border-radius: 25px; padding: 0; color: var(--white); background: #020b14; box-shadow: 0 35px 110px rgba(0, 0, 0, .72); }
+    .trailer-dialog::backdrop { background: rgba(0, 7, 14, .82); backdrop-filter: blur(10px); }
+    .trailer-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 18px; }
+    .trailer-dialog-head strong { font-size: .92rem; }
+    .trailer-dialog-close { display: grid; width: 40px; height: 40px; place-items: center; border: 1px solid rgba(255, 255, 255, .16); border-radius: 50%; color: var(--white); background: rgba(255, 255, 255, .06); font-size: 1.2rem; cursor: pointer; }
+    .trailer-frame { position: relative; aspect-ratio: 16 / 9; background: #000; }
+    .trailer-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .tv-disclaimer { margin: 18px 4px 0; color: #718ba0; font-size: .72rem; text-align: center; }
 
     .experience-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 78px; align-items: start; }
@@ -753,6 +791,12 @@
       .tv-experience { gap: 30px; margin-top: 30px; padding: 24px; border-radius: 25px; }
       .tv-tabs { flex-wrap: nowrap; overflow-x: auto; margin-right: -24px; padding: 0 24px 8px 0; scrollbar-width: thin; }
       .tv-tab { flex: 0 0 auto; }
+      .tv-browser-head { display: grid; align-items: start; }
+      .tv-browser-controls { justify-self: end; }
+      .tv-title-rail { margin-right: -24px; padding-right: 24px; }
+      .tv-title-card { flex-basis: min(82vw, 285px); }
+      .trailer-dialog { width: calc(100% - 18px); border-radius: 19px; }
+      .trailer-dialog-head { padding: 12px 14px; }
       .benefits-panel { grid-template-columns: 1fr; }
       .benefit { min-height: auto; }
       .benefit:nth-child(2), .benefit:nth-child(3) { transform: none; }
@@ -1067,10 +1111,10 @@
             <div class="movie-feature-grid">
               <article class="movie-feature">
                 <div class="movie-trailer">
-                  <a class="movie-trailer-link" href="https://www.youtube.com/watch?v=ORHBgSvX_24" target="_blank" rel="noopener noreferrer" aria-label="Ver el tráiler oficial de Borderline en YouTube">
+                  <button class="movie-trailer-link" type="button" data-trailer-id="ORHBgSvX_24" data-trailer-title="Borderline · Tráiler oficial" aria-label="Reproducir el tráiler oficial de Borderline aquí mismo">
                     <img src="assets/cinema/borderline-trailer.jpg" alt="Escena del tráiler oficial de Borderline" width="1280" height="720" loading="lazy">
                     <span class="movie-play" aria-hidden="true">▶</span><span class="movie-trailer-label">Ver tráiler oficial</span>
-                  </a>
+                  </button>
                 </div>
                 <div class="movie-feature-body">
                   <div class="movie-feature-meta"><span class="available">Disponible</span><span>Suspenso</span><span>2025</span></div>
@@ -1081,16 +1125,16 @@
               </article>
               <article class="movie-feature">
                 <div class="movie-trailer">
-                  <a class="movie-trailer-link" href="https://www.youtube.com/watch?v=DRrcgLRX8Qc" target="_blank" rel="noopener noreferrer" aria-label="Ver el tráiler oficial de It's Never Over, Jeff Buckley en YouTube">
-                    <img src="assets/cinema/jeff-buckley-trailer.jpg" alt="Escena del tráiler oficial de It's Never Over, Jeff Buckley" width="1280" height="720" loading="lazy">
+                  <button class="movie-trailer-link" type="button" data-trailer-id="yOFZdp58qOU" data-trailer-title="Infierno bajo cero · Tráiler oficial" aria-label="Reproducir el tráiler oficial de Infierno bajo cero aquí mismo">
+                    <img src="https://i.ytimg.com/vi/yOFZdp58qOU/maxresdefault.jpg" alt="Escena del tráiler oficial de Infierno bajo cero" width="1280" height="720" loading="lazy">
                     <span class="movie-play" aria-hidden="true">▶</span><span class="movie-trailer-label">Ver tráiler oficial</span>
-                  </a>
+                  </button>
                 </div>
                 <div class="movie-feature-body">
-                  <div class="movie-feature-meta"><span class="available">Disponible</span><span>Documental</span><span>2025</span></div>
-                  <h4>It’s Never Over, Jeff Buckley</h4>
-                  <p>Un retrato íntimo del artista, contado con material de archivo y las voces de quienes lo conocieron.</p>
-                  <div class="movie-feature-footer"><small>Tráiler oficial · Magnolia Pictures &amp; Magnet Releasing</small><a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20si%20It%27s%20Never%20Over%2C%20Jeff%20Buckley%20sigue%20disponible%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar disponibilidad ↗</a></div>
+                  <div class="movie-feature-meta"><span class="available">Disponible</span><span>Supervivencia</span><span>2026</span></div>
+                  <h4>Infierno bajo cero</h4>
+                  <p>Una lucha contrarreloj por sobrevivir al frío extremo, el aislamiento y un entorno que no perdona.</p>
+                  <div class="movie-feature-footer"><small>Tráiler en español · CineTrailer</small><a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20si%20Infierno%20bajo%20cero%20sigue%20disponible%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar disponibilidad ↗</a></div>
                 </div>
               </article>
             </div>
@@ -1125,11 +1169,37 @@
           <figure class="tv-device-image">
             <img src="assets/tv-digital-dispositivos.webp" alt="Servicio de TV Digital Netfull disponible en televisor, tableta y teléfono compatibles" width="1536" height="1024" loading="lazy">
           </figure>
+
+          <section class="tv-catalog-browser" data-tv-catalog hidden aria-live="polite" aria-labelledby="tv-browser-title">
+            <div class="tv-browser-head">
+              <div>
+                <p class="tv-browser-kicker" data-browser-kicker>Cartelera del servicio</p>
+                <h3 id="tv-browser-title" data-browser-title>Explora la cartelera.</h3>
+                <p data-browser-description>Selecciona un título y mira su adelanto oficial sin salir de Netfull.</p>
+              </div>
+              <div class="tv-browser-controls" aria-label="Mover cartelera">
+                <button class="tv-browser-control" type="button" data-browser-direction="-1" aria-label="Ver títulos anteriores">‹</button>
+                <button class="tv-browser-control" type="button" data-browser-direction="1" aria-label="Ver más títulos">›</button>
+              </div>
+            </div>
+            <div class="tv-title-rail" data-browser-rail></div>
+            <p class="tv-browser-note">Títulos observados en la cartelera del servicio y selección editorial vigente al 3 de agosto de 2026. La disponibilidad puede cambiar. Los adelantos pertenecen a sus distribuidores oficiales.</p>
+          </section>
         </div>
 
         <p class="tv-disclaimer">*La cantidad de señales, programación, catálogo, compatibilidad y disponibilidad pueden variar según el plan y las actualizaciones del servicio. Consulta condiciones vigentes antes de contratar.</p>
       </div>
     </section>
+
+    <dialog class="trailer-dialog" data-trailer-dialog aria-labelledby="trailer-dialog-title">
+      <div class="trailer-dialog-head">
+        <strong id="trailer-dialog-title" data-trailer-dialog-title>Tráiler oficial</strong>
+        <button class="trailer-dialog-close" type="button" data-trailer-close aria-label="Cerrar reproductor">×</button>
+      </div>
+      <div class="trailer-frame">
+        <iframe data-trailer-frame title="Reproductor de tráiler oficial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </dialog>
 
     <section class="section section-dark" id="beneficios">
       <div class="container experience-grid">
@@ -1371,14 +1441,161 @@
       }
     };
 
+    const tvCatalogData = {
+      cine: {
+        kicker: "Películas recién llegadas",
+        title: "Cine que ya puedes explorar.",
+        description: "Títulos observados en la cartelera actual del servicio, con adelantos oficiales reproducibles aquí mismo.",
+        items: [
+          { title: "Borderline", year: "2025", genre: "Suspenso", videoId: "ORHBgSvX_24", source: "Magnolia Pictures", description: "Una noche impredecible entre comedia negra, obsesión y peligro.", verified: true },
+          { title: "Infierno bajo cero", year: "2026", genre: "Supervivencia", videoId: "yOFZdp58qOU", source: "CineTrailer", description: "Frío extremo, aislamiento y una lucha contrarreloj por sobrevivir.", verified: true },
+          { title: "The Truthers", year: "2026", genre: "Misterio", videoId: "IvL0oT13djs", source: "Netflix", description: "Una muerte extraña y un hogar lleno de secretos ponen la verdad en duda.", verified: true }
+        ]
+      },
+      series: {
+        kicker: "Series y documentales",
+        title: "Historias que piden otro episodio.",
+        description: "Una selección actual con crimen, drama familiar y documentales que están dando de qué hablar.",
+        items: [
+          { title: "The Hunting Party", year: "T2", genre: "Crimen", videoId: "rBvIDSrO36c", source: "NBC", description: "Una unidad especial sigue la pista de peligrosos asesinos fugados.", verified: true },
+          { title: "El otro padre", year: "2026", genre: "Drama", videoId: "cAHSi8AXbCE", source: "Netflix", description: "Un trasplante urgente revela un secreto capaz de sacudir a dos familias.", verified: true },
+          { title: "El minuto heroico", year: "2025", genre: "Documental", videoId: "sTlUclZdC-g", source: "Max", description: "Trece mujeres relatan su experiencia y su ruptura con el Opus Dei.", verified: true }
+        ]
+      },
+      ninos: {
+        kicker: "Diversión para compartir",
+        title: "Aventuras para los más pequeños.",
+        description: "Personajes conocidos, historias familiares y adelantos oficiales pensados para ver juntos.",
+        items: [
+          { title: "Sofia the First: Royal Magic", year: "2026", genre: "Preescolar", videoId: "f-XXjTQk-SM", source: "Disney Jr.", description: "Sofia vuelve con nuevos amigos, escuela y mucha magia real.", verified: true },
+          { title: "Bluey's Big Play", year: "2026", genre: "Familiar", videoId: "iwK_4UNPZdk", source: "Disney Jr.", description: "Bluey, Bingo, Bandit y Chilli llevan su energía al escenario.", verified: true },
+          { title: "Dora: Reino de las Sirenas", year: "2025", genre: "Aventura", videoId: "kVVmyPSVu9o", source: "UIP Argentina", description: "Dora se sumerge en una nueva aventura mágica bajo el mar.", verified: true }
+        ]
+      },
+      anime: {
+        kicker: "Top 10 anime para descubrir",
+        title: "Diez mundos. Diez formas de engancharte.",
+        description: "Una mezcla de títulos vistos en la sección Anime del servicio y producciones destacadas del momento, todos con adelanto oficial.",
+        items: [
+          { title: "New Saga", year: "2025", genre: "Fantasía", videoId: "BaomnapVQ-0", source: "Crunchyroll", description: "Un espadachín vuelve al pasado para impedir una tragedia.", verified: true },
+          { title: "Tomb Raider King", year: "2026", genre: "Acción", videoId: "mWpO0oHNYJ4", source: "AnimeSelect", description: "Reliquias, tumbas y una segunda oportunidad para dominar el futuro.", verified: true },
+          { title: "Sentenced to Be a Hero", year: "2026", genre: "Fantasía oscura", videoId: "B5qZX2kh-7w", source: "Crunchyroll", description: "Aquí el heroísmo no es un honor: es una condena.", verified: true },
+          { title: "Me & Roboco", year: "2023", genre: "Comedia", videoId: "M0X4J1jpApw", source: "Crunchyroll", description: "La robot doméstica más fuerte y extraña rompe todos los planes.", verified: true },
+          { title: "Takopi's Original Sin", year: "2025", genre: "Drama", videoId: "j7dxZjwIhu0", source: "Crunchyroll", description: "Un visitante alegre descubre que la felicidad humana es complicada.", verified: true },
+          { title: "Solo Leveling", year: "2024", genre: "Acción", videoId: "YvGSK8mIlt8", source: "Crunchyroll", description: "El cazador más débil recibe un poder capaz de cambiarlo todo.", verified: false },
+          { title: "Gachiakuta", year: "2025", genre: "Acción", videoId: "3UkmWacjR7Q", source: "Crunchyroll", description: "Un joven arrojado al abismo convierte la basura en poder.", verified: false },
+          { title: "My Hero Academia: Final Season", year: "2025", genre: "Superhéroes", videoId: "BhbCkhJHe44", source: "IGN / Crunchyroll", description: "La batalla final lleva a héroes y villanos hasta el límite.", verified: false },
+          { title: "Witch Hat Atelier", year: "2026", genre: "Fantasía", videoId: "hMmBSCQs1H4", source: "Crunchyroll", description: "Coco descubre que la magia quizá no estaba tan lejos de ella.", verified: false },
+          { title: "Daemons of the Shadow Realm", year: "2026", genre: "Aventura", videoId: "0MuWL_UPoGU", source: "Crunchyroll", description: "Dos hermanos separados deben reclamar un poder sobrenatural.", verified: false }
+        ]
+      }
+    };
+
     const tvTabs = Array.from(document.querySelectorAll("[data-tv-key]"));
     const tvPanel = document.getElementById("tv-panel");
     const tvLabel = document.querySelector("[data-tv-label]");
     const tvTitle = document.querySelector("[data-tv-title]");
     const tvDescription = document.querySelector("[data-tv-description]");
     const tvList = document.querySelector("[data-tv-list]");
+    const tvCatalog = document.querySelector("[data-tv-catalog]");
+    const browserKicker = document.querySelector("[data-browser-kicker]");
+    const browserTitle = document.querySelector("[data-browser-title]");
+    const browserDescription = document.querySelector("[data-browser-description]");
+    const browserRail = document.querySelector("[data-browser-rail]");
+    const trailerDialog = document.querySelector("[data-trailer-dialog]");
+    const trailerFrame = document.querySelector("[data-trailer-frame]");
+    const trailerDialogTitle = document.querySelector("[data-trailer-dialog-title]");
 
-    function activateTvTab(tab, moveFocus = false) {
+    function openTrailer(videoId, title) {
+      if (!videoId || !trailerDialog || !trailerFrame) return;
+      trailerDialogTitle.textContent = title || "Tráiler oficial";
+      trailerFrame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0&modestbranding=1`;
+      if (typeof trailerDialog.showModal === "function") trailerDialog.showModal();
+    }
+
+    function closeTrailer() {
+      if (!trailerDialog || !trailerFrame) return;
+      trailerFrame.src = "about:blank";
+      if (trailerDialog.open) trailerDialog.close();
+    }
+
+    function createTitleCard(item, index, showRank) {
+      const card = document.createElement("article");
+      card.className = "tv-title-card";
+
+      const preview = document.createElement("button");
+      preview.className = "tv-title-preview";
+      preview.type = "button";
+      preview.setAttribute("aria-label", `Reproducir el adelanto oficial de ${item.title}`);
+      preview.addEventListener("click", () => openTrailer(item.videoId, `${item.title} · Adelanto oficial`));
+
+      const image = document.createElement("img");
+      image.src = `https://i.ytimg.com/vi/${item.videoId}/maxresdefault.jpg`;
+      image.alt = `Imagen del adelanto oficial de ${item.title}`;
+      image.width = 1280;
+      image.height = 720;
+      image.loading = "lazy";
+      image.addEventListener("error", () => {
+        image.src = `https://i.ytimg.com/vi/${item.videoId}/hqdefault.jpg`;
+      }, { once: true });
+      preview.append(image);
+
+      if (showRank) {
+        const rank = document.createElement("span");
+        rank.className = "tv-title-rank";
+        rank.textContent = String(index + 1).padStart(2, "0");
+        preview.append(rank);
+      }
+
+      const play = document.createElement("span");
+      play.className = "tv-title-play";
+      play.setAttribute("aria-hidden", "true");
+      play.textContent = "▶";
+      preview.append(play);
+
+      const body = document.createElement("div");
+      body.className = "tv-title-body";
+      const meta = document.createElement("div");
+      meta.className = "tv-title-meta";
+      const status = document.createElement("span");
+      status.className = item.verified ? "available" : "";
+      status.textContent = item.verified ? "En cartelera" : "Tendencia";
+      const genre = document.createElement("span");
+      genre.textContent = item.genre;
+      const year = document.createElement("span");
+      year.textContent = item.year;
+      meta.append(status, genre, year);
+      const heading = document.createElement("h4");
+      heading.textContent = item.title;
+      const description = document.createElement("p");
+      description.textContent = item.description;
+      const source = document.createElement("p");
+      source.textContent = `Adelanto oficial · ${item.source}`;
+      source.style.color = "#647f94";
+      body.append(meta, heading, description, source);
+      card.append(preview, body);
+      return card;
+    }
+
+    function renderTvCatalog(key, shouldScroll = false) {
+      const catalog = tvCatalogData[key];
+      if (!tvCatalog || !browserRail) return;
+      if (!catalog) {
+        tvCatalog.hidden = true;
+        browserRail.replaceChildren();
+        return;
+      }
+
+      tvCatalog.hidden = false;
+      browserKicker.textContent = catalog.kicker;
+      browserTitle.textContent = catalog.title;
+      browserDescription.textContent = catalog.description;
+      browserRail.replaceChildren(...catalog.items.map((item, index) => createTitleCard(item, index, key === "anime")));
+      browserRail.scrollLeft = 0;
+      if (shouldScroll) requestAnimationFrame(() => tvCatalog.scrollIntoView({ behavior: "smooth", block: "nearest" }));
+    }
+
+    function activateTvTab(tab, moveFocus = false, shouldScroll = false) {
       const content = tvContent[tab.dataset.tvKey];
       if (!content || !tvPanel) return;
 
@@ -1397,12 +1614,13 @@
         listItem.textContent = item;
         return listItem;
       }));
+      renderTvCatalog(tab.dataset.tvKey, shouldScroll);
 
       if (moveFocus) tab.focus();
     }
 
     tvTabs.forEach((tab, index) => {
-      tab.addEventListener("click", () => activateTvTab(tab));
+      tab.addEventListener("click", () => activateTvTab(tab, false, true));
       tab.addEventListener("keydown", (event) => {
         let nextIndex = null;
         if (event.key === "ArrowRight") nextIndex = (index + 1) % tvTabs.length;
@@ -1416,6 +1634,26 @@
     });
 
     if (tvTabs.length) activateTvTab(tvTabs[0]);
+
+    document.querySelectorAll("[data-trailer-id]").forEach((button) => {
+      button.addEventListener("click", () => openTrailer(button.dataset.trailerId, button.dataset.trailerTitle));
+    });
+
+    document.querySelector("[data-trailer-close]")?.addEventListener("click", closeTrailer);
+    trailerDialog?.addEventListener("click", (event) => {
+      if (event.target === trailerDialog) closeTrailer();
+    });
+    trailerDialog?.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeTrailer();
+    });
+
+    document.querySelectorAll("[data-browser-direction]").forEach((control) => {
+      control.addEventListener("click", () => {
+        const direction = Number(control.dataset.browserDirection) || 1;
+        browserRail?.scrollBy({ left: direction * Math.min(browserRail.clientWidth * .82, 760), behavior: "smooth" });
+      });
+    });
 
     document.querySelectorAll("[data-rail-target]").forEach((control) => {
       control.addEventListener("click", () => {
