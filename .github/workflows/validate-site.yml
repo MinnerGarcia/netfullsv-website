@@ -1,0 +1,30 @@
+name: Validate site
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Static security checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Validate website
+        run: node .github/scripts/validate-site.mjs
