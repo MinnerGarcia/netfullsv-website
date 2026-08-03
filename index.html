@@ -445,68 +445,82 @@
     .tv-included p { margin: 3px 0 0; color: #a8c4b8; font-size: .8rem; }
     .tv-included-label { border-radius: 999px; padding: 8px 12px; color: #dffff0; background: rgba(18, 170, 101, .2); font-size: .72rem; font-weight: 950; text-transform: uppercase; }
 
-    .tv-catalogs { display: grid; gap: 48px; margin: 52px 0 44px; }
+    .tv-catalogs { display: grid; gap: 58px; margin: 52px 0 44px; }
     .tv-catalog { min-width: 0; }
-    .tv-catalog-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 20px; }
+    .tv-catalog-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
     .tv-catalog-head .kicker { margin-bottom: 8px; }
     .tv-catalog-head h3 { margin: 0; color: var(--white); font-size: clamp(1.8rem, 3.4vw, 2.75rem); letter-spacing: -.035em; line-height: 1.05; }
-    .tv-catalog-head p:not(.kicker) { max-width: 580px; margin: 10px 0 0; color: #9fb5c8; font-size: .9rem; }
-    .rail-controls { display: flex; flex: 0 0 auto; gap: 8px; }
-    .rail-control {
-      display: grid;
-      width: 42px;
-      height: 42px;
-      place-items: center;
-      border: 1px solid rgba(255, 255, 255, .16);
-      border-radius: 50%;
-      color: var(--white);
-      background: rgba(255, 255, 255, .06);
-      font-size: 1.25rem;
-      cursor: pointer;
-      transition: color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease;
+    .tv-catalog-head p:not(.kicker) { max-width: 650px; margin: 10px 0 0; color: #9fb5c8; font-size: .9rem; }
+    .catalog-verified {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(53, 225, 142, .28);
+      border-radius: 999px;
+      padding: 9px 13px;
+      color: #dffff0;
+      background: rgba(18, 170, 101, .14);
+      font-size: .7rem;
+      font-weight: 900;
+      white-space: nowrap;
     }
-    .rail-control:hover { border-color: var(--cyan); color: #02182d; background: var(--cyan); transform: translateY(-1px); }
-    .tv-card-rail {
-      display: grid;
-      grid-auto-columns: minmax(250px, 1fr);
-      grid-auto-flow: column;
-      gap: 14px;
-      overflow-x: auto;
-      padding: 3px 3px 14px;
-      scroll-behavior: smooth;
-      scroll-snap-type: x mandatory;
-      scrollbar-color: rgba(32, 217, 255, .55) rgba(255, 255, 255, .06);
-      scrollbar-width: thin;
-    }
-    .tv-promo-card {
+    .catalog-verified::before { display: grid; width: 20px; height: 20px; place-items: center; border-radius: 50%; color: #042518; background: #35e18e; content: "✓"; }
+    .league-logo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .league-logo-card {
       position: relative;
-      min-height: 350px;
+      display: flex;
+      min-height: 258px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, .13);
+      flex-direction: column;
+      border: 1px solid rgba(126, 204, 255, .18);
       border-radius: 24px;
-      background: #071728;
-      box-shadow: 0 20px 48px rgba(0, 0, 0, .25);
-      scroll-snap-align: start;
-      isolation: isolate;
+      padding: 14px;
+      background: linear-gradient(155deg, rgba(15, 47, 76, .96), rgba(4, 20, 35, .98));
+      box-shadow: 0 20px 48px rgba(0, 0, 0, .24);
     }
-    .tv-promo-card > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform .55s ease; }
-    .tv-promo-card:hover > img { transform: scale(1.045); }
-    .tv-promo-card::after { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(2, 8, 17, .98) 0%, rgba(2, 8, 17, .76) 38%, transparent 72%); content: ""; }
-    .tv-promo-card::before { position: absolute; top: 15px; right: 15px; z-index: 2; border: 1px solid rgba(255, 255, 255, .18); border-radius: 999px; padding: 7px 9px; color: #e7fff3; background: rgba(15, 166, 91, .86); box-shadow: 0 8px 24px rgba(0, 0, 0, .22); backdrop-filter: blur(10px); font-size: .62rem; font-weight: 950; letter-spacing: .05em; content: "Incluido"; text-transform: uppercase; }
-    .tv-card-spain > img { object-position: 45% center; }
-    .tv-card-england > img { object-position: 35% center; }
-    .tv-card-france > img { object-position: 58% center; }
-    .tv-card-italy > img { object-position: 79% center; }
-    .tv-card-scifi > img { object-position: 31% center; }
-    .tv-card-action > img { object-position: 45% center; }
-    .tv-card-adventure > img { object-position: 59% center; }
-    .tv-card-family > img { object-position: 73% center; }
-    .tv-card-suspense > img { object-position: 88% center; }
-    .tv-promo-content { position: absolute; right: 0; bottom: 0; left: 0; padding: 24px 21px 22px; }
-    .tv-promo-tag { display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255, 255, 255, .16); border-radius: 999px; padding: 6px 9px; color: #dff8ff; background: rgba(3, 20, 35, .74); backdrop-filter: blur(12px); font-size: .66rem; font-weight: 900; text-transform: uppercase; }
-    .tv-promo-content h4 { margin: 12px 0 3px; color: var(--white); font-size: 1.28rem; letter-spacing: -.025em; }
-    .tv-promo-content p { margin: 0; color: #b3c6d6; font-size: .76rem; }
-    .tv-promo-link { display: inline-block; margin-top: 14px; color: var(--cyan); font-size: .76rem; font-weight: 900; text-decoration: none; }
+    .league-logo-card::after { position: absolute; inset: auto -20% -42% 20%; height: 170px; border-radius: 50%; background: radial-gradient(circle, rgba(32, 217, 255, .14), transparent 70%); content: ""; pointer-events: none; }
+    .league-logo-plate {
+      display: grid;
+      min-height: 126px;
+      place-items: center;
+      border-radius: 18px;
+      padding: 18px;
+      background: #fff;
+      box-shadow: inset 0 0 0 1px rgba(6, 41, 71, .08);
+    }
+    .league-logo-plate img { width: 100%; max-width: 180px; max-height: 88px; object-fit: contain; }
+    .league-logo-card.ligue-one .league-logo-plate { background: #06111c; }
+    .league-logo-card.serie-a .league-logo-plate { padding: 8px; }
+    .league-logo-card.serie-a .league-logo-plate img { max-height: 112px; }
+    .league-logo-card h4 { margin: 17px 4px 1px; color: var(--white); font-size: 1.03rem; letter-spacing: -.02em; }
+    .league-logo-card p { margin: 0 4px; color: #95adc0; font-size: .72rem; }
+    .league-logo-card a { position: relative; z-index: 1; display: inline-flex; width: fit-content; align-items: center; gap: 6px; margin: auto 4px 2px; padding-top: 13px; color: var(--cyan); font-size: .74rem; font-weight: 900; text-decoration: none; }
+    .movie-feature-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .movie-feature {
+      overflow: hidden;
+      border: 1px solid rgba(126, 204, 255, .2);
+      border-radius: 27px;
+      background: linear-gradient(155deg, rgba(12, 39, 64, .98), rgba(3, 17, 31, .99));
+      box-shadow: 0 24px 58px rgba(0, 0, 0, .28);
+    }
+    .movie-trailer { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #01070d; }
+    .movie-trailer-link { position: absolute; inset: 0; display: grid; place-items: center; color: var(--white); text-decoration: none; isolation: isolate; }
+    .movie-trailer-link::after { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(1, 7, 13, .74), rgba(1, 7, 13, .04) 65%); content: ""; }
+    .movie-trailer-link > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease, filter .45s ease; }
+    .movie-trailer-link:hover > img { transform: scale(1.035); filter: brightness(.88); }
+    .movie-play { display: grid; width: 68px; height: 68px; place-items: center; border: 1px solid rgba(255, 255, 255, .7); border-radius: 50%; background: rgba(8, 124, 255, .9); box-shadow: 0 15px 38px rgba(0, 0, 0, .38); font-size: 1.25rem; transition: transform .2s ease, background .2s ease; }
+    .movie-trailer-link:hover .movie-play { transform: scale(1.07); background: var(--blue-deep); }
+    .movie-trailer-label { position: absolute; right: 18px; bottom: 16px; left: 18px; font-size: .72rem; font-weight: 900; letter-spacing: .04em; text-align: center; text-transform: uppercase; }
+    .movie-feature-body { display: grid; gap: 13px; padding: 24px; }
+    .movie-feature-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .movie-feature-meta span { border: 1px solid rgba(255, 255, 255, .13); border-radius: 999px; padding: 6px 9px; color: #dff8ff; background: rgba(255, 255, 255, .055); font-size: .64rem; font-weight: 900; text-transform: uppercase; }
+    .movie-feature-meta .available { border-color: rgba(53, 225, 142, .3); color: #dffff0; background: rgba(18, 170, 101, .16); }
+    .movie-feature h4 { margin: 0; color: var(--white); font-size: clamp(1.3rem, 2.5vw, 1.85rem); letter-spacing: -.035em; line-height: 1.08; }
+    .movie-feature p { margin: 0; color: #a9bfd0; font-size: .82rem; }
+    .movie-feature-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 2px; }
+    .movie-feature-footer small { color: #6f899e; font-size: .66rem; }
+    .movie-feature-footer a { color: var(--cyan); font-size: .75rem; font-weight: 900; text-decoration: none; white-space: nowrap; }
     .tv-rights-note { margin: -14px 4px 38px; color: #718ba0; font-size: .72rem; text-align: center; }
     .tv-sports-hero {
       position: relative;
@@ -684,6 +698,7 @@
       .tv-intro { grid-template-columns: 1fr; }
       .tv-copy { max-width: 760px; }
       .tv-visual { max-width: 880px; }
+      .league-logo-grid { grid-template-columns: repeat(2, 1fr); }
       .tv-experience { grid-template-columns: 1fr; }
       .experience-grid { grid-template-columns: 1fr; gap: 58px; }
       .coverage-card { grid-template-columns: 1fr; }
@@ -728,8 +743,9 @@
       .tv-included { grid-template-columns: auto 1fr; }
       .tv-included-label { grid-column: 1 / -1; width: fit-content; margin-left: 58px; }
       .tv-catalogs { gap: 38px; margin-top: 36px; }
-      .tv-catalog-head { align-items: start; }
-      .tv-card-rail { grid-auto-columns: minmax(240px, 72vw); margin-right: -15px; }
+      .tv-catalog-head { display: grid; align-items: start; }
+      .catalog-verified { white-space: normal; }
+      .movie-feature-grid { grid-template-columns: 1fr; }
       .tv-sports-hero { min-height: 560px; border-radius: 25px; }
       .tv-sports-hero > img { object-position: 59% center; }
       .tv-sports-hero::after { background: linear-gradient(0deg, rgba(2, 10, 19, .99) 0%, rgba(2, 10, 19, .88) 48%, rgba(2, 10, 19, .12) 88%); }
@@ -766,9 +782,10 @@
       .tv-highlights { grid-template-columns: 1fr; }
       .tv-hero-image { border-radius: 24px; }
       .tv-live-badge { top: 12px; left: 12px; }
-      .tv-catalog-head { display: grid; }
-      .rail-controls { display: none; }
-      .tv-promo-card { min-height: 330px; }
+      .league-logo-grid { grid-template-columns: 1fr; }
+      .league-logo-card { min-height: 238px; }
+      .movie-feature-body { padding: 20px; }
+      .movie-feature-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
       .tv-sports-hero { min-height: 600px; }
       .tv-sports-copy { padding: 24px 20px; }
       .tv-sports-copy h3 { font-size: 2.45rem; }
@@ -1005,30 +1022,35 @@
             <div class="tv-catalog-head">
               <div>
                 <p class="kicker">Competencias destacadas</p>
-                <h3 id="football-catalog-title">El fútbol que mueve al mundo.</h3>
-                <p>Explora las competencias europeas y pregunta por la programación vigente.</p>
+                <h3 id="football-catalog-title">Cuatro ligas. Una sola pantalla.</h3>
+                <p>La programación disponible de España, Inglaterra, Francia e Italia forma parte del servicio de TV Digital, sin comprar cada liga por separado.</p>
               </div>
-              <div class="rail-controls" aria-label="Controles del carrusel de fútbol">
-                <button class="rail-control" type="button" data-rail-target="football-rail" data-rail-direction="-1" aria-label="Ver competencia anterior">‹</button>
-                <button class="rail-control" type="button" data-rail-target="football-rail" data-rail-direction="1" aria-label="Ver competencia siguiente">›</button>
-              </div>
+              <span class="catalog-verified">Incluidas en TV Digital</span>
             </div>
-            <div class="tv-card-rail" id="football-rail" tabindex="0">
-              <article class="tv-promo-card tv-card-spain">
-                <img src="assets/liga-espana.webp" alt="Fútbol de España" width="640" height="896" loading="lazy">
-                <div class="tv-promo-content"><span class="tv-promo-tag">🇪🇸 España</span><h4>LALIGA</h4><p>Pasión, clásicos y grandes jornadas.</p><a class="tv-promo-link" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20disponibilidad%20de%20LALIGA%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Ver disponibilidad ↗</a></div>
+            <div class="league-logo-grid" aria-label="Ligas disponibles en TV Digital Netfull">
+              <article class="league-logo-card">
+                <div class="league-logo-plate"><img src="assets/brands/laliga.png" alt="LALIGA" width="3009" height="1001" loading="lazy"></div>
+                <h4>Fútbol de España</h4>
+                <p>Clásicos, figuras y grandes jornadas.</p>
+                <a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20programaci%C3%B3n%20de%20LALIGA%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar programación ↗</a>
               </article>
-              <article class="tv-promo-card tv-card-england">
-                <img src="assets/liga-inglaterra.webp" alt="Fútbol de Inglaterra" width="640" height="896" loading="lazy">
-                <div class="tv-promo-content"><span class="tv-promo-tag">🏴 Inglaterra</span><h4>Premier League</h4><p>Ritmo, intensidad y figuras mundiales.</p><a class="tv-promo-link" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20disponibilidad%20de%20Premier%20League%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Ver disponibilidad ↗</a></div>
+              <article class="league-logo-card">
+                <div class="league-logo-plate"><img src="assets/brands/premier-league.png" alt="Premier League" width="2811" height="1536" loading="lazy"></div>
+                <h4>Fútbol de Inglaterra</h4>
+                <p>Ritmo, intensidad y figuras mundiales.</p>
+                <a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20programaci%C3%B3n%20de%20Premier%20League%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar programación ↗</a>
               </article>
-              <article class="tv-promo-card tv-card-france">
-                <img src="assets/liga-francia.webp" alt="Fútbol de Francia" width="640" height="896" loading="lazy">
-                <div class="tv-promo-content"><span class="tv-promo-tag">🇫🇷 Francia</span><h4>Ligue 1</h4><p>Talento joven y grandes protagonistas.</p><a class="tv-promo-link" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20disponibilidad%20de%20Ligue%201%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Ver disponibilidad ↗</a></div>
+              <article class="league-logo-card ligue-one">
+                <div class="league-logo-plate"><img src="assets/brands/ligue-1.webp" alt="Ligue 1 McDonald's" width="312" height="96" loading="lazy"></div>
+                <h4>Fútbol de Francia</h4>
+                <p>Talento joven y grandes protagonistas.</p>
+                <a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20programaci%C3%B3n%20de%20Ligue%201%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar programación ↗</a>
               </article>
-              <article class="tv-promo-card tv-card-italy">
-                <img src="assets/liga-italia.webp" alt="Fútbol de Italia" width="640" height="896" loading="lazy">
-                <div class="tv-promo-content"><span class="tv-promo-tag">🇮🇹 Italia</span><h4>Serie A</h4><p>Historia, táctica y rivalidades inolvidables.</p><a class="tv-promo-link" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20disponibilidad%20de%20Serie%20A%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Ver disponibilidad ↗</a></div>
+              <article class="league-logo-card serie-a">
+                <div class="league-logo-plate"><img src="assets/brands/serie-a.jpg" alt="Serie A Enilive" width="307" height="527" loading="lazy"></div>
+                <h4>Fútbol de Italia</h4>
+                <p>Historia, táctica y rivalidades inolvidables.</p>
+                <a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20programaci%C3%B3n%20de%20Serie%20A%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar programación ↗</a>
               </article>
             </div>
           </section>
@@ -1036,41 +1058,46 @@
           <section class="tv-catalog reveal" aria-labelledby="movie-catalog-title">
             <div class="tv-catalog-head">
               <div>
-                <p class="kicker">Cine para cada momento</p>
-                <h3 id="movie-catalog-title">Siempre hay algo para ver.</h3>
-                <p>Estrenos, películas populares y colecciones organizadas por género, incluidas sin costo adicional.</p>
+                <p class="kicker">Vistos en la cartelera del servicio</p>
+                <h3 id="movie-catalog-title">Dos historias para empezar.</h3>
+                <p>Seleccionamos dos títulos que aparecen actualmente en la plataforma. Mira sus tráilers oficiales y consulta la cartelera vigente.</p>
               </div>
-              <div class="rail-controls" aria-label="Controles del carrusel de películas">
-                <button class="rail-control" type="button" data-rail-target="movie-rail" data-rail-direction="-1" aria-label="Ver categoría anterior">‹</button>
-                <button class="rail-control" type="button" data-rail-target="movie-rail" data-rail-direction="1" aria-label="Ver categoría siguiente">›</button>
-              </div>
+              <span class="catalog-verified">Cartelera verificada · 3 ago 2026</span>
             </div>
-            <div class="tv-card-rail" id="movie-rail" tabindex="0">
-              <article class="tv-promo-card tv-card-scifi">
-                <img src="assets/cine-ciencia-ficcion.webp" alt="Colección de películas de ciencia ficción" width="640" height="896" loading="lazy">
-                <div class="tv-promo-content"><span class="tv-promo-tag">Ciencia ficción</span><h4>Futuros increíbles</h4><p>Viajes espaciales y mundos por descubrir.</p><a class="tv-promo-link" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20cat%C3%A1logo%20de%20pel%C3%ADculas%20de%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar catálogo ↗</a></div>
+            <div class="movie-feature-grid">
+              <article class="movie-feature">
+                <div class="movie-trailer">
+                  <a class="movie-trailer-link" href="https://www.youtube.com/watch?v=ORHBgSvX_24" target="_blank" rel="noopener noreferrer" aria-label="Ver el tráiler oficial de Borderline en YouTube">
+                    <img src="assets/cinema/borderline-trailer.jpg" alt="Escena del tráiler oficial de Borderline" width="1280" height="720" loading="lazy">
+                    <span class="movie-play" aria-hidden="true">▶</span><span class="movie-trailer-label">Ver tráiler oficial</span>
+                  </a>
+                </div>
+                <div class="movie-feature-body">
+                  <div class="movie-feature-meta"><span class="available">Disponible</span><span>Suspenso</span><span>2025</span></div>
+                  <h4>Borderline</h4>
+                  <p>Una comedia de suspenso impredecible protagonizada por Samara Weaving y Ray Nicholson.</p>
+                  <div class="movie-feature-footer"><small>Tráiler oficial · Magnolia Pictures &amp; Magnet Releasing</small><a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20si%20Borderline%20sigue%20disponible%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar disponibilidad ↗</a></div>
+                </div>
               </article>
-              <article class="tv-promo-card tv-card-action">
-                <img src="assets/cine-accion.webp" alt="Colección de películas de acción" width="640" height="896" loading="lazy">
-                <div class="tv-promo-content"><span class="tv-promo-tag">Acción</span><h4>Adrenalina sin pausa</h4><p>Persecuciones, misiones y emoción.</p><a class="tv-promo-link" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20cat%C3%A1logo%20de%20pel%C3%ADculas%20de%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar catálogo ↗</a></div>
-              </article>
-              <article class="tv-promo-card tv-card-adventure">
-                <img src="assets/cine-aventura.webp" alt="Colección de películas de aventura" width="640" height="896" loading="lazy">
-                <div class="tv-promo-content"><span class="tv-promo-tag">Aventura</span><h4>Mundos por descubrir</h4><p>Grandes paisajes e historias épicas.</p><a class="tv-promo-link" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20cat%C3%A1logo%20de%20pel%C3%ADculas%20de%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar catálogo ↗</a></div>
-              </article>
-              <article class="tv-promo-card tv-card-family">
-                <img src="assets/cine-familiar.webp" alt="Colección de películas para toda la familia" width="640" height="896" loading="lazy">
-                <div class="tv-promo-content"><span class="tv-promo-tag">Familiar</span><h4>Historias para compartir</h4><p>Animación, humor y diversión en familia.</p><a class="tv-promo-link" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20cat%C3%A1logo%20familiar%20de%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar catálogo ↗</a></div>
-              </article>
-              <article class="tv-promo-card tv-card-suspense">
-                <img src="assets/cine-suspenso.webp" alt="Colección de películas de suspenso" width="640" height="896" loading="lazy">
-                <div class="tv-promo-content"><span class="tv-promo-tag">Suspenso</span><h4>Misterios de medianoche</h4><p>Intriga y secretos hasta el final.</p><a class="tv-promo-link" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20cat%C3%A1logo%20de%20pel%C3%ADculas%20de%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar catálogo ↗</a></div>
+              <article class="movie-feature">
+                <div class="movie-trailer">
+                  <a class="movie-trailer-link" href="https://www.youtube.com/watch?v=DRrcgLRX8Qc" target="_blank" rel="noopener noreferrer" aria-label="Ver el tráiler oficial de It's Never Over, Jeff Buckley en YouTube">
+                    <img src="assets/cinema/jeff-buckley-trailer.jpg" alt="Escena del tráiler oficial de It's Never Over, Jeff Buckley" width="1280" height="720" loading="lazy">
+                    <span class="movie-play" aria-hidden="true">▶</span><span class="movie-trailer-label">Ver tráiler oficial</span>
+                  </a>
+                </div>
+                <div class="movie-feature-body">
+                  <div class="movie-feature-meta"><span class="available">Disponible</span><span>Documental</span><span>2025</span></div>
+                  <h4>It’s Never Over, Jeff Buckley</h4>
+                  <p>Un retrato íntimo del artista, contado con material de archivo y las voces de quienes lo conocieron.</p>
+                  <div class="movie-feature-footer"><small>Tráiler oficial · Magnolia Pictures &amp; Magnet Releasing</small><a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20si%20It%27s%20Never%20Over%2C%20Jeff%20Buckley%20sigue%20disponible%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar disponibilidad ↗</a></div>
+                </div>
               </article>
             </div>
           </section>
         </div>
 
-        <p class="tv-rights-note">La disponibilidad de ligas, partidos, películas y estrenos puede cambiar según la señal, la programación, la región, los derechos de transmisión y el plan contratado. Las marcas mencionadas pertenecen a sus respectivos titulares; no se declara afiliación ni patrocinio.</p>
+        <p class="tv-rights-note">Cartelera revisada el 3 de agosto de 2026. La disponibilidad de ligas, partidos, películas y estrenos puede cambiar según la señal, la programación, la región y los derechos de transmisión. El servicio de TV Digital es suministrado a Netfull bajo contrato comercial con su proveedor. Las marcas y tráilers pertenecen a sus respectivos titulares. © Copyright The Football Association Premier League Limited, 2016.</p>
 
         <div class="tv-experience reveal" id="tv-explorar">
           <div>
