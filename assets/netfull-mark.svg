@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
+  <title id="title">Símbolo de Netfull</title>
+  <desc id="description">Una letra N formada por conexiones dentro de un círculo azul.</desc>
+  <defs>
+    <linearGradient id="background" x1="112" y1="72" x2="410" y2="442" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#073a63"/>
+      <stop offset="0.55" stop-color="#041f39"/>
+      <stop offset="1" stop-color="#020f1f"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="92" y1="74" x2="430" y2="438" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#25e6ff"/>
+      <stop offset="0.48" stop-color="#0798ff"/>
+      <stop offset="1" stop-color="#1459ee"/>
+    </linearGradient>
+    <linearGradient id="connection" x1="170" y1="164" x2="344" y2="348" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#35efff"/>
+      <stop offset="0.58" stop-color="#0ca8ff"/>
+      <stop offset="1" stop-color="#2870ff"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="238" fill="url(#background)"/>
+  <circle cx="256" cy="256" r="226" fill="none" stroke="url(#ring)" stroke-width="24"/>
+
+  <path d="M166 348V164" fill="none" stroke="#f8fcff" stroke-linecap="round" stroke-width="46"/>
+  <path d="M346 348V164" fill="none" stroke="#f8fcff" stroke-linecap="round" stroke-width="46"/>
+  <path d="M166 164L346 348" fill="none" stroke="url(#connection)" stroke-linecap="round" stroke-width="48"/>
+
+  <circle cx="166" cy="164" r="25" fill="#25e6ff" stroke="#f8fcff" stroke-width="8"/>
+  <circle cx="256" cy="256" r="22" fill="#0798ff" stroke="#f8fcff" stroke-width="8"/>
+  <circle cx="346" cy="348" r="25" fill="#2870ff" stroke="#f8fcff" stroke-width="8"/>
+</svg>
