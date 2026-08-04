@@ -43,6 +43,41 @@ function attributes(tag) {
   return result;
 }
 
+function extractScriptBlocks(html, fileName) {
+  const blocks = [];
+  const lowerHtml = html.toLowerCase();
+  let cursor = 0;
+
+  while (cursor < html.length) {
+    const openStart = lowerHtml.indexOf("<script", cursor);
+    if (openStart === -1) break;
+    const openEnd = lowerHtml.indexOf(">", openStart + 7);
+    if (openEnd === -1) {
+      errors.push(`Malformed <script> opening tag in ${fileName}`);
+      break;
+    }
+
+    const closeStart = lowerHtml.indexOf("</script", openEnd + 1);
+    if (closeStart === -1) {
+      errors.push(`Missing </script> closing tag in ${fileName}`);
+      break;
+    }
+    const closeEnd = lowerHtml.indexOf(">", closeStart + 8);
+    if (closeEnd === -1) {
+      errors.push(`Malformed </script> closing tag in ${fileName}`);
+      break;
+    }
+
+    blocks.push({
+      attributes: html.slice(openStart + 7, openEnd),
+      source: html.slice(openEnd + 1, closeStart)
+    });
+    cursor = closeEnd + 1;
+  }
+
+  return blocks;
+}
+
 function validateBalancedMarkup(html, fileName) {
   const voidElements = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"]);
   const stack = [];
@@ -221,14 +256,13 @@ for (const jsPath of jsFiles) {
   }
 }
 
-const scriptPattern = /<script(?<attributes>[^>]*)>(?<source>[\s\S]*?)<\/script>/gi;
 let executableInlineScripts = 0;
 let jsonLdCount = 0;
 for (const htmlPath of htmlFiles) {
   const html = read(htmlPath);
-  for (const match of html.matchAll(scriptPattern)) {
-    const attrs = match.groups?.attributes ?? "";
-    const source = match.groups?.source ?? "";
+  for (const block of extractScriptBlocks(html, relative(htmlPath))) {
+    const attrs = block.attributes;
+    const source = block.source;
     if (/type="application\/ld\+json"/i.test(attrs)) {
       try {
         JSON.parse(source);
