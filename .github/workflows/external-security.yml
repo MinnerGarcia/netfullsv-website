@@ -1,0 +1,32 @@
+name: External security posture
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "17 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: external-security-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  external-security:
+    name: External DNS security
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Verify DNSSEC, CAA, mail routing and HTTPS
+        run: node .github/scripts/check-external-security.mjs
