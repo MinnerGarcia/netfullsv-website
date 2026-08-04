@@ -28,3 +28,6 @@ jobs:
 
       - name: Validate website
         run: node .github/scripts/validate-site.mjs
+
+      - name: Prove security checks reject unsafe changes
+        run: node .github/scripts/test-validator.mjs

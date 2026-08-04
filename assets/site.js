@@ -275,10 +275,20 @@ document.querySelectorAll("[data-rail-target]").forEach((control) => {
   });
 });
 
-document.querySelector("[data-coverage-form]").addEventListener("submit", (event) => {
+document.querySelector("[data-coverage-form]")?.addEventListener("submit", (event) => {
   event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  const message = `Hola, soy ${data.get("nombre")}. Quiero verificar cobertura de Netfull en ${data.get("ubicacion")}. Me interesa el plan ${data.get("plan")}.`;
+  const form = event.currentTarget;
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  const data = new FormData(form);
+  const plan = String(data.get("plan") ?? "").trim();
+  const consentAccepted = data.get("whatsappConsent") === "accepted";
+  if (!plan || !consentAccepted) return;
+
+  const message = `Hola, quiero verificar la cobertura de Netfull. Me interesa el plan ${plan}. Compartiré únicamente mi colonia o zona aproximada directamente en este chat.`;
   window.open(`https://wa.me/50379031293?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
 });
 

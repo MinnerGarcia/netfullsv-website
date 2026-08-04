@@ -398,7 +398,7 @@
           <div class="steps" aria-label="Proceso para contratar">
             <div class="step">
               <span class="step-number">01</span>
-              <div><h3>Escríbenos</h3><p>Comparte tu nombre y una referencia de tu ubicación.</p></div>
+              <div><h3>Escríbenos</h3><p>Indica el plan que te interesa y comparte tu zona directamente en WhatsApp.</p></div>
             </div>
             <div class="step">
               <span class="step-number">02</span>
@@ -466,7 +466,7 @@
         <div class="faq-list reveal">
           <details>
             <summary>¿Cómo sé si hay cobertura en mi casa?</summary>
-            <p>Envíanos por WhatsApp tu colonia, pasaje o un punto de referencia en Nuevo Lourdes. Revisaremos disponibilidad técnica antes de coordinar la instalación.</p>
+            <p>Envíanos por WhatsApp únicamente tu colonia o zona aproximada en Nuevo Lourdes. No necesitamos tu dirección exacta para la consulta inicial.</p>
           </details>
           <details>
             <summary>¿Qué plan me conviene?</summary>
@@ -474,7 +474,7 @@
           </details>
           <details>
             <summary>¿Cómo solicito la instalación?</summary>
-            <p>Escríbenos por WhatsApp, comparte tu ubicación y el plan que te interesa. Después de confirmar cobertura, te indicaremos disponibilidad y los siguientes pasos.</p>
+            <p>Escríbenos por WhatsApp, comparte tu colonia o zona aproximada y el plan que te interesa. Después de confirmar cobertura, te indicaremos disponibilidad y los siguientes pasos.</p>
           </details>
           <details>
             <summary>¿Qué equipo o condiciones incluye cada plan?</summary>
@@ -490,7 +490,7 @@
           </details>
           <details>
             <summary>¿Atienden fuera de Nuevo Lourdes?</summary>
-            <p>Nuestra cobertura principal está enfocada en Nuevo Lourdes. Puedes enviarnos tu ubicación exacta para consultar si existe disponibilidad en tu sector.</p>
+            <p>Nuestra cobertura principal está enfocada en Nuevo Lourdes. Comparte únicamente tu colonia o zona aproximada para consultar si existe disponibilidad en tu sector.</p>
           </details>
         </div>
       </div>
@@ -502,7 +502,7 @@
           <div class="contact-info">
             <p class="kicker">Hablemos</p>
             <h2>Tu nueva conexión empieza aquí.</h2>
-            <p>Completa los datos básicos y abriremos WhatsApp con tu solicitud lista para enviar.</p>
+            <p>Selecciona el plan que te interesa. No pedimos tu nombre ni dirección exacta en este sitio; podrás compartir tu zona aproximada directamente en WhatsApp.</p>
 
             <div class="contact-links">
               <a class="contact-link" href="https://wa.me/50379031293" target="_blank" rel="noopener noreferrer">
@@ -517,15 +517,11 @@
             </div>
           </div>
 
-          <form class="coverage-form" data-coverage-form>
+          <form class="coverage-form" data-coverage-form aria-describedby="coverage-privacy-summary">
             <h3>Verifica tu cobertura</h3>
-            <p>No es un registro: solo preparamos tu mensaje para WhatsApp.</p>
+            <p>No es un registro. Preparamos un mensaje sin datos personales para que continúes en WhatsApp.</p>
             <div class="form-grid">
-              <div class="field">
-                <label for="nombre">Nombre</label>
-                <input id="nombre" name="nombre" autocomplete="name" placeholder="¿Cómo te llamas?" required>
-              </div>
-              <div class="field">
+              <div class="field full">
                 <label for="plan">Plan de interés</label>
                 <select id="plan" name="plan" required>
                   <option value="" selected disabled>Selecciona una opción</option>
@@ -537,13 +533,13 @@
                   <option>Necesito recomendación</option>
                 </select>
               </div>
-              <div class="field full">
-                <label for="ubicacion">Colonia, pasaje o referencia</label>
-                <input id="ubicacion" name="ubicacion" autocomplete="street-address" placeholder="Ej.: colonia, pasaje y punto cercano" required>
-              </div>
+            </div>
+            <div class="consent-field">
+              <input id="whatsapp-consent" name="whatsappConsent" type="checkbox" value="accepted" required>
+              <label for="whatsapp-consent">Entiendo que, al continuar, saldré de este sitio y el mensaje preparado se abrirá en WhatsApp/Meta para atender mi consulta. He leído el <a href="privacidad.html">aviso de privacidad</a>.</label>
             </div>
             <button class="button button-whatsapp form-submit" type="submit">Continuar en WhatsApp <span class="arrow" aria-hidden="true">↗</span></button>
-            <p class="privacy-note">Tus datos no se guardan en esta página.</p>
+            <p class="privacy-note" id="coverage-privacy-summary">Netfull no recibe datos desde este formulario. En WhatsApp comparte solo tu colonia o zona aproximada, nunca contraseñas ni datos bancarios.</p>
           </form>
         </div>
       </div>
@@ -560,6 +556,7 @@
         <div>Internet de fibra óptica y TV Digital en Nuevo Lourdes</div>
         <div>© <span id="year"></span> Netfull. Todos los derechos reservados.</div>
         <a href="mailto:corporativo@netfullsv.com">corporativo@netfullsv.com</a>
+        <a href="privacidad.html">Aviso de privacidad</a>
       </div>
     </div>
   </footer>
