@@ -122,7 +122,8 @@ for (const match of html.matchAll(scriptPattern)) {
     try {
       JSON.parse(source);
       jsonLdCount += 1;
-      jsonLdHash = crypto.createHash("sha256").update(source, "utf8").digest("base64");
+      const browserNormalizedSource = source.replace(/\r\n/g, "\n");
+      jsonLdHash = crypto.createHash("sha256").update(browserNormalizedSource, "utf8").digest("base64");
     } catch (error) {
       errors.push(`Invalid JSON-LD: ${error.message}`);
     }
