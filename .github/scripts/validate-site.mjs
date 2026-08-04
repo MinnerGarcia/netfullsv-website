@@ -82,9 +82,8 @@ function validateBalancedMarkup(html, fileName) {
   const voidElements = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"]);
   const stack = [];
   const mismatches = [];
-  const source = html.replace(/<!--[\s\S]*?-->/g, "");
 
-  for (const match of source.matchAll(/<\/?([a-z][\w:-]*)\b[^>]*>/gi)) {
+  for (const match of html.matchAll(/<\/?([a-z][\w:-]*)\b[^>]*>/gi)) {
     const fullTag = match[0];
     const name = match[1].toLowerCase();
     if (fullTag.startsWith("</")) {
