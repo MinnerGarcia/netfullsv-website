@@ -23,6 +23,12 @@ const cases = [
     file: "index.html",
     mutate: (source) => source.replace("assets/favicon.png", "assets/missing-favicon.png"),
     expected: "Broken local reference"
+  },
+  {
+    name: "untrusted CAA policy",
+    file: path.join(".github", "scripts", "check-external-security.mjs"),
+    mutate: (source) => source.replaceAll("letsencrypt.org", "untrusted.example"),
+    expected: "CAA policy"
   }
 ];
 

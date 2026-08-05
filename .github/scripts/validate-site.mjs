@@ -122,13 +122,21 @@ const privacyPath = path.join(repositoryRoot, "privacidad.html");
 const cnamePath = path.join(repositoryRoot, "CNAME");
 const securityHeadersPath = path.join(repositoryRoot, ".github", "security-headers.json");
 const workflowPath = path.join(repositoryRoot, ".github", "workflows", "validate-site.yml");
+const externalWorkflowPath = path.join(repositoryRoot, ".github", "workflows", "external-security.yml");
+const externalCheckerPath = path.join(repositoryRoot, ".github", "scripts", "check-external-security.mjs");
+const allowedSignersPath = path.join(repositoryRoot, ".github", "allowed_signers");
+const securityControlsPath = path.join(repositoryRoot, ".github", "SECURITY-CONTROLS.md");
 
 for (const [filePath, label] of [
   [indexPath, "index.html"],
   [privacyPath, "privacidad.html"],
   [cnamePath, "CNAME"],
   [securityHeadersPath, "security header policy"],
-  [workflowPath, "validation workflow"]
+  [workflowPath, "validation workflow"],
+  [externalWorkflowPath, "external security workflow"],
+  [externalCheckerPath, "external security checker"],
+  [allowedSignersPath, "allowed signers file"],
+  [securityControlsPath, "security controls documentation"]
 ]) {
   check(fs.existsSync(filePath), `${label} exists`, `${label} is missing`);
 }
@@ -144,6 +152,10 @@ const siteJavaScript = read(path.join(repositoryRoot, "assets", "site.js"));
 const cname = read(cnamePath).trim();
 const securityHeaders = JSON.parse(read(securityHeadersPath));
 const workflow = read(workflowPath);
+const externalWorkflow = read(externalWorkflowPath);
+const externalChecker = read(externalCheckerPath);
+const allowedSigners = read(allowedSignersPath);
+const securityControls = read(securityControlsPath);
 
 check(cname === "netfullsv.com", "CNAME targets netfullsv.com", `Unexpected CNAME value: ${cname}`);
 check(htmlFiles.length >= 2, `${htmlFiles.length} HTML pages found`, "Expected the home and privacy pages");
@@ -297,15 +309,34 @@ for (const filePath of textFiles) {
 }
 check(potentialSecrets.length === 0, `${textFiles.length} text files scanned for secrets`, `Potential secrets found: ${potentialSecrets.join(", ")}`);
 
-for (const match of workflow.matchAll(/^\s*uses:\s*([^\s#]+)\s*(?:#.*)?$/gm)) {
-  const reference = match[1];
-  const version = reference.split("@")[1] ?? "";
-  check(reference.startsWith("./") || /^[0-9a-f]{40}$/i.test(version), `Action pinned: ${reference}`, `GitHub Action is not pinned to a full commit SHA: ${reference}`);
+for (const workflowSource of [workflow, externalWorkflow]) {
+  for (const match of workflowSource.matchAll(/^\s*uses:\s*([^\s#]+)\s*(?:#.*)?$/gm)) {
+    const reference = match[1];
+    const version = reference.split("@")[1] ?? "";
+    check(reference.startsWith("./") || /^[0-9a-f]{40}$/i.test(version), `Action pinned: ${reference}`, `GitHub Action is not pinned to a full commit SHA: ${reference}`);
+  }
 }
 check(/pull_request:[\s\S]*?branches:[\s\S]*?- main/m.test(workflow), "Validation runs on PRs to main", "Validation workflow must run on pull requests to main");
 check(/permissions:\s*\r?\n\s+contents:\s+read/m.test(workflow), "Workflow permissions are read-only", "Validation workflow permissions must be read-only");
 check(/timeout-minutes:\s*\d+/m.test(workflow), "Workflow has a timeout", "Validation workflow must define a timeout");
 check(workflow.includes("test-validator.mjs"), "Validator self-tests run in CI", "Validation workflow must run validator self-tests");
+
+check(/pull_request:[\s\S]*?branches:[\s\S]*?- main/m.test(externalWorkflow), "External checks run on PRs to main", "External security workflow must run on pull requests to main");
+check(/push:[\s\S]*?branches:[\s\S]*?- main/m.test(externalWorkflow), "External checks run after main updates", "External security workflow must run after updates to main");
+check(/schedule:\s*\r?\n\s+- cron:/m.test(externalWorkflow), "External checks run on a schedule", "External security workflow must define a schedule");
+check(/permissions:\s*\r?\n\s+contents:\s+read/m.test(externalWorkflow), "External workflow permissions are read-only", "External security workflow permissions must be read-only");
+check(/timeout-minutes:\s*\d+/m.test(externalWorkflow), "External workflow has a timeout", "External security workflow must define a timeout");
+check(externalWorkflow.includes("check-external-security.mjs"), "External checker runs in CI", "External security workflow must run check-external-security.mjs");
+check(externalWorkflow.includes("name: External DNS security"), "External check has a stable required status name", "External security workflow job must be named External DNS security");
+check(externalChecker.includes('const domain = "netfullsv.com"'), "External checker targets the production domain", "External checker must target netfullsv.com");
+check(externalChecker.includes('digest: "E4F2FC239CD6793839C23EE1EC99A0481CD32EDB1583D74BB1FB97767A22C3F0"'), "External checker pins the active DS", "External checker must pin the active DNSSEC DS digest");
+const configuredCertificateAuthority = externalChecker.match(/^const expectedCertificateAuthority = "([^"\r\n]+)";$/m)?.[1];
+check(configuredCertificateAuthority === "letsencrypt.org", "External checker validates the exact CAA policy", "External checker must validate the exact letsencrypt.org CAA policy");
+check(externalChecker.includes("dns.google/resolve") && externalChecker.includes("cloudflare-dns.com/dns-query"), "External checker uses two independent DNS paths", "External checker must query Google and Cloudflare DNS");
+check(/^MinnerGarcia@users\.noreply\.github\.com ssh-ed25519 [A-Za-z0-9+/=]+\s*$/m.test(allowedSigners), "Allowed signer is a public SSH key", "Allowed signers file must contain the GitHub identity and a public Ed25519 key");
+check(!/PRIVATE KEY/.test(allowedSigners), "Allowed signers file contains no private key", "A private key must never be committed");
+check(securityControls.includes("required_signatures"), "Required-signature control is documented", "Security controls must document required_signatures");
+check(securityControls.includes("DNSSEC") && securityControls.includes("CAA"), "DNSSEC and CAA operations are documented", "Security controls must document DNSSEC and CAA");
 
 const consentTag = indexHtml.match(/<input\b[^>]*\bid="whatsapp-consent"[^>]*>/i)?.[0] ?? "";
 check(/\btype="checkbox"/i.test(consentTag) && /\brequired\b/i.test(consentTag), "WhatsApp consent is an explicit required checkbox", "WhatsApp consent checkbox is missing or is not required");
