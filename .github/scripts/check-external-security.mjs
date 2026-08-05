@@ -1,4 +1,5 @@
 const domain = "netfullsv.com";
+const expectedCertificateAuthority = "letsencrypt.org";
 const expectedDs = {
   keyTag: "2371",
   algorithm: "13",
@@ -59,6 +60,11 @@ function normalizeDs(value) {
   return fields.join(" ");
 }
 
+function caaAllowsAuthority(value, authority) {
+  const record = /^(\d+)\s+(issue|issuewild)\s+"([^"]+)"$/.exec(value);
+  return record?.[1] === "0" && record[2] === "issue" && record[3] === authority;
+}
+
 async function query(provider, type) {
   const response = await fetch(provider.url(type), {
     headers: provider.headers,
@@ -93,9 +99,9 @@ async function validateDns(provider) {
 
   const caaRecords = answers(caa, 257).map(decodeCaa);
   check(
-    caaRecords.some((value) => /^0\s+issue\s+"?letsencrypt\.org"?$/.test(value)),
+    caaRecords.some((value) => caaAllowsAuthority(value, expectedCertificateAuthority)),
     `${provider.name}: CAA authorizes Let's Encrypt`,
-    `${provider.name}: required CAA authorization for letsencrypt.org is missing`
+    `${provider.name}: required CAA authorization for ${expectedCertificateAuthority} is missing`
   );
 
   const expectedDsText = `${expectedDs.keyTag} ${expectedDs.algorithm} ${expectedDs.digestType} ${expectedDs.digest}`;

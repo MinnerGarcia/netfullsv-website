@@ -330,7 +330,8 @@ check(externalWorkflow.includes("check-external-security.mjs"), "External checke
 check(externalWorkflow.includes("name: External DNS security"), "External check has a stable required status name", "External security workflow job must be named External DNS security");
 check(externalChecker.includes('const domain = "netfullsv.com"'), "External checker targets the production domain", "External checker must target netfullsv.com");
 check(externalChecker.includes('digest: "E4F2FC239CD6793839C23EE1EC99A0481CD32EDB1583D74BB1FB97767A22C3F0"'), "External checker pins the active DS", "External checker must pin the active DNSSEC DS digest");
-check(externalChecker.includes("letsencrypt.org"), "External checker validates the CAA policy", "External checker must validate the letsencrypt.org CAA policy");
+const configuredCertificateAuthority = externalChecker.match(/^const expectedCertificateAuthority = "([^"\r\n]+)";$/m)?.[1];
+check(configuredCertificateAuthority === "letsencrypt.org", "External checker validates the exact CAA policy", "External checker must validate the exact letsencrypt.org CAA policy");
 check(externalChecker.includes("dns.google/resolve") && externalChecker.includes("cloudflare-dns.com/dns-query"), "External checker uses two independent DNS paths", "External checker must query Google and Cloudflare DNS");
 check(/^MinnerGarcia@users\.noreply\.github\.com ssh-ed25519 [A-Za-z0-9+/=]+\s*$/m.test(allowedSigners), "Allowed signer is a public SSH key", "Allowed signers file must contain the GitHub identity and a public Ed25519 key");
 check(!/PRIVATE KEY/.test(allowedSigners), "Allowed signers file contains no private key", "A private key must never be committed");
