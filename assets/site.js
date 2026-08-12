@@ -18,6 +18,171 @@ menuButton.addEventListener("click", () => {
 
 navigation.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
 
+const audienceLabels = {
+  residencial: "Hogar · Internet y TV Digital",
+  empresarial: "Negocio o empresa · Conectividad empresarial",
+  comparativa: "Comparación · Residencial y empresarial",
+  all: "Información general"
+};
+
+const audienceChoices = document.querySelectorAll("[data-audience-choice]");
+const audienceName = document.querySelector("[data-audience-name]");
+const audienceReset = document.querySelector("[data-audience-reset]");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+function setAudience(audience) {
+  document.body.dataset.audience = audience;
+  if (audienceName) audienceName.textContent = audienceLabels[audience] ?? audienceLabels.all;
+
+  audienceChoices.forEach((choice) => {
+    const isCurrent = choice.dataset.audienceChoice === audience;
+    if (isCurrent) choice.setAttribute("aria-current", "true");
+    else choice.removeAttribute("aria-current");
+  });
+}
+
+function showAudience(audience, targetId) {
+  setAudience(audience);
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  if (window.location.hash !== `#${targetId}`) {
+    window.history.pushState(null, "", `#${targetId}`);
+  }
+
+  window.requestAnimationFrame(() => {
+    target.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "start" });
+  });
+}
+
+audienceChoices.forEach((choice) => {
+  choice.addEventListener("click", (event) => {
+    event.preventDefault();
+    showAudience(choice.dataset.audienceChoice, choice.dataset.audienceTarget);
+  });
+});
+
+document.querySelectorAll("[data-audience-link]").forEach((link) => {
+  link.addEventListener("click", () => {
+    const requestedAudience = link.dataset.audienceLink;
+    if (requestedAudience === "all" && document.body.dataset.audience !== "chooser") return;
+    setAudience(requestedAudience);
+  });
+});
+
+audienceReset?.addEventListener("click", () => {
+  setAudience("chooser");
+  if (window.location.hash !== "#inicio") window.history.pushState(null, "", "#inicio");
+  document.getElementById("inicio")?.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "start" });
+});
+
+const initialAudienceByHash = {
+  "#planes": "residencial",
+  "#tv-digital": "residencial",
+  "#empresas": "empresarial",
+  "#diagnostico-empresarial": "empresarial",
+  "#comparativa": "comparativa",
+  "#beneficios": "all",
+  "#cobertura": "all",
+  "#preguntas": "all",
+  "#contacto": "all"
+};
+
+setAudience(initialAudienceByHash[window.location.hash] ?? "chooser");
+window.addEventListener("popstate", () => setAudience(initialAudienceByHash[window.location.hash] ?? "chooser"));
+
+const assessment = document.querySelector("[data-assessment]");
+
+if (assessment) {
+  const assessmentKeys = ["impact", "applications", "commitments"];
+  const assessmentLevels = ["Bajo", "Medio", "Alto"];
+  const assessmentProgress = assessment.querySelector("[data-assessment-progress]");
+  const assessmentDonut = assessment.querySelector("[data-assessment-donut]");
+  const assessmentPercent = assessment.querySelector("[data-assessment-percent]");
+  const assessmentLine = assessment.querySelector("[data-assessment-line]");
+  const assessmentLineArea = assessment.querySelector("[data-assessment-line-area]");
+  const assessmentLinePoint = assessment.querySelector("[data-assessment-line-point]");
+  const assessmentResult = assessment.querySelector("[data-assessment-result]");
+  const resultKicker = assessment.querySelector("[data-assessment-result-kicker]");
+  const resultTitle = assessment.querySelector("[data-assessment-result-title]");
+  const resultCopy = assessment.querySelector("[data-assessment-result-copy]");
+  const resultCta = assessment.querySelector("[data-assessment-cta]");
+  const resultCtaLabel = assessment.querySelector("[data-assessment-cta-label]");
+
+  function updateAssessment() {
+    const answers = {};
+
+    assessmentKeys.forEach((key) => {
+      const selected = assessment.querySelector(`[data-assessment-question="${key}"] input:checked`);
+      const value = selected ? Number(selected.value) : null;
+      answers[key] = value;
+
+      const bar = assessment.querySelector(`[data-assessment-bar="${key}"]`);
+      const barLabel = assessment.querySelector(`[data-bar-label="${key}"]`);
+      const barTrack = bar?.parentElement;
+      if (bar) bar.dataset.level = String(value ?? 0);
+      if (barLabel) barLabel.textContent = value === null ? "Sin evaluar" : assessmentLevels[value];
+      if (barTrack) barTrack.setAttribute("aria-valuenow", String(value ?? 0));
+    });
+
+    const answered = Object.values(answers).filter((value) => value !== null).length;
+    const score = Object.values(answers).reduce((total, value) => total + (value ?? 0), 0);
+    const percent = answered === 0 ? 0 : Math.round(15 + ((score / 6) * 85));
+    assessmentProgress.textContent = `${answered} de 3 ${answered === 1 ? "respuesta" : "respuestas"}`;
+    assessmentDonut.dataset.score = String(score);
+    assessmentDonut.dataset.started = String(answered > 0);
+    assessmentDonut.setAttribute("aria-label", answered === 3 ? `Dependencia operativa orientativa de ${percent} por ciento` : `Diagnóstico en progreso: ${answered} de 3 respuestas`);
+    assessmentPercent.textContent = `${percent}%`;
+
+    const lineY2 = 108 - (score * 4);
+    const lineY3 = 106 - (score * 9);
+    const lineY4 = 102 - (score * 14);
+    assessmentLine.setAttribute("points", `20,112 120,${lineY2} 220,${lineY3} 340,${lineY4}`);
+    assessmentLineArea.setAttribute("points", `20,112 120,${lineY2} 220,${lineY3} 340,${lineY4} 340,130 20,130`);
+    assessmentLinePoint.setAttribute("cy", String(lineY4));
+
+    if (answered < 3) {
+      assessmentResult.dataset.profile = "pending";
+      resultKicker.textContent = "Resultado pendiente";
+      resultTitle.textContent = answered === 0 ? "Completa las tres preguntas." : `Solo ${3 - answered} ${3 - answered === 1 ? "respuesta más" : "respuestas más"}.`;
+      resultCopy.textContent = "La recomendación aparecerá aquí conforme nos indiques qué tanto depende tu actividad de internet.";
+      return;
+    }
+
+    if (score <= 2) {
+      assessmentResult.dataset.profile = "home";
+      resultKicker.textContent = "Perfil de uso general";
+      resultTitle.textContent = "Tu necesidad se acerca a un servicio residencial.";
+      resultCopy.textContent = "Tus respuestas priorizan conectividad cotidiana, facilidad y costo. Puedes comenzar comparando los planes para el hogar.";
+      resultCta.href = "#planes";
+      resultCta.dataset.audienceChoice = "residencial";
+      resultCta.dataset.audienceTarget = "planes";
+      resultCtaLabel.textContent = "Ver planes residenciales";
+    } else if (score <= 4) {
+      assessmentResult.dataset.profile = "hybrid";
+      resultKicker.textContent = "Perfil intermedio";
+      resultTitle.textContent = "Conviene revisar una solución con mayor continuidad.";
+      resultCopy.textContent = "Existe dependencia operativa, pero el diseño final puede ser residencial, dedicado o híbrido. Un diagnóstico breve evitará pagar de más o quedar corto.";
+      resultCta.href = "#diagnostico-empresarial";
+      resultCta.dataset.audienceChoice = "empresarial";
+      resultCta.dataset.audienceTarget = "diagnostico-empresarial";
+      resultCtaLabel.textContent = "Revisar opciones empresariales";
+    } else {
+      assessmentResult.dataset.profile = "business";
+      resultKicker.textContent = "Perfil de operación crítica";
+      resultTitle.textContent = "Tu operación merece un diagnóstico empresarial.";
+      resultCopy.textContent = "Tus respuestas indican que una interrupción puede afectar procesos importantes. Debemos revisar capacidad, soporte, respaldo y alcance antes de cotizar.";
+      resultCta.href = "#diagnostico-empresarial";
+      resultCta.dataset.audienceChoice = "empresarial";
+      resultCta.dataset.audienceTarget = "diagnostico-empresarial";
+      resultCtaLabel.textContent = "Solicitar diagnóstico";
+    }
+  }
+
+  assessment.querySelectorAll("input[type='radio']").forEach((input) => input.addEventListener("change", updateAssessment));
+  updateAssessment();
+}
+
 const tvContent = {
   vivo: {
     label: "Televisión en vivo",
@@ -288,7 +453,10 @@ document.querySelector("[data-coverage-form]")?.addEventListener("submit", (even
   const consentAccepted = data.get("whatsappConsent") === "accepted";
   if (!plan || !consentAccepted) return;
 
-  const message = `Hola, quiero verificar la cobertura de Netfull. Me interesa el plan ${plan}. Compartiré únicamente mi colonia o zona aproximada directamente en este chat.`;
+  const isBusiness = /empresarial|dedicado|híbrida/i.test(plan);
+  const message = isBusiness
+    ? `Hola, quiero solicitar un diagnóstico inicial de conectividad con Netfull. Me interesa: ${plan}. Compartiré únicamente mi colonia o zona aproximada y una descripción general de mi operación directamente en este chat.`
+    : `Hola, quiero verificar la cobertura de Netfull. Me interesa el plan ${plan}. Compartiré únicamente mi colonia o zona aproximada directamente en este chat.`;
   window.open(`https://wa.me/50379031293?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
 });
 
