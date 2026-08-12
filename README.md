@@ -17,3 +17,7 @@ Sitio oficial de Netfull en Nuevo Lourdes, Colón, La Libertad, orientado a clie
 El catálogo, la cantidad de señales y la compatibilidad de dispositivos pueden variar según el plan y las actualizaciones de la plataforma.
 
 Los atributos empresariales —capacidad, SLA, simetría, soporte, IP, monitoreo, respaldo y tiempos de atención— dependen de la propuesta y el contrato aplicables.
+
+## Publicación segura de recursos
+
+Las referencias a `site.css`, `site.js` y `site-init.js` incluyen una versión derivada del contenido. El validador del repositorio comprueba esos valores en cada cambio para impedir que un HTML nuevo se publique junto con CSS o JavaScript anterior almacenado en caché.
