@@ -35,6 +35,11 @@ function read(filePath) {
   return fs.readFileSync(filePath, "utf8");
 }
 
+function contentVersion(filePath) {
+  const source = read(filePath).replace(/\r\n/g, "\n");
+  return crypto.createHash("sha256").update(source, "utf8").digest("hex").slice(0, 12);
+}
+
 function attributes(tag) {
   const result = new Map();
   for (const match of tag.matchAll(/([:\w-]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g)) {
@@ -156,6 +161,20 @@ const externalWorkflow = read(externalWorkflowPath);
 const externalChecker = read(externalCheckerPath);
 const allowedSigners = read(allowedSignersPath);
 const securityControls = read(securityControlsPath);
+
+for (const [html, page, asset] of [
+  [indexHtml, "index.html", "assets/site-init.js"],
+  [indexHtml, "index.html", "assets/site.css"],
+  [indexHtml, "index.html", "assets/site.js"],
+  [privacyHtml, "privacidad.html", "assets/site.css"]
+]) {
+  const version = contentVersion(path.join(repositoryRoot, ...asset.split("/")));
+  check(
+    html.includes(`${asset}?v=${version}`),
+    `${asset} is content-versioned in ${page}`,
+    `${asset} must use its current content hash (?v=${version}) in ${page} to prevent mixed deployments`
+  );
+}
 
 check(cname === "netfullsv.com", "CNAME targets netfullsv.com", `Unexpected CNAME value: ${cname}`);
 check(htmlFiles.length >= 2, `${htmlFiles.length} HTML pages found`, "Expected the home and privacy pages");
