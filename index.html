@@ -30,7 +30,7 @@
 
   <script src="assets/site-init.js?v=07e9e867f8ac"></script>
 
-  <link rel="stylesheet" href="assets/site.css?v=391d8737dc9e">
+  <link rel="stylesheet" href="assets/site.css?v=8307bd4a9f2d">
 
   <script type="application/ld+json">
   {
@@ -479,56 +479,47 @@
           <span class="tv-included-label">Sin costo extra</span>
         </div>
 
-        <article class="tv-sports-hero reveal" aria-label="Fútbol internacional en TV Digital Netfull">
-          <img src="assets/tv-futbol-europeo.webp" alt="Jugadores disputando un partido de fútbol europeo en un estadio iluminado" width="1536" height="1024" loading="lazy">
-          <span class="tv-plan-badge">Incluido en tu plan</span>
+        <article class="tv-sports-hero reveal" aria-labelledby="tv-football-title">
+          <img src="assets/tv-futbol-internacional-generico.webp" alt="Escena ficticia de fútbol internacional en un estadio genérico iluminado" width="1536" height="1024" loading="lazy">
+          <span class="tv-plan-badge">Deportes en Netfull TV</span>
           <div class="tv-sports-copy">
-            <p class="kicker">Todo el fútbol, una sola experiencia</p>
-            <h3>Todo el fútbol. Sin pagos extra.</h3>
-            <p>Disfruta la programación disponible de las ligas más seguidas de España, Inglaterra, Francia e Italia dentro de tu plan de TV Digital.</p>
-            <div class="tv-sports-leagues" aria-label="Ligas destacadas">
-              <span>🇪🇸 LALIGA</span><span>🏴 Premier League</span><span>🇫🇷 Ligue 1</span><span>🇮🇹 Serie A</span>
-            </div>
-            <a class="button button-primary" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20programaci%C3%B3n%20deportiva%20y%20las%20ligas%20disponibles%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar programación <span class="arrow" aria-hidden="true">↗</span></a>
+            <p class="kicker">Vive la pasión del fútbol</p>
+            <h3 id="tv-football-title">Grandes partidos. Una sola experiencia.</h3>
+            <p>Disfruta canales deportivos, grandes encuentros y fútbol internacional con Netfull TV.</p>
+            <a class="button button-primary" href="#tv-explorar">Explorar TV Digital <span class="arrow" aria-hidden="true">↓</span></a>
           </div>
         </article>
 
         <div class="tv-catalogs">
-          <section class="tv-catalog reveal" aria-labelledby="football-catalog-title">
-            <div class="tv-catalog-head">
-              <div>
-                <p class="kicker">Competencias destacadas</p>
-                <h3 id="football-catalog-title">Cuatro ligas. Una sola pantalla.</h3>
-                <p>La programación disponible de España, Inglaterra, Francia e Italia forma parte del servicio de TV Digital, sin comprar cada liga por separado.</p>
-              </div>
-              <span class="catalog-verified">Incluidas en TV Digital</span>
+          <section class="tv-football-regions reveal" aria-labelledby="football-regions-title">
+            <div class="tv-football-regions-copy">
+              <p class="kicker">Fútbol sin fronteras</p>
+              <h3 id="football-regions-title">De Madrid a Manchester.<br>De Milán a París.</h3>
+              <p>El fútbol internacional también se vive en Netfull TV.</p>
             </div>
-            <div class="league-logo-grid" aria-label="Ligas disponibles en TV Digital Netfull">
-              <article class="league-logo-card">
-                <div class="league-logo-plate"><img src="assets/brands/laliga.png" alt="LALIGA" width="3009" height="1001" loading="lazy"></div>
-                <h4>Fútbol de España</h4>
-                <p>Clásicos, figuras y grandes jornadas.</p>
-                <a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20programaci%C3%B3n%20de%20LALIGA%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar programación ↗</a>
+            <div class="football-region-grid" aria-label="Mercados de fútbol internacional disponibles según programación">
+              <article class="football-region-card">
+                <span class="football-region-code">ES</span>
+                <div><strong>España</strong><small>Fútbol español</small></div>
               </article>
-              <article class="league-logo-card">
-                <div class="league-logo-plate"><img src="assets/brands/premier-league.png" alt="Premier League" width="2811" height="1536" loading="lazy"></div>
-                <h4>Fútbol de Inglaterra</h4>
-                <p>Ritmo, intensidad y figuras mundiales.</p>
-                <a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20programaci%C3%B3n%20de%20Premier%20League%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar programación ↗</a>
+              <article class="football-region-card">
+                <span class="football-region-code">EN</span>
+                <div><strong>Inglaterra</strong><small>Fútbol inglés</small></div>
               </article>
-              <article class="league-logo-card ligue-one">
-                <div class="league-logo-plate"><img src="assets/brands/ligue-1.webp" alt="Ligue 1 McDonald's" width="312" height="96" loading="lazy"></div>
-                <h4>Fútbol de Francia</h4>
-                <p>Talento joven y grandes protagonistas.</p>
-                <a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20programaci%C3%B3n%20de%20Ligue%201%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar programación ↗</a>
+              <article class="football-region-card">
+                <span class="football-region-code">IT</span>
+                <div><strong>Italia</strong><small>Fútbol italiano</small></div>
               </article>
-              <article class="league-logo-card serie-a">
-                <div class="league-logo-plate"><img src="assets/brands/serie-a.jpg" alt="Serie A Enilive" width="307" height="527" loading="lazy"></div>
-                <h4>Fútbol de Italia</h4>
-                <p>Historia, táctica y rivalidades inolvidables.</p>
-                <a href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20programaci%C3%B3n%20de%20Serie%20A%20en%20TV%20Digital%20Netfull." target="_blank" rel="noopener noreferrer">Consultar programación ↗</a>
+              <article class="football-region-card">
+                <span class="football-region-code">FR</span>
+                <div><strong>Francia</strong><small>Fútbol francés</small></div>
               </article>
             </div>
+            <div class="tv-football-regions-action">
+              <p>Consulta los canales, eventos y horarios disponibles al momento de contratar.</p>
+              <a class="button button-primary" href="https://wa.me/50379031293?text=Hola%2C%20quiero%20consultar%20la%20programaci%C3%B3n%20deportiva%20internacional%20disponible%20en%20Netfull%20TV." target="_blank" rel="noopener noreferrer">Consultar programación <span class="arrow" aria-hidden="true">↗</span></a>
+            </div>
+            <p class="tv-sports-disclaimer">La disponibilidad de canales, eventos y programación puede variar según los proveedores de contenido y los derechos de transmisión aplicables.</p>
           </section>
 
           <section class="tv-catalog reveal" aria-labelledby="movie-catalog-title">
@@ -573,7 +564,7 @@
           </section>
         </div>
 
-        <p class="tv-rights-note">Cartelera revisada el 3 de agosto de 2026. La disponibilidad de ligas, partidos, películas y estrenos puede cambiar según la señal, la programación, la región y los derechos de transmisión. El servicio de TV Digital es suministrado a Netfull bajo contrato comercial con su proveedor. Las marcas y tráilers pertenecen a sus respectivos titulares. © Copyright The Football Association Premier League Limited, 2016.</p>
+        <p class="tv-rights-note">Cartelera revisada el 3 de agosto de 2026. La disponibilidad de canales, eventos, películas y estrenos puede cambiar según la señal, la programación, la región y los derechos de transmisión. El servicio de TV Digital es suministrado a Netfull bajo contrato comercial con su proveedor. Las marcas y tráilers pertenecen a sus respectivos titulares.</p>
 
         <div class="tv-experience reveal" id="tv-explorar">
           <div>
@@ -825,6 +816,6 @@
     <span>WA</span><strong>Escríbenos</strong>
   </a>
 
-  <script src="assets/site.js?v=07678c0c8de3"></script>
+  <script src="assets/site.js?v=c58b7a96c71b"></script>
 </body>
 </html>

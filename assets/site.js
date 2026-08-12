@@ -193,8 +193,8 @@ const tvContent = {
   deportes: {
     label: "Deportes y eventos",
     title: "La emoción también se vive en casa.",
-    description: "Consulta eventos por fecha, país o competencia y encuentra programación de fútbol europeo y transmisiones especiales, sin pagos adicionales por cada liga.",
-    items: ["Ligas destacadas de España, Inglaterra, Francia e Italia", "Agenda de eventos por fecha y competencia", "Contenido disponible incluido en tu plan de TV Digital"]
+    description: "Consulta eventos por fecha, país o competencia y encuentra programación de fútbol internacional y transmisiones deportivas especiales.",
+    items: ["Fútbol español, inglés, italiano y francés según programación", "Agenda de eventos por fecha y país", "Contenido deportivo disponible en tu plan de TV Digital"]
   },
   cine: {
     label: "Películas",

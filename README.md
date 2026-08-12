@@ -11,7 +11,7 @@ Sitio oficial de Netfull en Nuevo Lourdes, Colón, La Libertad, orientado a clie
 - Conectividad empresarial con diagnóstico previo y alternativas residenciales, dedicadas o híbridas según el riesgo operativo.
 - Orientación para tráfico sensible: VoIP, VPN, nube, respaldos, videollamadas, cámaras, aplicaciones y transacciones.
 - TV Digital Netfull con canales en vivo, deportes, eventos, películas, series, contenido infantil y anime.
-- Ligas europeas identificadas con sus recursos oficiales y dos títulos de la cartelera destacados con enlaces a tráilers oficiales.
+- Experiencia visual de fútbol internacional comunicada mediante mercados geográficos, sin utilizar logos ni nombres promocionales de competiciones.
 - Cotización y verificación de cobertura por WhatsApp.
 
 El catálogo, la cantidad de señales y la compatibilidad de dispositivos pueden variar según el plan y las actualizaciones de la plataforma.
