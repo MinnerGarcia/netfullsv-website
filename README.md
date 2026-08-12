@@ -1,23 +1,39 @@
-# NetfullSV Website
+# Netfull 2.0
 
-Sitio oficial de Netfull en Nuevo Lourdes, Colón, La Libertad, orientado a clientes residenciales y empresas.
+Sitio estático multipágina de NetfullSV, construido con HTML, CSS y JavaScript nativos y publicado mediante GitHub Pages.
 
-## Servicios destacados
+## Arquitectura pública
 
-- Portada guiada con recorridos separados para hogar, negocio/empresa y una comparación para quien aún no está seguro.
-- Diagnóstico express sin datos personales, con gráficas dinámicas, recomendación orientativa y tabla comparativa de decisión.
-- Internet residencial por fibra óptica.
-- Planes de 30, 100 y 200 Mbps.
-- Conectividad empresarial con diagnóstico previo y alternativas residenciales, dedicadas o híbridas según el riesgo operativo.
-- Orientación para tráfico sensible: VoIP, VPN, nube, respaldos, videollamadas, cámaras, aplicaciones y transacciones.
-- TV Digital Netfull con canales en vivo, deportes, eventos, películas, series, contenido infantil y anime.
-- Ligas europeas identificadas con sus recursos oficiales y dos títulos de la cartelera destacados con enlaces a tráilers oficiales.
-- Cotización y verificación de cobertura por WhatsApp.
+- `/` — portada
+- `/hogar/` — planes residenciales
+- `/empresas/` — catálogo empresarial
+- `/internet-empresarial/`
+- `/internet-dedicado/`
+- `/vpn-empresarial/` — Netfull Secure Connect
+- `/interconexion-sucursales/`
+- `/ip-publica/`
+- `/soporte-empresarial/`
+- `/tv/`
+- `/cobertura/`
+- `/contacto/`
+- `/nosotros/`
+- `/privacidad.html`
 
-El catálogo, la cantidad de señales y la compatibilidad de dispositivos pueden variar según el plan y las actualizaciones de la plataforma.
+## Controles preservados
 
-Los atributos empresariales —capacidad, SLA, simetría, soporte, IP, monitoreo, respaldo y tiempos de atención— dependen de la propuesta y el contrato aplicables.
+- CSP estricta sin `unsafe-inline` ni `unsafe-eval`.
+- HSTS, `nosniff`, bloqueo de framing y Permissions Policy.
+- DNSSEC y CAA verificados por el flujo externo existente.
+- GitHub Actions con permisos de solo lectura y dependencias fijadas.
+- Rama principal protegida y commits firmados.
+- Formularios sin backend: construyen un mensaje local y continúan en WhatsApp.
 
-## Publicación segura de recursos
+## Validación
 
-Las referencias a `site.css`, `site.js` y `site-init.js` incluyen una versión derivada del contenido. El validador del repositorio comprueba esos valores en cada cambio para impedir que un HTML nuevo se publique junto con CSS o JavaScript anterior almacenado en caché.
+```powershell
+node .github/scripts/stamp-assets.mjs
+node .github/scripts/validate-site.mjs
+node .github/scripts/test-validator.mjs
+```
+
+Los precios residenciales publicados son los valores vigentes encontrados en el proyecto: 30 Mbps por $28, 100 Mbps por $33 y 200 Mbps por $53 al mes. Cualquier cambio requiere confirmación comercial.

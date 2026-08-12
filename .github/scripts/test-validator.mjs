@@ -14,7 +14,7 @@ const cases = [
   },
   {
     name: "missing consent requirement",
-    file: "index.html",
+    file: path.join("cobertura", "index.html"),
     mutate: (source) => source.replace('id="whatsapp-consent" name="whatsappConsent" type="checkbox" value="accepted" required', 'id="whatsapp-consent" name="whatsappConsent" type="checkbox" value="accepted"'),
     expected: "consent checkbox is missing or is not required"
   },

@@ -163,7 +163,6 @@ const allowedSigners = read(allowedSignersPath);
 const securityControls = read(securityControlsPath);
 
 for (const [html, page, asset] of [
-  [indexHtml, "index.html", "assets/site-init.js"],
   [indexHtml, "index.html", "assets/site.css"],
   [indexHtml, "index.html", "assets/site.js"],
   [privacyHtml, "privacidad.html", "assets/site.css"]
@@ -178,6 +177,8 @@ for (const [html, page, asset] of [
 
 check(cname === "netfullsv.com", "CNAME targets netfullsv.com", `Unexpected CNAME value: ${cname}`);
 check(htmlFiles.length >= 2, `${htmlFiles.length} HTML pages found`, "Expected the home and privacy pages");
+check(fs.existsSync(path.join(repositoryRoot, "robots.txt")), "robots.txt exists", "robots.txt is missing");
+check(fs.existsSync(path.join(repositoryRoot, "sitemap.xml")), "sitemap.xml exists", "sitemap.xml is missing");
 
 const idsByFile = new Map();
 for (const htmlPath of htmlFiles) {
@@ -189,6 +190,9 @@ for (const htmlPath of htmlFiles) {
   check(/<html\b[^>]*\blang="es-SV"/i.test(html), `Language declared in ${fileName}`, `Document language must be es-SV in ${fileName}`);
   check(/<meta\s+charset="utf-8"/i.test(html), `UTF-8 declared in ${fileName}`, `UTF-8 charset declaration is missing in ${fileName}`);
   check(/<title>[^<]+<\/title>/i.test(html), `Title present in ${fileName}`, `Title is missing in ${fileName}`);
+  check(/<meta\s+name="description"\s+content="[^"]+"/i.test(html), `Description present in ${fileName}`, `Meta description is missing in ${fileName}`);
+  check(/<link\s+rel="canonical"\s+href="https:\/\/netfullsv\.com\/[^"]*"/i.test(html), `Canonical present in ${fileName}`, `Canonical is missing or invalid in ${fileName}`);
+  check((html.match(/<h1\b/gi) ?? []).length === 1, `One H1 in ${fileName}`, `Expected exactly one H1 in ${fileName}`);
   check((html.match(/<main\b/gi) ?? []).length === 1, `One main landmark in ${fileName}`, `Expected exactly one <main> in ${fileName}`);
   check(!/http:\/\//i.test(html), `No insecure HTTP in ${fileName}`, `An insecure http:// reference was found in ${fileName}`);
   check(!/javascript\s*:/i.test(html), `No javascript URLs in ${fileName}`, `A javascript: URL was found in ${fileName}`);
@@ -357,9 +361,14 @@ check(!/PRIVATE KEY/.test(allowedSigners), "Allowed signers file contains no pri
 check(securityControls.includes("required_signatures"), "Required-signature control is documented", "Security controls must document required_signatures");
 check(securityControls.includes("DNSSEC") && securityControls.includes("CAA"), "DNSSEC and CAA operations are documented", "Security controls must document DNSSEC and CAA");
 
-const consentTag = indexHtml.match(/<input\b[^>]*\bid="whatsapp-consent"[^>]*>/i)?.[0] ?? "";
-check(/\btype="checkbox"/i.test(consentTag) && /\brequired\b/i.test(consentTag), "WhatsApp consent is an explicit required checkbox", "WhatsApp consent checkbox is missing or is not required");
-check(/href="privacidad\.html"/i.test(indexHtml), "Privacy notice is linked from the form", "The form must link to privacidad.html");
+const consentPages = htmlFiles.filter((htmlPath) => /\bid="whatsapp-consent"/i.test(read(htmlPath)));
+check(consentPages.length >= 2, `${consentPages.length} WhatsApp form pages found`, "Expected coverage and contact forms");
+for (const consentPage of consentPages) {
+  const html = read(consentPage);
+  const consentTag = html.match(/<input\b[^>]*\bid="whatsapp-consent"[^>]*>/i)?.[0] ?? "";
+  check(/\btype="checkbox"/i.test(consentTag) && /\brequired\b/i.test(consentTag), `WhatsApp consent is explicit in ${relative(consentPage)}`, `WhatsApp consent checkbox is missing or is not required in ${relative(consentPage)}`);
+  check(/href="\.\.\/privacidad\.html"/i.test(html), `Privacy notice is linked in ${relative(consentPage)}`, `The form must link to the privacy notice in ${relative(consentPage)}`);
+}
 check(!/name="(?:nombre|ubicacion)"/i.test(indexHtml), "Form does not collect name or location", "The site form must not collect name or location");
 check(!/autocomplete="street-address"/i.test(indexHtml), "Exact-address autocomplete is disabled", "The form must not request a street address");
 check(!/data\.get\(["'](?:nombre|ubicacion)["']\)/i.test(siteJavaScript), "Personal data is excluded from the WhatsApp URL", "Personal data is still interpolated into the WhatsApp URL");
