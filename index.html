@@ -26,7 +26,7 @@
   <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/site.css?v=48a4d892b930">
+  <link rel="stylesheet" href="assets/site.css?v=d6274435a1b9">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -68,83 +68,88 @@
   </header>
 
   <main id="contenido">
-    <section class="hero">
+    <section class="hero hero-home">
       <div class="container hero-inner">
         <div class="hero-copy">
-          <p class="eyebrow">Conectividad para cada realidad</p>
-          <h1>Internet para tu hogar.<br><span>Soluciones para tu empresa.</span></h1>
-          <p class="hero-lead">Planes residenciales fáciles de comparar y conectividad empresarial diseñada alrededor de la operación. Dos recorridos claros, una atención cercana.</p>
+          <p class="eyebrow">Internet · infraestructura · redes</p>
+          <h1>Conectividad que mantiene <span>todo en movimiento.</span></h1>
+          <p class="hero-lead">Internet para tu hogar. Infraestructura y soluciones de conectividad para tu empresa.</p>
           <div class="actions">
-            <a class="button button-primary" href="hogar/" data-event="seleccionar_hogar" data-placement="hero">Ver planes de hogar →</a>
-            <a class="button button-ghost" href="empresas/" data-event="seleccionar_empresas" data-placement="hero">Conocer soluciones →</a>
+            <a class="button button-primary button-large" href="hogar/" data-event="seleccionar_hogar" data-placement="hero">Explorar Hogar →</a>
+            <a class="button button-ghost button-large" href="empresas/" data-event="seleccionar_empresas" data-placement="hero">Soluciones empresariales</a>
           </div>
-          <div class="hero-proof" aria-label="Propuesta de Netfull"><span>Precios residenciales visibles</span><span>Atención directa</span><span>Propuestas empresariales a medida</span></div>
+          <div class="hero-proof" aria-label="Propuesta de Netfull"><span>Planes residenciales visibles</span><span>Diseño según la operación</span><span>Atención local directa</span></div>
         </div>
-        <div class="network-stage" aria-label="Netfull conecta hogares, empresas, sedes y servicios en la nube">
+        <div class="network-stage network-stage-premium" aria-label="Netfull conecta hogares, empresas, aplicaciones y sedes">
+          <span class="network-orbit orbit-one"></span><span class="network-orbit orbit-two"></span>
           <span class="network-line one"></span><span class="network-line two"></span><span class="network-line three"></span><span class="network-line four"></span>
           <div class="network-core"><img src="assets/logo-netfull.png" width="112" height="112" alt="Símbolo de red Netfull"></div>
-          <div class="network-node home"><strong>Hogar</strong><small>Internet y TV</small></div>
-          <div class="network-node business"><strong>Empresa</strong><small>Operación conectada</small></div>
-          <div class="network-node cloud"><strong>Nube</strong><small>Aplicaciones y datos</small></div>
-          <div class="network-node branch"><strong>Sucursales</strong><small>Sedes y usuarios</small></div>
+          <div class="network-node home"><svg aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-home"></use></svg><strong>Hogar</strong><small>Internet y TV</small></div>
+          <div class="network-node business"><svg aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-building"></use></svg><strong>Empresa</strong><small>Operación conectada</small></div>
+          <div class="network-node cloud"><svg aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-cloud"></use></svg><strong>Aplicaciones</strong><small>Nube y datos</small></div>
+          <div class="network-node branch"><svg aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-network"></use></svg><strong>Sedes</strong><small>Ubicaciones y usuarios</small></div>
         </div>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="rutas-title">
+    <section class="section journey-section" aria-labelledby="rutas-title">
       <div class="container">
-        <div class="section-head"><div><p class="kicker">Una marca, dos recorridos</p><h2 id="rutas-title">Empieza por lo que necesitas conectar.</h2></div><p>Elige la ruta que mejor se parece a tu realidad. Si aún tienes dudas, puedes comparar las opciones sin términos complicados.</p></div>
-        <div class="route-grid">
-          <a class="route-card" data-index="01 · NETFULL HOGAR" href="hogar/"><h3>Internet fácil de elegir y contratar.</h3><p>Velocidades, precios vigentes, cobertura y acompañamiento directo para llevar conectividad a tu casa.</p></a>
-          <a class="route-card business" data-index="02 · NETFULL EMPRESAS" href="empresas/"><h3>Conectividad diseñada alrededor de su operación.</h3><p>Internet empresarial, enlaces dedicados, VPN e interconexión de sedes según el funcionamiento del negocio.</p></a>
+        <div class="section-intro"><p class="kicker">Dos realidades. Una red preparada para cada una.</p><h2 id="rutas-title">¿Qué necesitas mantener conectado?</h2><p>Elige un recorrido. Cada uno organiza la información, la decisión y el contacto de una forma distinta.</p></div>
+        <div class="journey-grid">
+          <article class="journey-panel journey-home"><div class="journey-number">01</div><div><svg class="journey-icon" aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-home"></use></svg><p class="overline">Netfull Hogar</p><h3>Tu día fluye mejor cuando Internet simplemente funciona para lo que haces.</h3><p>Compara 30, 100 y 200 Mbps con precios claros y solicita cobertura en tu zona.</p><a class="button button-dark" href="hogar/">Ver Internet para mi hogar →</a></div></article>
+          <article class="journey-panel journey-business"><div class="journey-number">02</div><div><svg class="journey-icon" aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-building"></use></svg><p class="overline">Netfull Empresas</p><h3>Su red también forma parte de la operación.</h3><p>Conectividad dimensionada según usuarios, aplicaciones, sedes y criticidad.</p><a class="button button-light" href="empresas/">Explorar soluciones empresariales →</a></div></article>
         </div>
-        <p class="help-link"><a class="text-link" href="internet-dedicado/#comparacion">No sé qué necesito: comparar opciones →</a></p>
+        <p class="help-link"><a class="text-link" href="internet-dedicado/#comparacion">¿No estás seguro? Compara los tipos de servicio →</a></p>
       </div>
     </section>
 
-    <section class="section section-soft" aria-labelledby="resolver-title">
-      <div class="container">
-        <div class="section-head center"><p class="kicker">Qué puede resolver Netfull</p><h2 id="resolver-title">Conectividad útil, explicada con claridad.</h2><p>Desde el entretenimiento y el trabajo en casa hasta procesos empresariales que dependen de aplicaciones, llamadas y múltiples sedes.</p></div>
-        <div class="feature-grid">
-          <article class="feature-card"><svg class="icon nf-icon nf-icon-home" aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-home"></use></svg><h3>Conectar tu hogar</h3><p>Navegación, estudio, trabajo y entretenimiento con un plan comprensible.</p></article>
-          <article class="feature-card"><svg class="icon nf-icon nf-icon-chart" aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-chart"></use></svg><h3>Mantener la operación</h3><p>Dimensionamiento según usuarios, dispositivos, aplicaciones y criticidad.</p></article>
-          <article class="feature-card"><svg class="icon nf-icon nf-icon-network" aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-network"></use></svg><h3>Unir oficinas y usuarios</h3><p>Arquitecturas privadas para comunicar sedes, nube y acceso remoto.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-dark" aria-labelledby="proceso-title">
-      <div class="container">
-        <div class="section-head"><div><p class="kicker">Cómo trabajamos</p><h2 id="proceso-title">Un siguiente paso claro desde el inicio.</h2></div><p>La atención empieza entendiendo la zona y la necesidad. La instalación residencial o la propuesta empresarial se define después de confirmar el alcance.</p></div>
-        <div class="process">
-          <article class="process-step" data-step="01"><h3>Cuéntanos</h3><p>Indica si buscas servicio para tu hogar, empresa o TV y comparte tu zona aproximada.</p></article>
-          <article class="process-step" data-step="02"><h3>Confirmamos</h3><p>Revisamos cobertura y las condiciones necesarias para atender tu solicitud.</p></article>
-          <article class="process-step" data-step="03"><h3>Coordinamos</h3><p>Definimos la instalación o preparamos una propuesta empresarial con contexto.</p></article>
+    <section class="section section-soft home-residential" aria-labelledby="hogar-preview-title">
+      <div class="container editorial-split">
+        <div class="editorial-copy"><p class="kicker">Internet para el hogar</p><h2 id="hogar-preview-title">El plan correcto se entiende antes de contratarlo.</h2><p>Velocidad, precio y uso aproximado en una sola lectura. La cobertura y las condiciones se confirman antes de coordinar el servicio.</p><a class="text-link" href="hogar/">Comparar planes de hogar →</a></div>
+        <div class="speed-ledger" aria-label="Resumen de planes residenciales">
+          <div><span>30 Mbps</span><strong>$28</strong><small>al mes</small></div>
+          <div class="is-recommended"><span>100 Mbps</span><strong>$33</strong><small>al mes · recomendado</small></div>
+          <div><span>200 Mbps</span><strong>$53</strong><small>al mes</small></div>
         </div>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="empresas-teaser-title">
-      <div class="container">
-        <div class="section-head"><div><p class="kicker">Netfull Empresas</p><h2 id="empresas-teaser-title">La conexión también forma parte de la operación.</h2></div><p>POS, nube, VoIP, videollamadas, cámaras, respaldos y aplicaciones empresariales requieren una solución pensada más allá de una cifra de velocidad.</p></div>
-        <div class="use-grid">
-          <article class="use-item"><strong>Internet empresarial</strong><p>Capacidad según uso real.</p></article><article class="use-item"><strong>Internet dedicado</strong><p>Mayor control para procesos críticos.</p></article><article class="use-item"><strong>Secure Connect</strong><p>Sedes trabajando como una red.</p></article><article class="use-item"><strong>Soporte empresarial</strong><p>Alcance definido en la propuesta.</p></article>
+    <section class="section section-network home-enterprise" aria-labelledby="empresas-teaser-title">
+      <div class="container enterprise-editorial">
+        <div><p class="overline">Netfull Empresas</p><h2 id="empresas-teaser-title">La infraestructura comienza por entender qué no puede detenerse.</h2><p class="lead">POS, nube, VoIP, videollamadas, cámaras, respaldos y aplicaciones cambian la forma de dimensionar una conexión.</p><a class="button button-primary" href="empresas/" data-event="seleccionar_empresas" data-placement="teaser">Conocer Netfull Empresas →</a></div>
+        <div class="operations-map" aria-label="Aplicaciones empresariales conectadas por Netfull">
+          <div class="operations-core">NETFULL</div>
+          <span class="operation-node node-pos">POS</span><span class="operation-node node-cloud">Nube</span><span class="operation-node node-voice">VoIP</span><span class="operation-node node-cctv">CCTV</span><span class="operation-node node-sites">Sedes</span>
         </div>
-        <div class="actions"><a class="button button-dark" href="empresas/" data-event="seleccionar_empresas" data-placement="teaser">Explorar Netfull Empresas →</a></div>
+      </div>
+    </section>
+
+    <section class="section method-section" aria-labelledby="proceso-title">
+      <div class="container">
+        <div class="section-head"><div><p class="kicker">Cómo trabaja Netfull</p><h2 id="proceso-title">Un proceso claro, desde la necesidad hasta el seguimiento.</h2></div><p>El recorrido se adapta al servicio: confirmación de zona para Hogar o diagnóstico de contexto para Empresas.</p></div>
+        <div class="method-grid">
+          <article><span>01</span><h3>Entendemos</h3><p>Servicio, zona y objetivo general.</p></article>
+          <article><span>02</span><h3>Proponemos</h3><p>Plan residencial o alcance empresarial aplicable.</p></article>
+          <article><span>03</span><h3>Coordinamos</h3><p>Los pasos necesarios después de confirmar condiciones.</p></article>
+          <article><span>04</span><h3>Acompañamos</h3><p>Atención mediante los canales y alcances acordados.</p></article>
+        </div>
       </div>
     </section>
 
     <section class="section section-soft" aria-labelledby="tv-teaser-title">
-      <div class="container">
-        <div class="teaser">
-          <div class="teaser-copy"><p class="kicker">Más que Internet</p><h2 id="tv-teaser-title">Entretenimiento Netfull.</h2><p>Fútbol internacional, cine, canales y entretenimiento para disfrutar en casa.</p><div class="actions"><a class="button button-light" href="tv/" data-event="explorar_tv" data-placement="teaser">Explorar TV Digital →</a></div></div>
-          <div class="teaser-media"><img src="assets/tv-digital-familia.webp" width="1672" height="940" loading="lazy" alt="Familia disfrutando una experiencia de televisión digital en casa"></div>
+      <div class="container tv-promo">
+        <div class="tv-promo-copy"><p class="kicker">TV Digital Netfull</p><h2 id="tv-teaser-title">Entretenimiento para cada momento.</h2><p>Deportes, cine, contenido infantil, noticias e internacional en una experiencia que puedes consultar con Netfull.</p><a class="button button-dark" href="tv/" data-event="explorar_tv" data-placement="teaser">Explorar TV Digital →</a></div>
+        <div class="screen-mosaic" aria-label="Categorías de TV Digital Netfull">
+          <div class="screen-main"><svg aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-play"></use></svg><strong>Tu próxima historia</strong></div>
+          <div><svg aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-signal"></use></svg><span>Deportes</span></div>
+          <div><svg aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-family"></use></svg><span>Infantil</span></div>
+          <div><svg aria-hidden="true" focusable="false"><use href="assets/icons/netfull-icons.svg#nf-globe"></use></svg><span>Internacional</span></div>
         </div>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="cobertura-title">
-      <div class="container"><div class="cta-band"><div><p class="kicker">Cobertura y contacto</p><h2 id="cobertura-title">Tu conexión empieza confirmando la zona.</h2><p>Comparte únicamente tu colonia o sector aproximado. Te orientaremos por WhatsApp sin pedir información sensible en este sitio.</p></div><a class="button button-light" href="cobertura/" data-event="verificar_cobertura" data-placement="cta">Verificar cobertura →</a></div></div>
+    <section class="section closing-section" aria-labelledby="cobertura-title">
+      <div class="container"><div class="closing-panel"><div><p class="kicker">El siguiente paso</p><h2 id="cobertura-title">Primero confirmamos la zona. Después coordinamos.</h2><p>Solicita una verificación de cobertura con tu colonia o sector aproximado. No es una consulta automática y no pedimos información sensible.</p></div><a class="button button-primary button-large" href="cobertura/" data-event="verificar_cobertura" data-placement="cta">Solicitar cobertura →</a></div></div>
     </section>
   </main>
 
