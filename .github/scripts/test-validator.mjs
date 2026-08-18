@@ -53,6 +53,12 @@ const cases = [
     file: path.join("assets", "icons", "netfull-icons.svg"),
     mutate: (source) => source.replace('<symbol id="nf-home" viewBox="0 0 24 24">', '<symbol id="nf-home">'),
     expected: "must use viewBox 0 0 24 24"
+  },
+  {
+    name: "shared navigation divergence",
+    file: path.join("empresas", "index.html"),
+    mutate: (source) => source.replace('<a href="../tv/">TV Digital</a>', ""),
+    expected: "Severe shared-header divergence"
   }
 ];
 

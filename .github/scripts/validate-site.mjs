@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
+import { publicPages, renderFooter, renderHeader } from "./site-shell.mjs";
 
 const repositoryRoot = process.cwd();
 const errors = [];
@@ -127,6 +128,8 @@ const privacyPath = path.join(repositoryRoot, "privacidad.html");
 const designSystemPath = path.join(repositoryRoot, "design-system", "index.html");
 const designSystemDocPath = path.join(repositoryRoot, "DESIGN-SYSTEM-NETFULL.md");
 const visualAuditPath = path.join(repositoryRoot, "AUDITORIA-VISUAL-FASE-1.md");
+const phaseTwoAuditPath = path.join(repositoryRoot, "AUDITORIA-UX-FASE-2.md");
+const phaseTwoReportPath = path.join(repositoryRoot, "FASE-2-NETFULL-REDESIGN.md");
 const interFontPath = path.join(repositoryRoot, "assets", "fonts", "InterVariable.woff2");
 const interLicensePath = path.join(repositoryRoot, "assets", "fonts", "LICENSE-Inter.txt");
 const interProvenancePath = path.join(repositoryRoot, "assets", "fonts", "README.md");
@@ -138,6 +141,8 @@ const externalWorkflowPath = path.join(repositoryRoot, ".github", "workflows", "
 const externalCheckerPath = path.join(repositoryRoot, ".github", "scripts", "check-external-security.mjs");
 const allowedSignersPath = path.join(repositoryRoot, ".github", "allowed_signers");
 const securityControlsPath = path.join(repositoryRoot, ".github", "SECURITY-CONTROLS.md");
+const siteShellPath = path.join(repositoryRoot, ".github", "scripts", "site-shell.mjs");
+const syncShellPath = path.join(repositoryRoot, ".github", "scripts", "sync-shell.mjs");
 
 for (const [filePath, label] of [
   [indexPath, "index.html"],
@@ -145,6 +150,8 @@ for (const [filePath, label] of [
   [designSystemPath, "design-system/index.html"],
   [designSystemDocPath, "Design System documentation"],
   [visualAuditPath, "Phase 1 visual audit"],
+  [phaseTwoAuditPath, "Phase 2 UX audit"],
+  [phaseTwoReportPath, "Phase 2 redesign report"],
   [interFontPath, "Inter Variable WOFF2"],
   [interLicensePath, "Inter OFL license"],
   [interProvenancePath, "Inter provenance documentation"],
@@ -155,7 +162,9 @@ for (const [filePath, label] of [
   [externalWorkflowPath, "external security workflow"],
   [externalCheckerPath, "external security checker"],
   [allowedSignersPath, "allowed signers file"],
-  [securityControlsPath, "security controls documentation"]
+  [securityControlsPath, "security controls documentation"],
+  [siteShellPath, "shared site shell"],
+  [syncShellPath, "site shell synchronizer"]
 ]) {
   check(fs.existsSync(filePath), `${label} exists`, `${label} is missing`);
 }
@@ -181,6 +190,17 @@ const externalWorkflow = read(externalWorkflowPath);
 const externalChecker = read(externalCheckerPath);
 const allowedSigners = read(allowedSignersPath);
 const securityControls = read(securityControlsPath);
+
+check(publicPages.length === 13, "13 commercial routes use the shared site shell", `Expected 13 commercial routes in the shared site shell, found ${publicPages.length}`);
+
+for (const page of publicPages) {
+  const filePath = path.join(repositoryRoot, ...page.file.split("/"));
+  const html = read(filePath);
+  const header = html.match(/<header class="site-header"[\s\S]*?<\/header>/)?.[0] || "";
+  const footer = html.match(/<footer class="site-footer">[\s\S]*?<\/footer>/)?.[0] || "";
+  check(header === renderHeader(page), `Shared header is synchronized in ${page.file}`, `Severe shared-header divergence in ${page.file}; run node .github/scripts/sync-shell.mjs`);
+  check(footer === renderFooter(page), `Shared footer is synchronized in ${page.file}`, `Severe shared-footer divergence in ${page.file}; run node .github/scripts/sync-shell.mjs`);
+}
 
 for (const [html, page, asset] of [
   [indexHtml, "index.html", "assets/site.css"],
@@ -218,6 +238,11 @@ for (const section of ["Brand principles", "Color palette", "Typography", "Spaci
   check(designSystemDoc.includes(`## ${section}`), `Design System documents ${section}`, `DESIGN-SYSTEM-NETFULL.md is missing section: ${section}`);
 }
 check(designSystemDoc.includes("## Production considerations"), "Design System documents production considerations", "DESIGN-SYSTEM-NETFULL.md must document production considerations");
+check(designSystemDoc.includes("## Phase 2 reusable UX patterns"), "Design System documents Phase 2 reusable UX patterns", "DESIGN-SYSTEM-NETFULL.md must document Phase 2 reusable UX patterns");
+
+for (const className of ["journey-panel", "enterprise-command", "decision-split", "category-spectrum", "closing-panel", "contact-route-grid"]) {
+  check(siteCss.includes(`.${className}`), `Phase 2 component exists: ${className}`, `Phase 2 component is missing: ${className}`);
+}
 
 const requiredSemanticTokens = [
   "--color-success-text", "--color-success-border", "--color-success-soft",
@@ -272,6 +297,9 @@ for (const htmlPath of htmlFiles) {
   check(/<meta\s+name="description"\s+content="[^"]+"/i.test(html), `Description present in ${fileName}`, `Meta description is missing in ${fileName}`);
   check(/<link\s+rel="canonical"\s+href="https:\/\/netfullsv\.com\/[^"]*"/i.test(html), `Canonical present in ${fileName}`, `Canonical is missing or invalid in ${fileName}`);
   check((html.match(/<h1\b/gi) ?? []).length === 1, `One H1 in ${fileName}`, `Expected exactly one H1 in ${fileName}`);
+  const headingLevels = Array.from(html.matchAll(/<h([1-6])\b/gi), (match) => Number(match[1]));
+  const headingJumps = headingLevels.slice(1).filter((level, index) => level > headingLevels[index] + 1);
+  check(headingJumps.length === 0, `Heading hierarchy is sequential in ${fileName}`, `Heading hierarchy skips a level in ${fileName}`);
   check((html.match(/<main\b/gi) ?? []).length === 1, `One main landmark in ${fileName}`, `Expected exactly one <main> in ${fileName}`);
   check(!/http:\/\//i.test(html), `No insecure HTTP in ${fileName}`, `An insecure http:// reference was found in ${fileName}`);
   check(!/javascript\s*:/i.test(html), `No javascript URLs in ${fileName}`, `A javascript: URL was found in ${fileName}`);
@@ -322,6 +350,11 @@ for (const htmlPath of htmlFiles) {
   for (const tag of html.match(/<a\b[^>]*\btarget="_blank"[^>]*>/gi) ?? []) {
     const rel = attributes(tag).get("rel") ?? "";
     check(/\bnoopener\b/i.test(rel) && /\bnoreferrer\b/i.test(rel), `External tab isolated in ${fileName}`, `target="_blank" link is missing rel="noopener noreferrer" in ${fileName}: ${tag}`);
+  }
+
+  if (fileName === "cobertura/index.html") {
+    check(html.indexOf('id="zone"') < html.indexOf('id="service"'), "Coverage form starts with approximate zone", "Coverage form must follow zone → service → need");
+    check(/no ofrece un resultado automático en tiempo real/i.test(html), "Coverage page discloses that verification is assisted", "Coverage page must not imply a real-time automated result");
   }
 }
 

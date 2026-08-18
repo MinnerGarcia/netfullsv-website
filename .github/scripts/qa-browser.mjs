@@ -113,6 +113,25 @@ if (!noJsState.h1Visible || noJsState.primaryRoutes < 2 || !noJsState.mobileMenu
 }
 await noJsContext.close();
 
+// Native mobile navigation: open without a custom widget and complete a route change.
+const menuPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+await menuPage.goto(`http://127.0.0.1:${port}/`, { waitUntil: "load", timeout: 15000 });
+await menuPage.locator("details.mobile-menu summary").click();
+const menuState = await menuPage.evaluate(() => {
+  const details = document.querySelector("details.mobile-menu");
+  const links = [...document.querySelectorAll("details.mobile-menu nav a")];
+  return { open: Boolean(details?.open), links: links.length, allVisible: links.every((link) => link.getBoundingClientRect().height >= 44) };
+});
+await Promise.all([
+  menuPage.waitForURL((url) => url.pathname === "/empresas/"),
+  menuPage.locator('details.mobile-menu nav a[href="empresas/"]').click()
+]);
+menuState.destination = new URL(menuPage.url()).pathname;
+if (!menuState.open || menuState.links !== 6 || !menuState.allVisible || menuState.destination !== "/empresas/") {
+  errors.push(`Mobile navigation contract failed: ${JSON.stringify(menuState)}`);
+}
+await menuPage.close();
+
 // Accessibility contract: visible keyboard focus, non-indexable internal docs,
 // minimum action size, decorative icon semantics and reduced motion.
 const accessibilityPage = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
@@ -187,14 +206,21 @@ for (const [name, selector] of designSystemDetails) {
   await page.locator(selector).screenshot({ path: path.join(output, `design-system-${name}-1440.png`) });
   await page.close();
 }
+const shellDetails = [["footer-1440", 1440, 900], ["footer-390", 390, 844]];
+for (const [name, width, height] of shellDetails) {
+  const page = await browser.newPage({ viewport: { width, height } });
+  await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: "load", timeout: 15000 });
+  await page.locator(".site-footer").screenshot({ path: path.join(output, `${name}.png`) });
+  await page.close();
+}
 
 if (consoleErrors.length) errors.push(...consoleErrors.map((message) => `Console error: ${message}`));
 if (assetErrors.length) errors.push(...assetErrors.map((message) => `Asset error: ${message}`));
-fs.writeFileSync(path.join(output, "qa-results.json"), JSON.stringify({ checks, noJsState, accessibilityState, openedUrl, consoleErrors, assetErrors, errors }, null, 2));
+fs.writeFileSync(path.join(output, "qa-results.json"), JSON.stringify({ checks, noJsState, menuState, accessibilityState, openedUrl, consoleErrors, assetErrors, errors }, null, 2));
 await browser.close();
 await new Promise((resolve) => server.close(resolve));
 if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
 }
-console.log(`Browser QA passed: ${checks.length} route/viewport combinations, accessibility contract and ${shots.length + designSystemDetails.length} screenshots.`);
+console.log(`Browser QA passed: ${checks.length} route/viewport combinations, accessibility contract and ${shots.length + designSystemDetails.length + shellDetails.length} screenshots.`);

@@ -353,8 +353,30 @@ Objetivo: WCAG 2.2 AA donde sea razonablemente aplicable.
   `noarchive`) y fuera del sitemap durante Fase 2. En Fase 3 deberá decidirse si
   se excluye por completo del despliegue de producción o si continúa como
   documentación técnica no indexable. Este cierre no implementa la exclusión.
-- Header, navegación móvil y footer continúan duplicados entre documentos HTML.
-  Es deuda de mantenimiento, no una falla funcional. Durante Fase 2 se debe
-  preservar su consistencia y evitar divergencias. En Fase 3 podrá evaluarse
-  generación estática, includes o una validación automatizada sin introducir
-  un framework únicamente para resolver esta duplicación.
+- Header, navegación móvil y footer se generan desde
+  `.github/scripts/site-shell.mjs` con
+  `.github/scripts/sync-shell.mjs`. Las trece rutas comerciales conservan HTML
+  estático final, pero ya no dependen de sincronización manual.
+- `validate-site.mjs` compara cada shell publicado contra la fuente compartida.
+  Una divergencia de cabecera o footer se considera una falla severa de CI.
+
+## Phase 2 reusable UX patterns
+
+La Fase 2 añade patrones reutilizables por función, no por apariencia:
+
+- **Journey panel:** separa recorridos completos, como Hogar y Empresas.
+- **Technical console:** representa demanda, acceso, impacto o cobertura sin
+  simular telemetría ni resultados en tiempo real.
+- **Editorial ledger:** ordena escenarios o criterios con ritmo lineal y evita
+  convertir cada párrafo en una tarjeta.
+- **Decision split:** relaciona una pregunta crítica con una acción y sus
+  condiciones aplicables.
+- **Category spectrum:** organiza familias de contenido con jerarquía variable,
+  sin depender de marcas o materiales de terceros.
+- **Closing panel:** una conclusión, un siguiente paso y microcopy prudente.
+- **Shared site shell:** cabecera y footer declarados una vez, generados en HTML
+  nativo y verificados en CI.
+
+El patrón se usa solamente cuando el problema de información coincide. Las
+páginas de solución conservan composiciones distintas para evitar monotonía y
+para que la estructura responda al producto.
