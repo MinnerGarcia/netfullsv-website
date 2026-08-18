@@ -171,7 +171,7 @@ const visualRoutes = [
   ["secure-connect", "/vpn-empresarial/"], ["interconexion", "/interconexion-sucursales/"],
   ["ip-publica", "/ip-publica/"], ["soporte-empresarial", "/soporte-empresarial/"],
   ["tv", "/tv/"], ["nosotros", "/nosotros/"], ["cobertura", "/cobertura/"],
-  ["contacto", "/contacto/"], ["design-system", "/design-system/"]
+  ["contacto", "/contacto/"], ["404", "/ruta-inexistente"], ["design-system", "/design-system/"]
 ];
 const shots = visualRoutes.flatMap(([name, route]) => viewports.map(([width, height]) => [name, route, width, height]));
 for (const [name, route, width, height] of shots) {
