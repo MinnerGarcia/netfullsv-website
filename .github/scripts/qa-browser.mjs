@@ -136,7 +136,7 @@ const accessibilityState = await accessibilityPage.evaluate(() => {
   };
 });
 await accessibilityPage.goto(`http://127.0.0.1:${port}/vpn-empresarial/`, { waitUntil: "load", timeout: 15000 });
-accessibilityState.reducedMotionDuration = await accessibilityPage.locator(".pulse").evaluate((element) => getComputedStyle(element).animationDuration);
+accessibilityState.reducedMotionDuration = await accessibilityPage.locator(".button-primary").first().evaluate((element) => getComputedStyle(element).transitionDuration);
 accessibilityState.publicIconsDecorative = await accessibilityPage.locator(".nf-icon").evaluateAll((icons) => icons.every((icon) => icon.getAttribute("aria-hidden") === "true"));
 if (!String(accessibilityState.focusedClass).includes("skip-link") || !accessibilityState.focusedVisible || accessibilityState.outlineWidth === "0px") {
   errors.push(`Keyboard focus contract failed: ${JSON.stringify(accessibilityState)}`);
@@ -167,7 +167,11 @@ await formPage.close();
 
 const visualRoutes = [
   ["home", "/"], ["hogar", "/hogar/"], ["empresas", "/empresas/"],
-  ["secure-connect", "/vpn-empresarial/"], ["tv", "/tv/"], ["design-system", "/design-system/"]
+  ["internet-empresarial", "/internet-empresarial/"], ["internet-dedicado", "/internet-dedicado/"],
+  ["secure-connect", "/vpn-empresarial/"], ["interconexion", "/interconexion-sucursales/"],
+  ["ip-publica", "/ip-publica/"], ["soporte-empresarial", "/soporte-empresarial/"],
+  ["tv", "/tv/"], ["nosotros", "/nosotros/"], ["cobertura", "/cobertura/"],
+  ["contacto", "/contacto/"], ["design-system", "/design-system/"]
 ];
 const shots = visualRoutes.flatMap(([name, route]) => viewports.map(([width, height]) => [name, route, width, height]));
 for (const [name, route, width, height] of shots) {
