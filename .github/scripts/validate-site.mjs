@@ -127,6 +127,10 @@ const privacyPath = path.join(repositoryRoot, "privacidad.html");
 const designSystemPath = path.join(repositoryRoot, "design-system", "index.html");
 const designSystemDocPath = path.join(repositoryRoot, "DESIGN-SYSTEM-NETFULL.md");
 const visualAuditPath = path.join(repositoryRoot, "AUDITORIA-VISUAL-FASE-1.md");
+const interFontPath = path.join(repositoryRoot, "assets", "fonts", "InterVariable.woff2");
+const interLicensePath = path.join(repositoryRoot, "assets", "fonts", "LICENSE-Inter.txt");
+const interProvenancePath = path.join(repositoryRoot, "assets", "fonts", "README.md");
+const iconSpritePath = path.join(repositoryRoot, "assets", "icons", "netfull-icons.svg");
 const cnamePath = path.join(repositoryRoot, "CNAME");
 const securityHeadersPath = path.join(repositoryRoot, ".github", "security-headers.json");
 const workflowPath = path.join(repositoryRoot, ".github", "workflows", "validate-site.yml");
@@ -141,6 +145,10 @@ for (const [filePath, label] of [
   [designSystemPath, "design-system/index.html"],
   [designSystemDocPath, "Design System documentation"],
   [visualAuditPath, "Phase 1 visual audit"],
+  [interFontPath, "Inter Variable WOFF2"],
+  [interLicensePath, "Inter OFL license"],
+  [interProvenancePath, "Inter provenance documentation"],
+  [iconSpritePath, "Netfull SVG icon sprite"],
   [cnamePath, "CNAME"],
   [securityHeadersPath, "security header policy"],
   [workflowPath, "validation workflow"],
@@ -162,6 +170,9 @@ const privacyHtml = read(privacyPath);
 const designSystemHtml = read(designSystemPath);
 const designSystemDoc = read(designSystemDocPath);
 const siteCss = read(path.join(repositoryRoot, "assets", "site.css"));
+const interLicense = read(interLicensePath);
+const interProvenance = read(interProvenancePath);
+const iconSprite = read(iconSpritePath);
 const siteJavaScript = read(path.join(repositoryRoot, "assets", "site.js"));
 const cname = read(cnamePath).trim();
 const securityHeaders = JSON.parse(read(securityHeadersPath));
@@ -206,6 +217,47 @@ for (const token of requiredDesignTokens) {
 for (const section of ["Brand principles", "Color palette", "Typography", "Spacing", "Grid", "Buttons", "Forms", "Cards", "Icons", "Network diagrams", "Photography", "Section styles", "Navbar", "Footer", "Tokens", "Animations", "Responsive rules", "Accessibility", "Do", "Don't"]) {
   check(designSystemDoc.includes(`## ${section}`), `Design System documents ${section}`, `DESIGN-SYSTEM-NETFULL.md is missing section: ${section}`);
 }
+check(designSystemDoc.includes("## Production considerations"), "Design System documents production considerations", "DESIGN-SYSTEM-NETFULL.md must document production considerations");
+
+const requiredSemanticTokens = [
+  "--color-success-text", "--color-success-border", "--color-success-soft",
+  "--color-dark-border-subtle", "--color-dark-border-standard", "--color-dark-surface-soft",
+  "--color-signal-border-faint", "--color-signal-border-subtle", "--color-signal-border-standard",
+  "--color-signal-surface-soft", "--color-signal-grid", "--color-signal-link-soft",
+  "--color-network-surface-start", "--color-network-surface-end", "--color-network-node",
+  "--color-focus-ring"
+];
+for (const token of requiredSemanticTokens) {
+  check(siteCss.includes(`${token}:`), `Semantic token exists: ${token}`, `Required semantic token is missing: ${token}`);
+}
+
+const fontBytes = fs.readFileSync(interFontPath);
+check(fontBytes.subarray(0, 4).toString("ascii") === "wOF2", "Inter asset has a valid WOFF2 signature", "InterVariable.woff2 is not a valid WOFF2 file");
+check(fontBytes.length > 100_000 && fontBytes.length < 500_000, `Inter WOFF2 size is reasonable (${fontBytes.length} bytes)`, `Unexpected Inter WOFF2 size: ${fontBytes.length} bytes`);
+check(/SIL OPEN FONT LICENSE Version 1\.1/i.test(interLicense), "Inter OFL 1.1 license is included", "Inter OFL 1.1 license text is missing or invalid");
+check(interProvenance.includes("github.com/rsms/inter/releases/download/v4.1/Inter-4.1.zip"), "Inter official provenance is documented", "Inter provenance must point to the official 4.1 release");
+check(/@font-face\s*\{[\s\S]*?font-family:\s*"Inter Variable";[\s\S]*?url\("fonts\/InterVariable\.woff2"\)[\s\S]*?font-weight:\s*100 900;[\s\S]*?font-display:\s*swap;/m.test(siteCss), "Inter Variable local @font-face is configured", "Local Inter Variable @font-face is missing or incomplete");
+check(/--font-body:\s*"Inter Variable",\s*Inter,\s*ui-sans-serif,\s*system-ui/m.test(siteCss), "Inter Variable is the effective first-choice family", "The typography stack does not prioritize local Inter Variable");
+check(!/(?:fonts\.googleapis\.com|fonts\.gstatic\.com|use\.typekit\.net|rsms\.me\/inter\/inter\.css)/i.test(`${siteCss}\n${htmlFiles.map(read).join("\n")}`), "No external font provider is referenced", "An external font provider is referenced");
+
+const spriteSymbols = [...iconSprite.matchAll(/<symbol\b([^>]*)>/gi)].map((match) => attributes(match[1]));
+const spriteIds = spriteSymbols.map((attrs) => attrs.get("id"));
+const requiredIconIds = ["nf-home", "nf-building", "nf-screen", "nf-network", "nf-link", "nf-cloud", "nf-shield", "nf-globe", "nf-support", "nf-signal", "nf-server", "nf-message", "nf-user", "nf-route", "nf-chart", "nf-play", "nf-family", "nf-mail", "nf-menu"];
+check(spriteIds.length === new Set(spriteIds).size, "SVG sprite symbol IDs are unique", "SVG sprite contains duplicate symbol IDs");
+for (const iconId of requiredIconIds) {
+  const symbol = spriteSymbols.find((attrs) => attrs.get("id") === iconId);
+  check(Boolean(symbol), `SVG symbol exists: ${iconId}`, `SVG symbol is missing: ${iconId}`);
+  check(symbol?.get("viewbox") === "0 0 24 24", `SVG symbol uses the 24px grid: ${iconId}`, `SVG symbol must use viewBox 0 0 24 24: ${iconId}`);
+}
+check(/stroke="currentColor"/.test(iconSprite), "SVG sprite inherits currentColor", "SVG sprite must inherit currentColor");
+check(!/<(?:script|foreignObject)\b|\son[a-z]+\s*=|(?:href|src)="https?:/i.test(iconSprite), "SVG sprite contains no executable or external content", "SVG sprite contains executable or external content");
+check(!/\.nf-icon-[\w-]+::(?:before|after)|\.menu-glyph::(?:before|after)/.test(siteCss), "Critical icons no longer depend on CSS geometry", "CSS pseudo-element icon geometry remains");
+
+const foundationStart = siteCss.indexOf("/* Netfull 3.0 foundations:");
+const foundationEnd = siteCss.indexOf(".site-footer", foundationStart);
+const foundationComponents = siteCss.slice(foundationStart, foundationEnd).replace(/mask-image:[^;]+;/g, "");
+check(foundationStart >= 0 && foundationEnd > foundationStart, "Netfull 3.0 component scope is identifiable", "Unable to identify Netfull 3.0 component scope");
+check(!/#[0-9a-f]{3,8}\b|rgba?\(/i.test(foundationComponents), "Netfull 3.0 components consume semantic color tokens", "A direct color was introduced in the Netfull 3.0 component scope");
 
 const idsByFile = new Map();
 for (const htmlPath of htmlFiles) {
@@ -228,6 +280,29 @@ for (const htmlPath of htmlFiles) {
   check(!/\son[a-z]+\s*=/i.test(html), `No inline event handlers in ${fileName}`, `An inline event handler was found in ${fileName}`);
   check(/<meta\s+http-equiv="Content-Security-Policy"/i.test(html), `CSP meta present in ${fileName}`, `CSP meta policy is missing in ${fileName}`);
   check(/<meta\s+name="referrer"\s+content="strict-origin-when-cross-origin"/i.test(html), `Referrer policy present in ${fileName}`, `Referrer policy is missing or weak in ${fileName}`);
+
+  const pageCsp = html.match(/<meta\s+http-equiv="Content-Security-Policy"\s+content="([^"]+)"/i)?.[1] ?? "";
+  check(/(?:^|;)\s*font-src\s+'self'(?:\s|;|$)/i.test(pageCsp) && !/(?:^|;)\s*font-src\s+\*/i.test(pageCsp), `CSP restricts fonts to self in ${fileName}`, `CSP font-src must be restricted to 'self' in ${fileName}`);
+
+  const preloadTag = (html.match(/<link\b[^>]*>/gi) ?? []).find((tag) => {
+    const attrs = attributes(tag);
+    return attrs.get("rel") === "preload" && /assets\/fonts\/InterVariable\.woff2$/.test(attrs.get("href") ?? "");
+  });
+  const preloadAttrs = attributes(preloadTag ?? "");
+  check(Boolean(preloadTag) && preloadAttrs.get("as") === "font" && preloadAttrs.get("type") === "font/woff2" && preloadAttrs.has("crossorigin"), `Inter is preloaded correctly in ${fileName}`, `Inter preload is missing or incomplete in ${fileName}`);
+
+  const iconSvgTags = (html.match(/<svg\b[^>]*>/gi) ?? []).filter((tag) => /\b(?:nf-icon|menu-glyph|content-symbol|contact-symbol|whatsapp-symbol)\b/.test(attributes(tag).get("class") ?? ""));
+  for (const tag of iconSvgTags) {
+    const attrs = attributes(tag);
+    const decorative = attrs.get("aria-hidden") === "true";
+    const labelled = attrs.get("role") === "img" && Boolean(attrs.get("aria-label") || attrs.get("aria-labelledby"));
+    check(decorative || labelled, `SVG icon has accessible semantics in ${fileName}`, `SVG icon lacks accessible semantics in ${fileName}: ${tag}`);
+    if (decorative) check(attrs.get("focusable") === "false", `Decorative SVG is not focusable in ${fileName}`, `Decorative SVG must set focusable="false" in ${fileName}: ${tag}`);
+  }
+  check(!/<span\b[^>]*class="[^"]*\bnf-icon\b/i.test(html), `No legacy span icons in ${fileName}`, `Legacy span-based icon remains in ${fileName}`);
+  for (const use of html.matchAll(/<use\b[^>]*\bhref="[^"]*netfull-icons\.svg#([^"]+)"[^>]*>/gi)) {
+    check(spriteIds.includes(use[1]), `SVG use references a known symbol: ${use[1]}`, `Unknown SVG symbol in ${fileName}: ${use[1]}`);
+  }
 
   const ids = Array.from(html.matchAll(/\bid="([^"]+)"/gi), (match) => match[1]);
   const duplicateIds = ids.filter((id, index) => ids.indexOf(id) !== index);
@@ -258,10 +333,12 @@ for (const htmlPath of htmlFiles.filter((file) => file !== designSystemPath)) {
   }
 }
 check(decorativeAbbreviations.length === 0, "Decorative abbreviations were replaced by the icon system", `Decorative abbreviations remain: ${decorativeAbbreviations.join(", ")}`);
+const allHtml = htmlFiles.map(read).join("\n");
+check(!/<span\s+class="(?:menu-glyph|content-symbol)"|<span>WA<\/span><strong>Escríbenos<\/strong>|<span>@<\/span><span><small>Correo/i.test(allHtml), "Decorative emojis and abbreviations were replaced by SVG", "A decorative emoji or abbreviation remains outside the SVG system");
 
 for (const htmlPath of htmlFiles) {
   const html = read(htmlPath);
-  for (const tag of html.match(/<(?:a|img|script|link|source)\b[^>]*>/gi) ?? []) {
+  for (const tag of html.match(/<(?:a|img|script|link|source|use)\b[^>]*>/gi) ?? []) {
     const attrs = attributes(tag);
     const reference = attrs.get("href") ?? attrs.get("src") ?? attrs.get("srcset");
     if (!reference || reference.includes(",")) continue;
@@ -291,6 +368,7 @@ const expectedMetaCsp = headerCsp?.replace(/; frame-ancestors 'none'/, "");
 check(cspMeta === expectedMetaCsp, "Home CSP meta matches edge policy", "Home CSP meta does not match the edge policy");
 check(!cspMeta?.includes("'unsafe-inline'"), "CSP blocks unsafe inline code", "CSP contains 'unsafe-inline'");
 check(!cspMeta?.includes("'unsafe-eval'"), "CSP blocks eval-like code", "CSP contains 'unsafe-eval'");
+check(/(?:^|;)\s*font-src\s+'self'(?:\s|;|$)/i.test(headerCsp ?? "") && !/(?:^|;)\s*font-src\s+\*/i.test(headerCsp ?? ""), "Edge CSP restricts fonts to self", "Edge CSP font-src must be restricted to 'self'");
 
 const requiredHeaders = {
   "Strict-Transport-Security": "max-age=31536000",

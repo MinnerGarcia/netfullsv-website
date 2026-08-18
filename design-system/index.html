@@ -12,7 +12,8 @@
   <link rel="canonical" href="https://netfullsv.com/design-system/">
   <link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
-  <link rel="stylesheet" href="../assets/site.css?v=18e20aab97d4">
+  <link rel="preload" href="../assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/site.css?v=48a4d892b930">
 </head>
 <body class="design-system-page" data-page="design-system">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -58,7 +59,7 @@
 
     <section class="ds-block" id="tipografia">
       <div class="container">
-        <div class="ds-intro"><p class="overline">02 · Tipografía</p><h2>Jerarquía contundente, lectura serena.</h2><p>Inter y el stack nativo reducen peso y mantienen consistencia. Los titulares son compactos; el texto conserva una medida legible.</p></div>
+        <div class="ds-intro"><p class="overline">02 · Tipografía</p><h2>Jerarquía contundente, lectura serena.</h2><p>Inter Variable se sirve localmente en un solo archivo WOFF2; el stack nativo permanece como respaldo. Los titulares son compactos y el texto conserva una medida legible.</p></div>
         <div class="type-sample"><small>Display XL · 48–90 px</small><div class="display-xl">Conectividad que sostiene.</div></div>
         <div class="type-sample"><small>Display · 43–78 px</small><div class="display">Infraestructura clara.</div></div>
         <div class="type-sample"><small>H2 · 32–57 px</small><div class="type-h2"><strong>Una red pensada alrededor de la operación.</strong></div></div>
@@ -114,7 +115,7 @@
       <div class="container">
         <div class="ds-intro"><p class="overline">06 · Cards</p><h2>Contenedores solo cuando aportan estructura.</h2><p>No encerrar cada párrafo. Reservar cards para opciones comparables, planes, capacidades o llamados completos.</p></div>
         <div class="component-grid">
-          <article class="service-card"><span class="service-icon nf-icon nf-icon-signal" aria-hidden="true"></span><h3>Service Card</h3><p>Una solución con propósito y siguiente paso.</p><a class="text-link" href="#cards">Conocer solución →</a></article>
+          <article class="service-card"><svg class="service-icon nf-icon nf-icon-signal" aria-hidden="true" focusable="false"><use href="../assets/icons/netfull-icons.svg#nf-signal"></use></svg><h3>Service Card</h3><p>Una solución con propósito y siguiente paso.</p><a class="text-link" href="#cards">Conocer solución →</a></article>
           <article class="technical-card"><p class="overline">Capacidad técnica</p><h3>Technical Capability</h3><p>Explica infraestructura o alcance sin convertirlo en una ficha saturada.</p></article>
           <article class="dark-card"><span class="badge badge-dark">Infraestructura</span><h3>Dark Card</h3><p>Usar con moderación para elevar capacidades técnicas clave.</p></article>
         </div>
@@ -123,20 +124,23 @@
 
     <section class="ds-block" id="iconos">
       <div class="container">
-        <div class="ds-intro"><p class="overline">07 · Iconografía</p><h2>Geometría de red, no siglas decorativas.</h2><p>Trazo visual de 2 px, cajas de 46 px, un solo color y significado acompañado por texto.</p></div>
+        <div class="ds-intro"><p class="overline">07 · Iconografía</p><h2>Geometría de red, no siglas decorativas.</h2><p>Sprite SVG local con viewBox de 24 × 24, trazo de 2 px, color heredado y significado acompañado por texto.</p></div>
         <div class="component-row" aria-label="Familia de iconos Netfull">
-          <span class="nf-icon nf-icon-home" title="Hogar" aria-label="Hogar"></span>
-          <span class="nf-icon nf-icon-building" title="Empresa" aria-label="Empresa"></span>
-          <span class="nf-icon nf-icon-screen" title="Pantalla" aria-label="Pantalla"></span>
-          <span class="nf-icon nf-icon-network" title="Red" aria-label="Red"></span>
-          <span class="nf-icon nf-icon-link" title="Enlace" aria-label="Enlace"></span>
-          <span class="nf-icon nf-icon-cloud" title="Nube" aria-label="Nube"></span>
-          <span class="nf-icon nf-icon-shield" title="Seguridad" aria-label="Seguridad"></span>
-          <span class="nf-icon nf-icon-globe" title="Internet" aria-label="Internet"></span>
-          <span class="nf-icon nf-icon-support" title="Soporte" aria-label="Soporte"></span>
-          <span class="nf-icon nf-icon-signal" title="Señal" aria-label="Señal"></span>
-          <span class="nf-icon nf-icon-server" title="Servidor" aria-label="Servidor"></span>
-          <span class="nf-icon nf-icon-route" title="Ruta" aria-label="Ruta"></span>
+          <svg class="nf-icon nf-icon-home" role="img" aria-labelledby="icon-home-title" focusable="false"><title id="icon-home-title">Hogar</title><use href="../assets/icons/netfull-icons.svg#nf-home"></use></svg>
+          <svg class="nf-icon nf-icon-building" role="img" aria-labelledby="icon-building-title" focusable="false"><title id="icon-building-title">Empresa</title><use href="../assets/icons/netfull-icons.svg#nf-building"></use></svg>
+          <svg class="nf-icon nf-icon-screen" role="img" aria-labelledby="icon-screen-title" focusable="false"><title id="icon-screen-title">Pantalla</title><use href="../assets/icons/netfull-icons.svg#nf-screen"></use></svg>
+          <svg class="nf-icon nf-icon-network" role="img" aria-labelledby="icon-network-title" focusable="false"><title id="icon-network-title">Red</title><use href="../assets/icons/netfull-icons.svg#nf-network"></use></svg>
+          <svg class="nf-icon nf-icon-link" role="img" aria-labelledby="icon-link-title" focusable="false"><title id="icon-link-title">Enlace</title><use href="../assets/icons/netfull-icons.svg#nf-link"></use></svg>
+          <svg class="nf-icon nf-icon-cloud" role="img" aria-labelledby="icon-cloud-title" focusable="false"><title id="icon-cloud-title">Nube</title><use href="../assets/icons/netfull-icons.svg#nf-cloud"></use></svg>
+          <svg class="nf-icon nf-icon-shield" role="img" aria-labelledby="icon-shield-title" focusable="false"><title id="icon-shield-title">Seguridad</title><use href="../assets/icons/netfull-icons.svg#nf-shield"></use></svg>
+          <svg class="nf-icon nf-icon-globe" role="img" aria-labelledby="icon-globe-title" focusable="false"><title id="icon-globe-title">Internet</title><use href="../assets/icons/netfull-icons.svg#nf-globe"></use></svg>
+          <svg class="nf-icon nf-icon-support" role="img" aria-labelledby="icon-support-title" focusable="false"><title id="icon-support-title">Soporte</title><use href="../assets/icons/netfull-icons.svg#nf-support"></use></svg>
+          <svg class="nf-icon nf-icon-signal" role="img" aria-labelledby="icon-signal-title" focusable="false"><title id="icon-signal-title">Señal</title><use href="../assets/icons/netfull-icons.svg#nf-signal"></use></svg>
+          <svg class="nf-icon nf-icon-server" role="img" aria-labelledby="icon-server-title" focusable="false"><title id="icon-server-title">Servidor</title><use href="../assets/icons/netfull-icons.svg#nf-server"></use></svg>
+          <svg class="nf-icon nf-icon-message" role="img" aria-labelledby="icon-message-title" focusable="false"><title id="icon-message-title">Mensaje</title><use href="../assets/icons/netfull-icons.svg#nf-message"></use></svg>
+          <svg class="nf-icon nf-icon-user" role="img" aria-labelledby="icon-user-title" focusable="false"><title id="icon-user-title">Usuario</title><use href="../assets/icons/netfull-icons.svg#nf-user"></use></svg>
+          <svg class="nf-icon nf-icon-route" role="img" aria-labelledby="icon-route-title" focusable="false"><title id="icon-route-title">Ruta</title><use href="../assets/icons/netfull-icons.svg#nf-route"></use></svg>
+          <svg class="nf-icon nf-icon-chart" role="img" aria-labelledby="icon-chart-title" focusable="false"><title id="icon-chart-title">Gráfica</title><use href="../assets/icons/netfull-icons.svg#nf-chart"></use></svg>
         </div>
       </div>
     </section>

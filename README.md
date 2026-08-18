@@ -25,6 +25,8 @@ Sitio estático multipágina de NetfullSV, construido con HTML, CSS y JavaScript
 - `DESIGN-SYSTEM-NETFULL.md` — principios, tokens, componentes y reglas de uso.
 - `AUDITORIA-VISUAL-FASE-1.md` — diagnóstico del estado previo y deuda detectada.
 - `/design-system/` — muestra visual responsive; no aparece en el sitemap ni debe indexarse.
+- `assets/fonts/InterVariable.woff2` — Inter Variable 4.1 autohospedada; licencia y procedencia en `assets/fonts/`.
+- `assets/icons/netfull-icons.svg` — sprite SVG local de la familia oficial Netfull.
 
 ## Controles preservados
 
@@ -43,6 +45,9 @@ node .github/scripts/validate-site.mjs
 node .github/scripts/test-validator.mjs
 ```
 
-La validación comprueba también la existencia del Design System, su estado `noindex`, los tokens obligatorios y la ausencia de abreviaturas decorativas en la iconografía pública.
+La validación comprueba también la fuente local y su licencia, el sprite SVG y
+su accesibilidad, el consumo de tokens semánticos en componentes nuevos, la
+existencia del Design System, su estado `noindex` y la ausencia de emojis o
+abreviaturas decorativas en la iconografía pública.
 
 Los precios residenciales publicados son los valores vigentes encontrados en el proyecto: 30 Mbps por $28, 100 Mbps por $33 y 200 Mbps por $53 al mes. Cualquier cambio requiere confirmación comercial.

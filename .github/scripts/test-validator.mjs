@@ -29,6 +29,30 @@ const cases = [
     file: path.join(".github", "scripts", "check-external-security.mjs"),
     mutate: (source) => source.replaceAll("letsencrypt.org", "untrusted.example"),
     expected: "CAA policy"
+  },
+  {
+    name: "external font provider",
+    file: path.join("assets", "site.css"),
+    mutate: (source) => `${source}\n@import url("https://fonts.googleapis.com/css2?family=Inter");\n`,
+    expected: "external font provider"
+  },
+  {
+    name: "CSS pseudo-element icon geometry",
+    file: path.join("assets", "site.css"),
+    mutate: (source) => `${source}\n.nf-icon-home::before { content: ""; }\n`,
+    expected: "CSS pseudo-element icon geometry remains"
+  },
+  {
+    name: "direct color in a Netfull 3.0 component",
+    file: path.join("assets", "site.css"),
+    mutate: (source) => source.replace("/* Netfull 3.0 foundations: use these primitives before creating page-specific CSS. */", "/* Netfull 3.0 foundations: use these primitives before creating page-specific CSS. */\n.test-component { color: #abcdef; }"),
+    expected: "direct color was introduced"
+  },
+  {
+    name: "SVG symbol without the shared viewBox",
+    file: path.join("assets", "icons", "netfull-icons.svg"),
+    mutate: (source) => source.replace('<symbol id="nf-home" viewBox="0 0 24 24">', '<symbol id="nf-home">'),
+    expected: "must use viewBox 0 0 24 24"
   }
 ];
 

@@ -45,7 +45,7 @@ Fecha de corte: 18 de agosto de 2026.
 - Muchas páginas están compactadas en pocas líneas, lo que dificulta revisar diferencias de componentes.
 - Los alias históricos de color (`--navy-*`, `--blue-*`, `--cyan-*`) mezclaban intención y valor.
 - Algunos componentes usan valores directos de color que deberán migrarse gradualmente a tokens semánticos durante Fase 2.
-- La familia CSS de iconos resuelve la Fase 1 sin dependencia, pero requerirá una revisión visual de marca si en el futuro se crea una biblioteca vectorial oficial.
+- La familia vectorial oficial vive en un sprite SVG local. Su revisión futura debe conservar el sistema de 24 × 24, trazo de 2px y lenguaje de nodos/red.
 
 ### Componentes duplicados o repetitivos
 
@@ -73,7 +73,9 @@ Fecha de corte: 18 de agosto de 2026.
 - Se amplió la raíz de tokens manteniendo alias compatibles con Netfull 2.0.
 - Se normalizaron tipografía, spacing, grid, radios, sombras, estados y movimiento.
 - Se completaron variantes de botones, formularios, cards, badges y superficies.
-- Se creó una familia de iconos CSS y se retiraron abreviaturas decorativas no numéricas de los componentes públicos existentes.
+- Se creó una familia de iconos SVG local y se retiraron la geometría CSS, emojis y abreviaturas decorativas de los componentes públicos existentes.
+- Se autohospedó Inter Variable 4.1 en WOFF2 con licencia OFL, procedencia verificable y carga desde el mismo origen.
+- Se completaron tokens semánticos para estados, superficies oscuras, señal, red y foco en los componentes Netfull 3.0.
 - Se creó una familia accesible de cinco diagramas de red.
 - Se añadió `/design-system/` como referencia no indexable y se excluyó del sitemap.
 - Se documentaron reglas de fotografía, accesibilidad, responsive y uso/no uso.
@@ -85,3 +87,8 @@ Fecha de corte: 18 de agosto de 2026.
 - Reorganización de navegación.
 - Cambios de rutas, productos, precios, cobertura, métricas o afirmaciones comerciales.
 - Migración de framework o plataforma de publicación.
+
+## Consideraciones de producción para fases siguientes
+
+- `/design-system/` se mantiene no indexable y fuera del sitemap durante Fase 2. En Fase 3 debe decidirse si se excluye del artefacto de producción o permanece como documentación técnica no indexable.
+- Header, navegación móvil y footer continúan duplicados entre HTML. Durante Fase 2 se debe verificar que no diverjan; una solución de generación estática o validación centralizada podrá evaluarse en Fase 3 sin migrar de framework por este motivo.

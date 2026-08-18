@@ -11,7 +11,7 @@ const output = path.join(root, "artifacts", "qa");
 const port = Number(process.env.QA_PORT || 4174);
 fs.mkdirSync(output, { recursive: true });
 
-const mime = new Map([[".html", "text/html; charset=utf-8"], [".css", "text/css; charset=utf-8"], [".js", "text/javascript; charset=utf-8"], [".png", "image/png"], [".jpg", "image/jpeg"], [".webp", "image/webp"], [".xml", "application/xml"], [".txt", "text/plain; charset=utf-8"]]);
+const mime = new Map([[".html", "text/html; charset=utf-8"], [".css", "text/css; charset=utf-8"], [".js", "text/javascript; charset=utf-8"], [".svg", "image/svg+xml"], [".woff2", "font/woff2"], [".png", "image/png"], [".jpg", "image/jpeg"], [".webp", "image/webp"], [".xml", "application/xml"], [".txt", "text/plain; charset=utf-8"]]);
 const server = http.createServer((request, response) => {
   const raw = new URL(request.url, "http://127.0.0.1").pathname;
   let target = path.join(root, decodeURIComponent(raw).replace(/^\/+/, ""));
@@ -28,6 +28,7 @@ const viewports = [[360, 800], [375, 812], [390, 844], [430, 932], [768, 1024], 
 const routes = ["/", "/hogar/", "/empresas/", "/internet-empresarial/", "/internet-dedicado/", "/vpn-empresarial/", "/interconexion-sucursales/", "/ip-publica/", "/soporte-empresarial/", "/tv/", "/cobertura/", "/contacto/", "/nosotros/", "/privacidad.html", "/design-system/", "/ruta-inexistente"];
 const errors = [];
 const consoleErrors = [];
+const assetErrors = [];
 const checks = [];
 
 for (const [width, height] of viewports) {
@@ -35,6 +36,11 @@ for (const [width, height] of viewports) {
   const page = await context.newPage();
   let currentRoute = "";
   page.on("pageerror", (error) => errors.push(`${width}x${height}: ${error.message}`));
+  page.on("requestfailed", (request) => assetErrors.push(`${width}x${height} ${currentRoute}: request failed ${request.url()} (${request.failure()?.errorText || "unknown"})`));
+  page.on("response", (response) => {
+    const request = response.request();
+    if (response.status() >= 400 && request.resourceType() !== "document") assetErrors.push(`${width}x${height} ${currentRoute}: ${response.status()} ${response.url()}`);
+  });
   page.on("console", (message) => {
     const text = message.text();
     const localSecurityInjection = text.includes("Content-Security-Policy directive") || text.includes("Content Security Policy directive");
@@ -46,17 +52,47 @@ for (const [width, height] of viewports) {
   for (const route of routes) {
     currentRoute = route;
     const response = await page.goto(`http://127.0.0.1:${port}${route}`, { waitUntil: "load", timeout: 15000 });
-    const state = await page.evaluate(() => ({
-      title: document.title,
-      h1: document.querySelectorAll("h1").length,
-      main: document.querySelectorAll("main").length,
-      width: document.documentElement.scrollWidth,
-      viewport: document.documentElement.clientWidth,
-      bodyVisible: getComputedStyle(document.body).visibility !== "hidden" && Number(getComputedStyle(document.body).opacity) > 0,
-      firstHeadingVisible: Boolean(document.querySelector("h1")?.getBoundingClientRect().height)
-    }));
+    const state = await page.evaluate(async () => {
+      await document.fonts.ready;
+      const uses = [...document.querySelectorAll("svg use")];
+      const visibleUses = uses.filter((use) => {
+        const svg = use.closest("svg");
+        if (!svg) return false;
+        const style = getComputedStyle(svg);
+        const box = svg.getBoundingClientRect();
+        return style.display !== "none" && style.visibility !== "hidden" && box.width > 0 && box.height > 0;
+      });
+      const unrenderedUses = visibleUses.filter((use) => {
+        try {
+          const box = use.getBBox();
+          return box.width <= 0 || box.height <= 0;
+        } catch {
+          return true;
+        }
+      }).length;
+      const loadedInterFaces = [...document.fonts].filter((face) => face.family.includes("Inter Variable") && face.status === "loaded").length;
+      const fontResources = performance.getEntriesByType("resource").filter((entry) => entry.name.includes("/assets/fonts/InterVariable.woff2")).length;
+      return {
+        title: document.title,
+        h1: document.querySelectorAll("h1").length,
+        main: document.querySelectorAll("main").length,
+        width: document.documentElement.scrollWidth,
+        viewport: document.documentElement.clientWidth,
+        bodyVisible: getComputedStyle(document.body).visibility !== "hidden" && Number(getComputedStyle(document.body).opacity) > 0,
+        firstHeadingVisible: Boolean(document.querySelector("h1")?.getBoundingClientRect().height),
+        computedFontFamily: getComputedStyle(document.body).fontFamily,
+        fontCheck: document.fonts.check('16px "Inter Variable"'),
+        loadedInterFaces,
+        fontResources,
+        iconUses: uses.length,
+        visibleIconUses: visibleUses.length,
+        unrenderedUses
+      };
+    });
     if (route === "/ruta-inexistente" ? response.status() !== 404 : response.status() !== 200) errors.push(`${route} returned ${response.status()} at ${width}x${height}`);
     if (state.h1 !== 1 || state.main !== 1 || state.width > state.viewport || !state.bodyVisible || !state.firstHeadingVisible) errors.push(`${route} failed layout at ${width}x${height}: ${JSON.stringify(state)}`);
+    if (!state.computedFontFamily.includes("Inter Variable") || !state.fontCheck || state.loadedInterFaces < 1 || state.fontResources < 1) errors.push(`${route} failed local font loading at ${width}x${height}: ${JSON.stringify(state)}`);
+    if (state.iconUses > 0 && state.unrenderedUses > 0) errors.push(`${route} has ${state.unrenderedUses} unrendered SVG use element(s) at ${width}x${height}`);
     checks.push({ route, viewport: `${width}x${height}`, status: response.status(), ...state });
   }
   await context.close();
@@ -92,7 +128,11 @@ const accessibilityState = await accessibilityPage.evaluate(() => {
     focusedVisible: Boolean(active && active.getBoundingClientRect().top >= 0 && active.getBoundingClientRect().height > 0),
     outlineWidth: active ? getComputedStyle(active).outlineWidth : "0px",
     actionHeight: actionBox?.height || 0,
-    noindex: robots.includes("noindex")
+    noindex: robots.includes("noindex"),
+    meaningfulIconsLabelled: [...document.querySelectorAll(".nf-icon[role='img']")].every((icon) => {
+      const labelledBy = icon.getAttribute("aria-labelledby");
+      return Boolean(labelledBy && document.getElementById(labelledBy)?.textContent?.trim());
+    })
   };
 });
 await accessibilityPage.goto(`http://127.0.0.1:${port}/vpn-empresarial/`, { waitUntil: "load", timeout: 15000 });
@@ -101,7 +141,7 @@ accessibilityState.publicIconsDecorative = await accessibilityPage.locator(".nf-
 if (!String(accessibilityState.focusedClass).includes("skip-link") || !accessibilityState.focusedVisible || accessibilityState.outlineWidth === "0px") {
   errors.push(`Keyboard focus contract failed: ${JSON.stringify(accessibilityState)}`);
 }
-if (accessibilityState.actionHeight < 44 || !accessibilityState.noindex || !accessibilityState.publicIconsDecorative || parseFloat(accessibilityState.reducedMotionDuration) > 0.01) {
+if (accessibilityState.actionHeight < 44 || !accessibilityState.noindex || !accessibilityState.meaningfulIconsLabelled || !accessibilityState.publicIconsDecorative || parseFloat(accessibilityState.reducedMotionDuration) > 0.01) {
   errors.push(`Accessibility contract failed: ${JSON.stringify(accessibilityState)}`);
 }
 await accessibilityPage.close();
@@ -125,27 +165,32 @@ if (!openedUrl.startsWith("https://wa.me/") || !whatsappMessage.includes("Intern
 }
 await formPage.close();
 
-const shots = [
-  ["home", "/", 390, 844], ["home", "/", 1440, 900],
-  ["hogar", "/hogar/", 390, 844], ["hogar", "/hogar/", 1440, 900],
-  ["empresas", "/empresas/", 390, 844], ["empresas", "/empresas/", 1440, 900],
-  ["secure-connect", "/vpn-empresarial/", 390, 844], ["secure-connect", "/vpn-empresarial/", 1440, 900],
-  ["tv", "/tv/", 390, 844], ["tv", "/tv/", 1440, 900],
-  ["design-system", "/design-system/", 390, 844], ["design-system", "/design-system/", 1440, 900]
+const visualRoutes = [
+  ["home", "/"], ["hogar", "/hogar/"], ["empresas", "/empresas/"],
+  ["secure-connect", "/vpn-empresarial/"], ["tv", "/tv/"], ["design-system", "/design-system/"]
 ];
+const shots = visualRoutes.flatMap(([name, route]) => viewports.map(([width, height]) => [name, route, width, height]));
 for (const [name, route, width, height] of shots) {
   const page = await browser.newPage({ viewport: { width, height } });
   await page.goto(`http://127.0.0.1:${port}${route}`, { waitUntil: "load", timeout: 15000 });
   await page.screenshot({ path: path.join(output, `${name}-${width}x${height}.png`), fullPage: false });
   await page.close();
 }
+const designSystemDetails = [["typography", "#tipografia"], ["icons", "#iconos"]];
+for (const [name, selector] of designSystemDetails) {
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  await page.goto(`http://127.0.0.1:${port}/design-system/`, { waitUntil: "load", timeout: 15000 });
+  await page.locator(selector).screenshot({ path: path.join(output, `design-system-${name}-1440.png`) });
+  await page.close();
+}
 
 if (consoleErrors.length) errors.push(...consoleErrors.map((message) => `Console error: ${message}`));
-fs.writeFileSync(path.join(output, "qa-results.json"), JSON.stringify({ checks, noJsState, accessibilityState, openedUrl, consoleErrors, errors }, null, 2));
+if (assetErrors.length) errors.push(...assetErrors.map((message) => `Asset error: ${message}`));
+fs.writeFileSync(path.join(output, "qa-results.json"), JSON.stringify({ checks, noJsState, accessibilityState, openedUrl, consoleErrors, assetErrors, errors }, null, 2));
 await browser.close();
 await new Promise((resolve) => server.close(resolve));
 if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
 }
-console.log(`Browser QA passed: ${checks.length} route/viewport combinations, accessibility contract and ${shots.length} screenshots.`);
+console.log(`Browser QA passed: ${checks.length} route/viewport combinations, accessibility contract and ${shots.length + designSystemDetails.length} screenshots.`);

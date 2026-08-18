@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="nf-home" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V21h13V10.5"/><path d="M9.5 21v-6h5v6"/>
+    </g>
+  </symbol>
+  <symbol id="nf-building" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 21V3h14v18M3 21h18"/><path d="M8 7h2m4 0h2M8 11h2m4 0h2M8 15h2m4 0h2M10 21v-3h4v3"/>
+    </g>
+  </symbol>
+  <symbol id="nf-screen" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/>
+    </g>
+  </symbol>
+  <symbol id="nf-network" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="m8.3 7.2 2.5 8.4m4.9-8.4-2.5 8.4M8.5 6h7"/>
+    </g>
+  </symbol>
+  <symbol id="nf-link" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m9.5 14.5 5-5"/><path d="M7.2 16.8 5.6 18.4a3.7 3.7 0 0 1-5.2-5.2L4 9.6a3.7 3.7 0 0 1 5.2 0" transform="translate(3)"/><path d="m16.8 7.2 1.6-1.6a3.7 3.7 0 0 1 5.2 5.2L20 14.4a3.7 3.7 0 0 1-5.2 0" transform="translate(-3)"/>
+    </g>
+  </symbol>
+  <symbol id="nf-cloud" viewBox="0 0 24 24">
+    <path d="M6.5 19a4.5 4.5 0 0 1-.7-8.94A6.5 6.5 0 0 1 18.3 9a5 5 0 0 1-.3 10H6.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="nf-shield" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3 20 6v5.5c0 4.8-3.3 8.1-8 9.5-4.7-1.4-8-4.7-8-9.5V6l8-3Z"/><path d="m8.5 12 2.3 2.3 4.8-5"/>
+    </g>
+  </symbol>
+  <symbol id="nf-globe" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.5 3.7 5.5 3.7 9s-1.3 6.5-3.7 9c-2.4-2.5-3.7-5.5-3.7-9S9.6 5.5 12 3Z"/>
+    </g>
+  </symbol>
+  <symbol id="nf-support" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 13v-2a8 8 0 0 1 16 0v2"/><path d="M4 12H2v5h4v-5H4Zm16 0h2v5h-4v-5h2Zm0 5c0 2.2-1.8 4-4 4h-2"/><circle cx="12" cy="21" r="1"/>
+    </g>
+  </symbol>
+  <symbol id="nf-signal" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M3.5 9.5a12 12 0 0 1 17 0M6.5 12.5a7.8 7.8 0 0 1 11 0M9.5 15.5a3.6 3.6 0 0 1 5 0"/><circle cx="12" cy="19" r="1" fill="currentColor" stroke="none"/>
+    </g>
+  </symbol>
+  <symbol id="nf-server" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01M11 7h7M11 17h7"/>
+    </g>
+  </symbol>
+  <symbol id="nf-message" viewBox="0 0 24 24">
+    <path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H10l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="nf-user" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/>
+    </g>
+  </symbol>
+  <symbol id="nf-route" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="6" cy="5" r="2"/><circle cx="18" cy="19" r="2"/><path d="M8 5h3a4 4 0 0 1 4 4v1a4 4 0 0 1-4 4h-1a4 4 0 0 0-4 4v1m8 0h2"/>
+    </g>
+  </symbol>
+  <symbol id="nf-chart" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 20V5m0 15h16M7 16l4-4 3 2 5-7"/><circle cx="7" cy="16" r="1" fill="currentColor" stroke="none"/><circle cx="11" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="14" cy="14" r="1" fill="currentColor" stroke="none"/><circle cx="19" cy="7" r="1" fill="currentColor" stroke="none"/>
+    </g>
+  </symbol>
+  <symbol id="nf-play" viewBox="0 0 24 24">
+    <path d="m9 7 8 5-8 5V7Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="nf-family" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20a5.5 5.5 0 0 1 11 0m.5 0a4 4 0 0 1 8 0"/>
+    </g>
+  </symbol>
+  <symbol id="nf-mail" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>
+    </g>
+  </symbol>
+  <symbol id="nf-menu" viewBox="0 0 24 24">
+    <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+</svg>

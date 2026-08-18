@@ -65,9 +65,14 @@ Escala `--color-neutral-0` a `--color-neutral-950`: blanco, fondos, bordes, text
 ### State colors
 
 - `--color-success: #087D50`
+- `--color-success-text`, `--color-success-border`, `--color-success-soft`: texto, borde y superficie de confirmación.
 - `--color-warning: #9A6400`
 - `--color-error: #B42318`
 - `--color-information: var(--color-brand-600)`
+
+Las superficies oscuras y de señal usan tokens semánticos (`--color-dark-*`,
+`--color-signal-*` y `--color-network-*`) para que cards, badges, formularios y
+diagramas no consuman valores `rgba(...)` arbitrarios.
 
 El color nunca debe ser la única forma de comunicar un estado.
 
@@ -79,7 +84,21 @@ El color nunca debe ser la única forma de comunicar un estado.
 
 ## Typography
 
-Familia: `Inter`, seguida por el stack nativo del sistema. En esta fase no se descarga una fuente externa: se evita latencia, dependencia de terceros y cambios bruscos durante la carga.
+Familia principal: **Inter Variable 4.1 autohospedada**, seguida por `Inter`,
+`ui-sans-serif`, `system-ui`, `-apple-system`, `BlinkMacSystemFont`, `Segoe UI`
+y `sans-serif` como respaldo.
+
+- Archivo: `assets/fonts/InterVariable.woff2`.
+- Formato: WOFF2 variable, estilo normal, pesos 100–900.
+- Carga: un solo archivo, `font-display: swap`, `font-optical-sizing: auto` y
+  preload local en los documentos HTML.
+- Privacidad y disponibilidad: el navegador solicita la fuente únicamente a
+  `netfullsv.com`; no existe conexión a Google Fonts, CDN o API externa.
+- Cobertura: se conserva la distribución completa, sin subset, para asegurar
+  español, signos de apertura, símbolos monetarios y el repertorio actual.
+- Licencia: SIL Open Font License 1.1, incluida en
+  `assets/fonts/LICENSE-Inter.txt`.
+- Procedencia y hashes: `assets/fonts/README.md`.
 
 | Rol | Token / tamaño | Peso | Line-height | Tracking |
 |---|---|---:|---:|---:|
@@ -162,15 +181,27 @@ No usar cards para: párrafos consecutivos, títulos sin acción, listas simples
 
 ## Icons
 
-Familia CSS `.nf-icon`: geometría simple de nodos y red, trazo visual aproximado de 2px, caja base de 46px y un solo color.
+Formato oficial: sprite SVG local `assets/icons/netfull-icons.svg`. Cada símbolo
+utiliza `viewBox="0 0 24 24"`, `fill="none"`, trazo de `2px`, extremos y uniones
+redondeados y `currentColor`. La caja visual `.nf-icon` mide 46px y mantiene el
+lenguaje de nodos, enlaces, rutas, señal e infraestructura.
 
-Disponibles: hogar, empresa, pantalla, red, enlace, nube, seguridad, globo/Internet, soporte, señal, servidor, mensaje, usuario, ruta y gráfica.
+Disponibles como familia base: hogar, empresa, pantalla, red, enlace, nube,
+seguridad, globo/Internet, soporte, señal, servidor, mensaje, usuario, ruta y
+gráfica. El sprite también incluye símbolos auxiliares coherentes para
+reproducción, familia, correo y menú.
 
-- Siempre acompañados de texto o nombre accesible.
-- Si el icono es decorativo: `aria-hidden="true"`.
-- Si transmite significado sin texto: `aria-label`.
+- Usar `<svg><use href="...#nf-nombre"></use></svg>`; no recrear la geometría
+  con `::before`, `::after`, bordes o sombras.
+- El sprite se sirve desde el mismo origen, aprovecha caché y no requiere
+  JavaScript ni una librería de terceros.
+- Siempre acompañar el icono con texto o un nombre accesible.
+- Si es decorativo: `aria-hidden="true"` y `focusable="false"`.
+- Si comunica significado sin texto: `role="img"` y `aria-labelledby` asociado
+  a un `<title>` único, o un mecanismo equivalente.
 - No usar emojis, siglas como `OP`, `SC`, `S2S` ni mezclar estilos.
-- Las siglas siguen siendo válidas dentro de contenido técnico cuando forman parte del nombre o explicación, no como adorno.
+- Las siglas siguen siendo válidas dentro de contenido técnico cuando forman
+  parte del nombre o explicación, no como adorno.
 
 ## Network diagrams
 
@@ -243,6 +274,24 @@ Todo componente nuevo debe usar:
 - `--type-*` y `--font-*` para tipografía;
 - `--motion-*` y `--ease-standard` para interacción.
 
+Tokens semánticos de superficie añadidos al cierre de Fase 1:
+
+- éxito: `--color-success-text`, `--color-success-border`,
+  `--color-success-soft`;
+- oscuridad: `--color-dark-border-subtle`,
+  `--color-dark-border-standard`, `--color-dark-surface-soft`;
+- señal: `--color-signal-border-faint`, `--color-signal-border-subtle`,
+  `--color-signal-border-standard`, `--color-signal-surface-soft`,
+  `--color-signal-grid`, `--color-signal-link-soft`;
+- red: `--color-network-surface-start`, `--color-network-surface-end`,
+  `--color-network-node`;
+- foco: `--color-focus-ring`.
+
+Los valores hexadecimales o `rgba(...)` se definen en la raíz del sistema; los
+componentes nuevos consumen el token que describe su función. Transparencias
+únicas, máscaras y sombras pueden conservar un valor directo cuando no forman
+un patrón semántico reutilizable.
+
 ## Animations
 
 Permitido: hover de `2–6px`, underline, fade corto, transición de color y pulso de nodo moderado.
@@ -297,3 +346,15 @@ Objetivo: WCAG 2.2 AA donde sea razonablemente aplicable.
 - No inventar datos, SLA, cobertura, clientes o certificaciones.
 - No duplicar valores mágicos que ya existen como tokens.
 - No rediseñar navegación o contenido global sin el alcance de una fase posterior.
+
+## Production considerations
+
+- `/design-system/` permanece disponible, no indexable (`noindex`, `nofollow`,
+  `noarchive`) y fuera del sitemap durante Fase 2. En Fase 3 deberá decidirse si
+  se excluye por completo del despliegue de producción o si continúa como
+  documentación técnica no indexable. Este cierre no implementa la exclusión.
+- Header, navegación móvil y footer continúan duplicados entre documentos HTML.
+  Es deuda de mantenimiento, no una falla funcional. Durante Fase 2 se debe
+  preservar su consistencia y evitar divergencias. En Fase 3 podrá evaluarse
+  generación estática, includes o una validación automatizada sin introducir
+  un framework únicamente para resolver esta duplicación.
