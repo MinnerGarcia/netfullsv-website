@@ -124,6 +124,9 @@ const jsFiles = allFiles.filter((file) => /\.(?:js|mjs)$/.test(file) && !relativ
 const textFiles = allFiles.filter((file) => /(?:\.(?:html|css|js|mjs|json|ya?ml|md)|CNAME)$/.test(file));
 const indexPath = path.join(repositoryRoot, "index.html");
 const privacyPath = path.join(repositoryRoot, "privacidad.html");
+const designSystemPath = path.join(repositoryRoot, "design-system", "index.html");
+const designSystemDocPath = path.join(repositoryRoot, "DESIGN-SYSTEM-NETFULL.md");
+const visualAuditPath = path.join(repositoryRoot, "AUDITORIA-VISUAL-FASE-1.md");
 const cnamePath = path.join(repositoryRoot, "CNAME");
 const securityHeadersPath = path.join(repositoryRoot, ".github", "security-headers.json");
 const workflowPath = path.join(repositoryRoot, ".github", "workflows", "validate-site.yml");
@@ -135,6 +138,9 @@ const securityControlsPath = path.join(repositoryRoot, ".github", "SECURITY-CONT
 for (const [filePath, label] of [
   [indexPath, "index.html"],
   [privacyPath, "privacidad.html"],
+  [designSystemPath, "design-system/index.html"],
+  [designSystemDocPath, "Design System documentation"],
+  [visualAuditPath, "Phase 1 visual audit"],
   [cnamePath, "CNAME"],
   [securityHeadersPath, "security header policy"],
   [workflowPath, "validation workflow"],
@@ -153,6 +159,9 @@ if (errors.length > 0) {
 
 const indexHtml = read(indexPath);
 const privacyHtml = read(privacyPath);
+const designSystemHtml = read(designSystemPath);
+const designSystemDoc = read(designSystemDocPath);
+const siteCss = read(path.join(repositoryRoot, "assets", "site.css"));
 const siteJavaScript = read(path.join(repositoryRoot, "assets", "site.js"));
 const cname = read(cnamePath).trim();
 const securityHeaders = JSON.parse(read(securityHeadersPath));
@@ -165,7 +174,9 @@ const securityControls = read(securityControlsPath);
 for (const [html, page, asset] of [
   [indexHtml, "index.html", "assets/site.css"],
   [indexHtml, "index.html", "assets/site.js"],
-  [privacyHtml, "privacidad.html", "assets/site.css"]
+  [privacyHtml, "privacidad.html", "assets/site.css"],
+  [designSystemHtml, "design-system/index.html", "assets/site.css"],
+  [designSystemHtml, "design-system/index.html", "assets/site.js"]
 ]) {
   const version = contentVersion(path.join(repositoryRoot, ...asset.split("/")));
   check(
@@ -179,6 +190,22 @@ check(cname === "netfullsv.com", "CNAME targets netfullsv.com", `Unexpected CNAM
 check(htmlFiles.length >= 2, `${htmlFiles.length} HTML pages found`, "Expected the home and privacy pages");
 check(fs.existsSync(path.join(repositoryRoot, "robots.txt")), "robots.txt exists", "robots.txt is missing");
 check(fs.existsSync(path.join(repositoryRoot, "sitemap.xml")), "sitemap.xml exists", "sitemap.xml is missing");
+check(/<meta\s+name="robots"\s+content="noindex, nofollow, noarchive"/i.test(designSystemHtml), "Design System is non-indexable", "Design System must remain noindex, nofollow and noarchive");
+check(!read(path.join(repositoryRoot, "sitemap.xml")).includes("/design-system/"), "Design System is excluded from sitemap", "Design System must not appear in sitemap.xml");
+
+const requiredDesignTokens = [
+  "--color-brand-50", "--color-brand-500", "--color-brand-900",
+  "--color-bg-light", "--color-bg-dark", "--color-text-primary",
+  "--color-success", "--color-warning", "--color-error", "--color-information",
+  "--space-1", "--space-12", "--radius-sm", "--radius-pill",
+  "--shadow-subtle", "--shadow-overlay", "--font-display", "--font-body"
+];
+for (const token of requiredDesignTokens) {
+  check(siteCss.includes(`${token}:`), `Design token exists: ${token}`, `Required Design System token is missing: ${token}`);
+}
+for (const section of ["Brand principles", "Color palette", "Typography", "Spacing", "Grid", "Buttons", "Forms", "Cards", "Icons", "Network diagrams", "Photography", "Section styles", "Navbar", "Footer", "Tokens", "Animations", "Responsive rules", "Accessibility", "Do", "Don't"]) {
+  check(designSystemDoc.includes(`## ${section}`), `Design System documents ${section}`, `DESIGN-SYSTEM-NETFULL.md is missing section: ${section}`);
+}
 
 const idsByFile = new Map();
 for (const htmlPath of htmlFiles) {
@@ -222,6 +249,15 @@ for (const htmlPath of htmlFiles) {
     check(/\bnoopener\b/i.test(rel) && /\bnoreferrer\b/i.test(rel), `External tab isolated in ${fileName}`, `target="_blank" link is missing rel="noopener noreferrer" in ${fileName}: ${tag}`);
   }
 }
+
+const decorativeAbbreviations = [];
+for (const htmlPath of htmlFiles.filter((file) => file !== designSystemPath)) {
+  const html = read(htmlPath);
+  for (const match of html.matchAll(/<span\s+class="(?:icon|service-icon|metric-badge)">([^<]+)<\/span>/gi)) {
+    if (!/^\d{2}$/.test(match[1].trim())) decorativeAbbreviations.push(`${match[1].trim()} in ${relative(htmlPath)}`);
+  }
+}
+check(decorativeAbbreviations.length === 0, "Decorative abbreviations were replaced by the icon system", `Decorative abbreviations remain: ${decorativeAbbreviations.join(", ")}`);
 
 for (const htmlPath of htmlFiles) {
   const html = read(htmlPath);

@@ -24,8 +24,8 @@ await new Promise((resolve) => server.listen(port, "127.0.0.1", resolve));
 
 const edge = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const browser = await chromium.launch({ executablePath: edge, headless: true });
-const viewports = [[360, 800], [390, 844], [430, 932], [768, 1024], [1024, 768], [1366, 768], [1440, 900], [1920, 1080]];
-const routes = ["/", "/hogar/", "/empresas/", "/internet-empresarial/", "/internet-dedicado/", "/vpn-empresarial/", "/interconexion-sucursales/", "/ip-publica/", "/soporte-empresarial/", "/tv/", "/cobertura/", "/contacto/", "/nosotros/", "/privacidad.html", "/ruta-inexistente"];
+const viewports = [[360, 800], [375, 812], [390, 844], [430, 932], [768, 1024], [1024, 768], [1366, 768], [1440, 900], [1920, 1080]];
+const routes = ["/", "/hogar/", "/empresas/", "/internet-empresarial/", "/internet-dedicado/", "/vpn-empresarial/", "/interconexion-sucursales/", "/ip-publica/", "/soporte-empresarial/", "/tv/", "/cobertura/", "/contacto/", "/nosotros/", "/privacidad.html", "/design-system/", "/ruta-inexistente"];
 const errors = [];
 const consoleErrors = [];
 const checks = [];
@@ -77,6 +77,35 @@ if (!noJsState.h1Visible || noJsState.primaryRoutes < 2 || !noJsState.mobileMenu
 }
 await noJsContext.close();
 
+// Accessibility contract: visible keyboard focus, non-indexable internal docs,
+// minimum action size, decorative icon semantics and reduced motion.
+const accessibilityPage = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
+await accessibilityPage.goto(`http://127.0.0.1:${port}/design-system/`, { waitUntil: "load", timeout: 15000 });
+await accessibilityPage.keyboard.press("Tab");
+const accessibilityState = await accessibilityPage.evaluate(() => {
+  const active = document.activeElement;
+  const primaryButton = document.querySelector(".button-primary");
+  const actionBox = primaryButton?.getBoundingClientRect();
+  const robots = document.querySelector('meta[name="robots"]')?.getAttribute("content") || "";
+  return {
+    focusedClass: active?.className || "",
+    focusedVisible: Boolean(active && active.getBoundingClientRect().top >= 0 && active.getBoundingClientRect().height > 0),
+    outlineWidth: active ? getComputedStyle(active).outlineWidth : "0px",
+    actionHeight: actionBox?.height || 0,
+    noindex: robots.includes("noindex")
+  };
+});
+await accessibilityPage.goto(`http://127.0.0.1:${port}/vpn-empresarial/`, { waitUntil: "load", timeout: 15000 });
+accessibilityState.reducedMotionDuration = await accessibilityPage.locator(".pulse").evaluate((element) => getComputedStyle(element).animationDuration);
+accessibilityState.publicIconsDecorative = await accessibilityPage.locator(".nf-icon").evaluateAll((icons) => icons.every((icon) => icon.getAttribute("aria-hidden") === "true"));
+if (!String(accessibilityState.focusedClass).includes("skip-link") || !accessibilityState.focusedVisible || accessibilityState.outlineWidth === "0px") {
+  errors.push(`Keyboard focus contract failed: ${JSON.stringify(accessibilityState)}`);
+}
+if (accessibilityState.actionHeight < 44 || !accessibilityState.noindex || !accessibilityState.publicIconsDecorative || parseFloat(accessibilityState.reducedMotionDuration) > 0.01) {
+  errors.push(`Accessibility contract failed: ${JSON.stringify(accessibilityState)}`);
+}
+await accessibilityPage.close();
+
 // Conversion flow: verify the local form builds a WhatsApp URL without transmitting data to analytics.
 const formPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
 await formPage.addInitScript(() => {
@@ -101,7 +130,8 @@ const shots = [
   ["hogar", "/hogar/", 390, 844], ["hogar", "/hogar/", 1440, 900],
   ["empresas", "/empresas/", 390, 844], ["empresas", "/empresas/", 1440, 900],
   ["secure-connect", "/vpn-empresarial/", 390, 844], ["secure-connect", "/vpn-empresarial/", 1440, 900],
-  ["tv", "/tv/", 390, 844], ["tv", "/tv/", 1440, 900]
+  ["tv", "/tv/", 390, 844], ["tv", "/tv/", 1440, 900],
+  ["design-system", "/design-system/", 390, 844], ["design-system", "/design-system/", 1440, 900]
 ];
 for (const [name, route, width, height] of shots) {
   const page = await browser.newPage({ viewport: { width, height } });
@@ -111,11 +141,11 @@ for (const [name, route, width, height] of shots) {
 }
 
 if (consoleErrors.length) errors.push(...consoleErrors.map((message) => `Console error: ${message}`));
-fs.writeFileSync(path.join(output, "qa-results.json"), JSON.stringify({ checks, noJsState, openedUrl, consoleErrors, errors }, null, 2));
+fs.writeFileSync(path.join(output, "qa-results.json"), JSON.stringify({ checks, noJsState, accessibilityState, openedUrl, consoleErrors, errors }, null, 2));
 await browser.close();
 await new Promise((resolve) => server.close(resolve));
 if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
 }
-console.log(`Browser QA passed: ${checks.length} route/viewport combinations and ${shots.length} screenshots.`);
+console.log(`Browser QA passed: ${checks.length} route/viewport combinations, accessibility contract and ${shots.length} screenshots.`);
