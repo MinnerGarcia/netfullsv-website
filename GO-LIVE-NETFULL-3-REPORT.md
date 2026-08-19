@@ -57,8 +57,8 @@ Se probaron 15 rutas públicas, assets activos y retirados, formularios, navegac
 - 10 screenshots productivos.
 - 0 errores.
 - 15 advertencias conocidas y no funcionales.
-- JSON de evidencia: SHA-256 `7e90e145828d10bfbf98ede131b1f4980bd2e89bdcddaa69b2adb08d3d7134ed`.
-- Manifest: SHA-256 `2f37e01282ebacf4cd6cf0b0fe2c47759ebb6da0621ed10677453ef17c51586f`.
+- JSON de evidencia: SHA-256 `5d63080783db97e7df6259067ca022544e41812c0c46498ea5a37988d447257b`.
+- Manifest: SHA-256 `c236a8ff92e44cc6d3492181786c3b18e28d2387621d5186c489a748f7e0f018`.
 
 La portada, Hogar, Empresas, TV Digital y Cobertura se validaron en `390×844` y `1440×900`. No hubo desbordamiento horizontal, recortes ni superposición del contacto flotante.
 
