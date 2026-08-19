@@ -1,5 +1,5 @@
 {
-  "Content-Security-Policy": "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-l/kuFO6ElIw1+5mZ4IhmpJMDXbeOizqF4ug8Igi6oq8='; style-src 'self'; img-src 'self'; frame-src 'none'; connect-src 'self'; font-src 'self'; form-action 'self' https://wa.me; frame-ancestors 'none'; upgrade-insecure-requests",
+  "Content-Security-Policy": "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-3QmvZQTcC+f0zy2W8dBn/JKoyap67R8SWl0Qboe99WA='; style-src 'self'; img-src 'self'; frame-src 'none'; connect-src 'self'; font-src 'self'; form-action 'self' https://wa.me; frame-ancestors 'none'; upgrade-insecure-requests",
   "Strict-Transport-Security": "max-age=31536000",
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "DENY",
