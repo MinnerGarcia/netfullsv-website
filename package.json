@@ -1,0 +1,21 @@
+{
+  "name": "netfullsv-website",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Sitio estático de NETFULL y herramientas reproducibles de QA.",
+  "scripts": {
+    "validate": "node .github/scripts/validate-site.mjs && node .github/scripts/test-validator.mjs",
+    "qa:browser": "node .github/scripts/qa-browser.mjs",
+    "qa:pass": "node .github/scripts/run-phase3-pass.mjs",
+    "qa:compare": "node .github/scripts/compare-phase3-passes.mjs",
+    "qa:cleanup": "node .github/scripts/cleanup-phase3-qa.mjs",
+    "qa:css": "node .github/scripts/audit-css.mjs"
+  },
+  "devDependencies": {
+    "axe-core": "4.10.3",
+    "playwright": "1.62.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -7,7 +7,7 @@ import { publicPages, renderFooter, renderHeader } from "./site-shell.mjs";
 const repositoryRoot = process.cwd();
 const errors = [];
 const passed = [];
-const ignoredDirectories = new Set([".git", "node_modules"]);
+const ignoredDirectories = new Set([".git", "node_modules", "qa-artifacts", "artifacts", ".playwright", "playwright-report", "test-results"]);
 
 function check(condition, successMessage, failureMessage) {
   if (condition) {
@@ -130,6 +130,10 @@ const designSystemDocPath = path.join(repositoryRoot, "DESIGN-SYSTEM-NETFULL.md"
 const visualAuditPath = path.join(repositoryRoot, "AUDITORIA-VISUAL-FASE-1.md");
 const phaseTwoAuditPath = path.join(repositoryRoot, "AUDITORIA-UX-FASE-2.md");
 const phaseTwoReportPath = path.join(repositoryRoot, "FASE-2-NETFULL-REDESIGN.md");
+const phaseThreeReportPath = path.join(repositoryRoot, "FASE-3-NETFULL-PREPRODUCTION.md");
+const phaseThreeChangelogPath = path.join(repositoryRoot, "NETFULL-3-CHANGELOG.md");
+const goLiveChecklistPath = path.join(repositoryRoot, "GO-LIVE-CHECKLIST.md");
+const assetInventoryPath = path.join(repositoryRoot, "ASSET-INVENTORY-PHASE-3.md");
 const interFontPath = path.join(repositoryRoot, "assets", "fonts", "InterVariable.woff2");
 const interLicensePath = path.join(repositoryRoot, "assets", "fonts", "LICENSE-Inter.txt");
 const interProvenancePath = path.join(repositoryRoot, "assets", "fonts", "README.md");
@@ -143,6 +147,11 @@ const allowedSignersPath = path.join(repositoryRoot, ".github", "allowed_signers
 const securityControlsPath = path.join(repositoryRoot, ".github", "SECURITY-CONTROLS.md");
 const siteShellPath = path.join(repositoryRoot, ".github", "scripts", "site-shell.mjs");
 const syncShellPath = path.join(repositoryRoot, ".github", "scripts", "sync-shell.mjs");
+const browserQaPath = path.join(repositoryRoot, ".github", "scripts", "qa-browser.mjs");
+const runPassPath = path.join(repositoryRoot, ".github", "scripts", "run-phase3-pass.mjs");
+const comparePassesPath = path.join(repositoryRoot, ".github", "scripts", "compare-phase3-passes.mjs");
+const packagePath = path.join(repositoryRoot, "package.json");
+const packageLockPath = path.join(repositoryRoot, "package-lock.json");
 
 for (const [filePath, label] of [
   [indexPath, "index.html"],
@@ -152,6 +161,10 @@ for (const [filePath, label] of [
   [visualAuditPath, "Phase 1 visual audit"],
   [phaseTwoAuditPath, "Phase 2 UX audit"],
   [phaseTwoReportPath, "Phase 2 redesign report"],
+  [phaseThreeReportPath, "Phase 3 preproduction report"],
+  [phaseThreeChangelogPath, "Netfull 3 changelog"],
+  [goLiveChecklistPath, "go-live checklist"],
+  [assetInventoryPath, "Phase 3 asset inventory"],
   [interFontPath, "Inter Variable WOFF2"],
   [interLicensePath, "Inter OFL license"],
   [interProvenancePath, "Inter provenance documentation"],
@@ -164,7 +177,12 @@ for (const [filePath, label] of [
   [allowedSignersPath, "allowed signers file"],
   [securityControlsPath, "security controls documentation"],
   [siteShellPath, "shared site shell"],
-  [syncShellPath, "site shell synchronizer"]
+  [syncShellPath, "site shell synchronizer"],
+  [browserQaPath, "browser QA suite"],
+  [runPassPath, "Phase 3 pass runner"],
+  [comparePassesPath, "Phase 3 pass comparator"],
+  [packagePath, "QA package manifest"],
+  [packageLockPath, "QA dependency lockfile"]
 ]) {
   check(fs.existsSync(filePath), `${label} exists`, `${label} is missing`);
 }
@@ -178,6 +196,10 @@ const indexHtml = read(indexPath);
 const privacyHtml = read(privacyPath);
 const designSystemHtml = read(designSystemPath);
 const designSystemDoc = read(designSystemDocPath);
+const phaseThreeReport = read(phaseThreeReportPath);
+const phaseThreeChangelog = read(phaseThreeChangelogPath);
+const goLiveChecklist = read(goLiveChecklistPath);
+const assetInventory = read(assetInventoryPath);
 const siteCss = read(path.join(repositoryRoot, "assets", "site.css"));
 const interLicense = read(interLicensePath);
 const interProvenance = read(interProvenancePath);
@@ -190,6 +212,8 @@ const externalWorkflow = read(externalWorkflowPath);
 const externalChecker = read(externalCheckerPath);
 const allowedSigners = read(allowedSignersPath);
 const securityControls = read(securityControlsPath);
+const browserQa = read(browserQaPath);
+const packageManifest = JSON.parse(read(packagePath));
 
 check(publicPages.length === 13, "13 commercial routes use the shared site shell", `Expected 13 commercial routes in the shared site shell, found ${publicPages.length}`);
 
@@ -239,6 +263,12 @@ for (const section of ["Brand principles", "Color palette", "Typography", "Spaci
 }
 check(designSystemDoc.includes("## Production considerations"), "Design System documents production considerations", "DESIGN-SYSTEM-NETFULL.md must document production considerations");
 check(designSystemDoc.includes("## Phase 2 reusable UX patterns"), "Design System documents Phase 2 reusable UX patterns", "DESIGN-SYSTEM-NETFULL.md must document Phase 2 reusable UX patterns");
+check(phaseThreeReport.includes("## Funnel Hogar → Cobertura → WhatsApp"), "Phase 3 report documents the corrected funnel", "FASE-3-NETFULL-PREPRODUCTION.md must document the corrected funnel");
+check(phaseThreeReport.includes("NO IMPLEMENTADO — COMPLEJIDAD > BENEFICIO"), "Phase 3 report records the critical CSS decision", "Phase 3 report must document the critical CSS decision");
+check(phaseThreeChangelog.includes("## Fase 1") && phaseThreeChangelog.includes("## Fase 2") && phaseThreeChangelog.includes("## Fase 3"), "Changelog separates all three phases", "NETFULL-3-CHANGELOG.md must contain Fase 1, Fase 2 and Fase 3");
+check(/- \[ \] Merge autorizado/.test(goLiveChecklist) && /- \[ \] Deploy autorizado/.test(goLiveChecklist), "Merge and deploy remain unauthorized in the go-live checklist", "GO-LIVE-CHECKLIST.md must leave merge and deploy unchecked");
+check(assetInventory.includes("tv-futbol-internacional-generico.webp") && assetInventory.includes("Generado específicamente para NETFULL"), "Authorized TV asset provenance is documented", "The generic TV asset must have explicit provenance in the asset inventory");
+check(packageManifest.devDependencies?.playwright && packageManifest.devDependencies?.["axe-core"], "Browser and accessibility QA dependencies are development-only", "playwright and axe-core must be declared as devDependencies");
 
 for (const className of ["journey-panel", "enterprise-command", "decision-split", "category-spectrum", "closing-panel", "contact-route-grid"]) {
   check(siteCss.includes(`.${className}`), `Phase 2 component exists: ${className}`, `Phase 2 component is missing: ${className}`);
@@ -285,6 +315,7 @@ check(foundationStart >= 0 && foundationEnd > foundationStart, "Netfull 3.0 comp
 check(!/#[0-9a-f]{3,8}\b|rgba?\(/i.test(foundationComponents), "Netfull 3.0 components consume semantic color tokens", "A direct color was introduced in the Netfull 3.0 component scope");
 
 const idsByFile = new Map();
+const seoRecords = [];
 for (const htmlPath of htmlFiles) {
   const fileName = relative(htmlPath);
   const html = read(htmlPath);
@@ -301,6 +332,12 @@ for (const htmlPath of htmlFiles) {
   const headingJumps = headingLevels.slice(1).filter((level, index) => level > headingLevels[index] + 1);
   check(headingJumps.length === 0, `Heading hierarchy is sequential in ${fileName}`, `Heading hierarchy skips a level in ${fileName}`);
   check((html.match(/<main\b/gi) ?? []).length === 1, `One main landmark in ${fileName}`, `Expected exactly one <main> in ${fileName}`);
+  check(/<meta\s+property="og:title"\s+content="[^"]+"/i.test(html), `Open Graph title present in ${fileName}`, `Open Graph title is missing in ${fileName}`);
+  check(/<meta\s+property="og:description"\s+content="[^"]+"/i.test(html), `Open Graph description present in ${fileName}`, `Open Graph description is missing in ${fileName}`);
+  check(/<meta\s+property="og:url"\s+content="https:\/\/netfullsv\.com\/[^"]*"/i.test(html), `Open Graph URL present in ${fileName}`, `Open Graph URL is missing or invalid in ${fileName}`);
+  check(/<meta\s+name="twitter:card"\s+content="[^"]+"/i.test(html), `Twitter card present in ${fileName}`, `Twitter card is missing in ${fileName}`);
+  check(/<meta\s+name="twitter:title"\s+content="[^"]+"/i.test(html), `Twitter title present in ${fileName}`, `Twitter title is missing in ${fileName}`);
+  check(/<meta\s+name="twitter:description"\s+content="[^"]+"/i.test(html), `Twitter description present in ${fileName}`, `Twitter description is missing in ${fileName}`);
   check(!/http:\/\//i.test(html), `No insecure HTTP in ${fileName}`, `An insecure http:// reference was found in ${fileName}`);
   check(!/javascript\s*:/i.test(html), `No javascript URLs in ${fileName}`, `A javascript: URL was found in ${fileName}`);
   check(!/<style\b/i.test(html), `No inline styles in ${fileName}`, `An inline style block was found in ${fileName}`);
@@ -352,10 +389,31 @@ for (const htmlPath of htmlFiles) {
     check(/\bnoopener\b/i.test(rel) && /\bnoreferrer\b/i.test(rel), `External tab isolated in ${fileName}`, `target="_blank" link is missing rel="noopener noreferrer" in ${fileName}: ${tag}`);
   }
 
+  for (const imageTag of html.match(/<img\b[^>]*>/gi) ?? []) {
+    const attrs = attributes(imageTag);
+    check(attrs.has("alt"), `Image has alt text semantics in ${fileName}`, `Image is missing alt in ${fileName}: ${imageTag}`);
+    check(Boolean(attrs.get("width") && attrs.get("height")), `Image reserves dimensions in ${fileName}`, `Image must declare width and height to prevent CLS in ${fileName}: ${imageTag}`);
+  }
+
+  if (!/noindex/i.test(html.match(/<meta\s+name="robots"\s+content="([^"]+)"/i)?.[1] ?? "")) {
+    seoRecords.push({
+      fileName,
+      title: html.match(/<title>([^<]+)<\/title>/i)?.[1]?.trim() ?? "",
+      description: html.match(/<meta\s+name="description"\s+content="([^"]+)"/i)?.[1]?.trim() ?? "",
+      canonical: html.match(/<link\s+rel="canonical"\s+href="([^"]+)"/i)?.[1]?.trim() ?? ""
+    });
+  }
+
   if (fileName === "cobertura/index.html") {
     check(html.indexOf('id="zone"') < html.indexOf('id="service"'), "Coverage form starts with approximate zone", "Coverage form must follow zone → service → need");
     check(/no ofrece un resultado automático en tiempo real/i.test(html), "Coverage page discloses that verification is assisted", "Coverage page must not imply a real-time automated result");
   }
+}
+
+for (const field of ["title", "description", "canonical"]) {
+  const values = seoRecords.map((record) => record[field]);
+  const duplicates = values.filter((value, index) => value && values.indexOf(value) !== index);
+  check(duplicates.length === 0, `Indexable pages have unique ${field} values`, `Duplicate ${field} values: ${[...new Set(duplicates)].join(" | ")}`);
 }
 
 const decorativeAbbreviations = [];
@@ -368,6 +426,37 @@ for (const htmlPath of htmlFiles.filter((file) => file !== designSystemPath)) {
 check(decorativeAbbreviations.length === 0, "Decorative abbreviations were replaced by the icon system", `Decorative abbreviations remain: ${decorativeAbbreviations.join(", ")}`);
 const allHtml = htmlFiles.map(read).join("\n");
 check(!/<span\s+class="(?:menu-glyph|content-symbol)"|<span>WA<\/span><strong>Escríbenos<\/strong>|<span>@<\/span><span><small>Correo/i.test(allHtml), "Decorative emojis and abbreviations were replaced by SVG", "A decorative emoji or abbreviation remains outside the SVG system");
+
+const hogarHtml = read(path.join(repositoryRoot, "hogar", "index.html"));
+const coverageHtml = read(path.join(repositoryRoot, "cobertura", "index.html"));
+for (const [plan, price] of [["30", "28"], ["100", "33"], ["200", "53"]]) {
+  check(hogarHtml.includes(`href="../cobertura/?servicio=hogar&amp;plan=${plan}"`), `Hogar plan ${plan} routes through coverage`, `Plan ${plan} must route to /cobertura/?servicio=hogar&plan=${plan}`);
+  check(new RegExp(`<strong>${plan}<\\/strong><span>Mbps<\\/span>[\\s\\S]{0,500}?<span class="amount">${price}<\\/span>`).test(hogarHtml), `Commercial value is unchanged: ${plan} Mbps — $${price}`, `Unexpected commercial value for ${plan} Mbps`);
+}
+const residentialPlanCards = hogarHtml.match(/<article class="plan-card[^>]*>[\s\S]*?<\/article>/gi) ?? [];
+check(residentialPlanCards.length === 3 && residentialPlanCards.every((card) => !/href="https:\/\/wa\.me\//i.test(card)), "Residential plan CTAs do not bypass coverage", "A residential plan still links directly to WhatsApp");
+check(coverageHtml.includes('name="plan"') && coverageHtml.includes("data-plan-context") && coverageHtml.includes("data-change-plan"), "Coverage exposes safe plan context and change control", "Coverage must show and allow changing the selected plan");
+check(siteJavaScript.includes("const allowedPlans = Object.freeze") && siteJavaScript.includes("Object.hasOwn(allowedPlans"), "Plan query uses an explicit allowlist", "Plan query must be validated against an allowlist");
+check(siteJavaScript.includes("encodeURIComponent(lines.join"), "WhatsApp text uses explicit URL encoding", "WhatsApp message must be URL encoded");
+check(!/\.innerHTML\s*=|insertAdjacentHTML\s*\(/.test(siteJavaScript), "Query parameters are never inserted as HTML", "Untrusted query input reaches an HTML insertion primitive");
+for (const eventName of ["seleccionar_plan", "iniciar_cobertura", "enviar_cobertura"]) {
+  check(siteJavaScript.includes(`"${eventName}"`) || hogarHtml.includes(`data-event="${eventName}"`), `Funnel event exists: ${eventName}`, `Missing funnel event: ${eventName}`);
+}
+
+const prohibitedClaims = [
+  /99\.99\s*%/i, /SLA\s+garantizado/i, /sim[eé]trico\s+garantizado/i,
+  /soporte\s+24\s*\/\s*7/i, /\bn[uú]mero\s+1\b/i, /\bmejor\s+Internet\b/i,
+  /uptime\s+garantizado/i, /cobertura\s+garantizada/i
+];
+for (const pattern of prohibitedClaims) {
+  check(!pattern.test(allHtml), `No prohibited commercial claim matches ${pattern}`, `Unauthorized commercial claim found: ${pattern}`);
+}
+
+const publicSurface = `${allHtml}\n${siteCss}\n${siteJavaScript}`;
+for (const forbiddenTvReference of ["assets/brands/", "assets/cinema/", "tv-futbol-europeo.webp", "tv-digital-familia.webp", "tv-digital-dispositivos.webp"]) {
+  check(!publicSurface.includes(forbiddenTvReference), `Unapproved TV asset is absent from the public surface: ${forbiddenTvReference}`, `Unapproved TV asset is referenced publicly: ${forbiddenTvReference}`);
+}
+check(read(path.join(repositoryRoot, "tv", "index.html")).includes("tv-futbol-internacional-generico.webp"), "TV uses only the documented generic sports visual", "TV must use the documented generic sports visual");
 
 for (const htmlPath of htmlFiles) {
   const html = read(htmlPath);
@@ -489,7 +578,7 @@ for (const workflowSource of [workflow, externalWorkflow]) {
 check(/pull_request:[\s\S]*?branches:[\s\S]*?- main/m.test(workflow), "Validation runs on PRs to main", "Validation workflow must run on pull requests to main");
 check(/permissions:\s*\r?\n\s+contents:\s+read/m.test(workflow), "Workflow permissions are read-only", "Validation workflow permissions must be read-only");
 check(/timeout-minutes:\s*\d+/m.test(workflow), "Workflow has a timeout", "Validation workflow must define a timeout");
-check(workflow.includes("test-validator.mjs"), "Validator self-tests run in CI", "Validation workflow must run validator self-tests");
+check(workflow.includes("test-validator.mjs") || workflow.includes("run-phase3-pass.mjs"), "Validator self-tests run in CI", "Validation workflow must run validator self-tests directly or through a Phase 3 pass");
 
 check(/pull_request:[\s\S]*?branches:[\s\S]*?- main/m.test(externalWorkflow), "External checks run on PRs to main", "External security workflow must run on pull requests to main");
 check(/push:[\s\S]*?branches:[\s\S]*?- main/m.test(externalWorkflow), "External checks run after main updates", "External security workflow must run after updates to main");

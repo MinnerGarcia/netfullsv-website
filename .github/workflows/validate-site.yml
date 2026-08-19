@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+      - feat/netfull-3-phase-3-hardening
   workflow_dispatch:
 
 permissions:
@@ -18,16 +19,41 @@ concurrency:
 
 jobs:
   validate:
-    name: Static security checks
+    name: NETFULL Phase 3 double QA
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 45
 
     steps:
       - name: Check out repository
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
-      - name: Validate website
-        run: node .github/scripts/validate-site.mjs
+      - name: Install development-only QA dependencies
+        run: npm ci --ignore-scripts --no-audit
 
-      - name: Prove security checks reject unsafe changes
-        run: node .github/scripts/test-validator.mjs
+      - name: Install isolated Chromium runtime
+        run: npm exec playwright install --with-deps chromium
+
+      - name: QA Pass A
+        env:
+          CANDIDATE_SHA: ${{ github.sha }}
+        run: node .github/scripts/run-phase3-pass.mjs A
+
+      - name: Clear browser and Pass B state
+        run: node .github/scripts/cleanup-phase3-qa.mjs
+
+      - name: QA Pass B
+        env:
+          CANDIDATE_SHA: ${{ github.sha }}
+        run: node .github/scripts/run-phase3-pass.mjs B
+
+      - name: Compare Pass A and Pass B
+        run: node .github/scripts/compare-phase3-passes.mjs
+
+      - name: Upload private QA evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: netfull-3-phase-3-${{ github.sha }}
+          path: qa-artifacts/netfull-3-phase-3/
+          if-no-files-found: warn
+          retention-days: 30

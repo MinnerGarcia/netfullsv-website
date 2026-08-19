@@ -16,6 +16,7 @@ const jsonLd = index.match(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S
 if (!jsonLd) throw new Error("JSON-LD block not found in index.html");
 
 const schemaHash = crypto.createHash("sha256").update(normalize(jsonLd), "utf8").digest("base64");
+const schemaSource = `sha256-${schemaHash}`;
 const htmlFiles = [];
 const walk = (directory) => {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
@@ -34,8 +35,15 @@ for (const htmlPath of htmlFiles) {
     .replace(/(site\.js\?v=)[a-f0-9]{12}/g, `$1${jsVersion}`)
     .replaceAll("__CSS_VERSION__", cssVersion)
     .replaceAll("__JS_VERSION__", jsVersion)
-    .replaceAll("__SCHEMA_HASH__", `sha256-${schemaHash}`);
+    .replaceAll("__SCHEMA_HASH__", schemaSource)
+    .replace(/(script-src 'self') 'sha256-[A-Za-z0-9+/=]+'/g, `$1 '${schemaSource}'`);
   fs.writeFileSync(htmlPath, normalize(html), "utf8");
 }
+
+const securityHeadersPath = path.join(repositoryRoot, ".github", "security-headers.json");
+const securityHeaders = JSON.parse(fs.readFileSync(securityHeadersPath, "utf8"));
+securityHeaders["Content-Security-Policy"] = securityHeaders["Content-Security-Policy"]
+  .replace(/(script-src 'self') 'sha256-[A-Za-z0-9+/=]+'/g, `$1 '${schemaSource}'`);
+fs.writeFileSync(securityHeadersPath, `${JSON.stringify(securityHeaders, null, 2)}\n`, "utf8");
 
 console.log(JSON.stringify({ cssVersion, jsVersion, schemaHash, htmlFiles: htmlFiles.length }, null, 2));

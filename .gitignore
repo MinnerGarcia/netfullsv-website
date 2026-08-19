@@ -1,0 +1,7 @@
+node_modules/
+qa-artifacts/
+artifacts/
+.playwright/
+playwright-report/
+test-results/
+.tmp-*/
